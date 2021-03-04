@@ -13,10 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-// YOUR CODE HERE...
+	// YOUR CODE HERE...
 };
 
 readableTime(458);
+readableTime(3690);
 readableTime(7293);
 readableTime(32420);
 
@@ -40,12 +41,13 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-// YOUR CODE HERE...
+	// YOUR CODE HERE...
 };
 
+circularArray(2);
 circularArray(3);
 circularArray(5);
-circularArray(7);
+circularArray(9);
 
 /* *****
 Challenge 3
@@ -57,7 +59,8 @@ The function "ownPower" accepts two arguments. "number" and "lastDigits".
 The "number" indicates how long is the series of numbers you are going to work with, your
 job is to multiply each of those numbers by their own powers and after that sum all the results.
 
-"lastDigits" is the length of the number that your function should return. See example below.
+"lastDigits" is the length of the number that your function should return, as a string!.
+See example below.
 
 Example:
 
@@ -67,12 +70,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-// YOUR CODE HERE...
+	// YOUR CODE HERE...
 };
 
 ownPower(10, 3);
-ownPower(42, 7);
-ownPower(183, 12);
+ownPower(12, 7);
+ownPower(21, 12);
 
 /* *****
 Challenge 4
@@ -92,7 +95,7 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-// YOUR CODE HERE...
+	// YOUR CODE HERE...
 };
 
 digitSum(10);
@@ -105,26 +108,26 @@ Challenge 5
 
 "N-Digit Fibonacci Number"
 
-Modify the function "numberLength" to return the index of the first Fibonacci
-number whose digits-length equals the number
-passed in to the function.
+Modify the function "fibIndex" to return the index of the first Fibonacci
+number whose digits-length equals the number passed in to the function.
 
 Example:
 
-Invoking "numberLength(3)" should return "12".
-Because the 12th number in the Fibonacci is 144, and 144 has three digits
+Invoking "fibIndex(3)" should return "12".
+Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
 ***** */
 
-const numberLength = (n) => {
-// YOUR CODE HERE...
+const fibIndex = (n) => {
+	// YOUR CODE HERE...
 };
 
-numberLength(3);
-numberLength(5);
-numberLength(12);
-numberLength(15);
+fibIndex(3);
+fibIndex(5);
+fibIndex(12);
+fibIndex(15);
 
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
+exports.ownPower = ownPower;
 exports.digitSum = digitSum;
-exports.numberLength = numberLength;
+exports.fibIndex = fibIndex;
