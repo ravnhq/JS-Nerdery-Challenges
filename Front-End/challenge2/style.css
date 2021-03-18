@@ -1,0 +1,63 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+    Roboto, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+	background-color: #232323;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.wrapper {
+	max-width: 320px;
+	border-radius: 20px;
+	margin: 0 auto;
+}
+
+#display, .row {
+	display: flex;
+	justify-content: center;
+}
+
+button {
+	background-color: #dbdcde;
+	font-size: 24px;
+	height: 80px;
+	width: 80px;
+	border: 1px solid #515254;
+}
+
+#display {
+	justify-content: flex-end;
+	align-items: center;
+	font-size: 24px;
+	height: 60px;
+	border-radius: 12px 12px 0 0;
+	padding: 0 20px;
+	background-color: #dbdcde;
+}
+
+#zero {
+	width: 160px;
+	border-radius: 0 0 0 12px;
+}
+
+#add {
+	border-radius: 0 0 12px 0;
+}
+
+.operation-btn {
+	color: #FFFFFF;
+	background-color: #ff9501;
+}
