@@ -13,7 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-	// YOUR CODE HERE...
+	const hour = Math.trunc(seconds / 3600);
+	seconds = seconds - hour * 3600;
+	const minutes = Math.trunc(seconds / 60);
+	lastSeconds = seconds - minutes * 60;
+	return `${(hour < 10 ? "0".concat(hour) : hour)}:${(minutes < 10 ? "0".concat(minutes) : minutes)}:${lastSeconds}`;
 };
 
 readableTime(458);
@@ -41,7 +45,17 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-	// YOUR CODE HERE...
+	const copiedCountryNames = COUNTRY_NAMES.slice();
+	if (index >= copiedCountryNames.length)
+		index = index - copiedCountryNames.length;
+	const divided = copiedCountryNames.slice(index);
+	if (divided.length < copiedCountryNames.length) {
+		const times = copiedCountryNames.length - divided.length;
+		for (let i = 0; i < times; i++) {
+			divided.push(COUNTRY_NAMES[i])
+		}
+	}
+	return divided;
 };
 
 circularArray(2);
@@ -70,7 +84,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-	// YOUR CODE HERE...
+	let power = 0;
+	for (let i = 1; i <= number; i++) {
+		power += Math.pow(i, i);
+	}
+	const module = Math.pow(10, lastDigits);
+	return (power % module).toString();
 };
 
 ownPower(10, 3);
@@ -95,7 +114,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-	// YOUR CODE HERE...
+	let fac = 1;
+	for (let i = n; i > 1; i--) {
+		fac = fac * i;
+	}
+	const nB = BigInt(fac);
+	const arrayDigit = nB.toString().split('');
+	let sum = 0;
+	arrayDigit.forEach(x => sum += parseInt(x));
+	return sum;
 };
 
 digitSum(10);
@@ -118,7 +145,25 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	// YOUR CODE HERE...
+	function fib(number) {
+		let f = new Array(number + 1);
+		f[0] = 0;
+		f[1] = 1;
+		for (let i = 2; i <= number; i++) {
+			f[i] = f[i - 1] + f[i - 2];
+		}
+		return f[number];
+	}
+	let continueSearching = true;
+	let i = 0;
+	do {
+		const calcFib = fib(i);
+		if (calcFib.toString().length == n)
+			continueSearching = false;
+		else
+			i++;
+	} while (continueSearching);
+	return i;
 };
 
 fibIndex(3);
