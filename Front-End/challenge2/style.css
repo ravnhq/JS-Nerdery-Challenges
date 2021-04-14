@@ -48,11 +48,11 @@ button {
 	background-color: #dbdcde;
 }
 
-#zero {
+/* #zero {
 	width: 160px;
 	border-radius: 0 0 0 12px;
 }
-
+ */
 #add {
 	border-radius: 0 0 12px 0;
 }

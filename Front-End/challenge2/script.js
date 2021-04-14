@@ -39,7 +39,10 @@ document.body.addEventListener('click', (e) => {
 
 			display.textContent = calculate(firstValue, operator, secondValue);
 			databody.previousKeyType = 'calculate';
-		} else if (key.className === 'operation-btn' && key.id !== 'equals') {
+		} else if (key.className === 'operation-btn' && key.id === 'clear') {
+			display.textContent = '0';
+			databody.previousKeyType = 'number';
+		} else if (key.className === 'operation-btn' && key.id !== 'equals' && key.id !== 'clear') {
 			databody.previousKeyType = 'operator';
 			databody.firstValue = displayContent;
 			databody.operator = key.id;
