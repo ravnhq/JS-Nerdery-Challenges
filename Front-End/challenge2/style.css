@@ -49,12 +49,15 @@ button {
 }
 
 #zero {
-	width: 160px;
-	border-radius: 0 0 0 12px;
+	width: 80px;
 }
 
 #add {
 	border-radius: 0 0 12px 0;
+}
+
+#clear {
+	border-radius: 0 0 0 12px;
 }
 
 .operation-btn {

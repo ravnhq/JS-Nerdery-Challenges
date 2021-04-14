@@ -14,7 +14,6 @@ function operate(number1, number2) {
     const num1 = parseFloat(number1);
     const num2 = parseFloat(number2);
     let result = 0;
-    console.log(`El num1 ${num1} el num2 ${num2}`);
     switch (operator) {
         case 'division': {
             result = num1 / num2;
@@ -51,16 +50,22 @@ function getDisplay() {
 window.addEventListener('click', function (event) {
     let result = 0;
     if (event.target.type === 'submit') {
-        const clickedId = event.target.id;
-        const btn = document.getElementById(clickedId);
-
+        const btn = document.getElementById(event.target.id);
         if (btn.classList.contains('operation-btn')) {
-            if (btn.id === 'equals') {
+            if (btn.id === 'clear') {
+                firstNumber = '0';
+                secondNumber = '';
+                operator = '';
+                readyToOperate = false;
+                equalsExecuted = false;
+                setDisplay(firstNumber);
+            }
+            else if (btn.id === 'equals') {
                 result = operate(firstNumber, secondNumber);
                 setDisplay(result);
-                operator = '';
                 firstNumber = result;
                 secondNumber = result;
+                operator = '';
                 readyToOperate = false;
                 equalsExecuted = true;
             }
