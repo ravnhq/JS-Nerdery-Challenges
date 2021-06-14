@@ -18,17 +18,21 @@ const readableTime = (seconds) => {
 	let hours = 0;
 	let mins = 0;
 	let secs = 0;
-
+	// we divide first in hours
 	if (counter / 3600 > 0) {
 		hours = Math.floor(counter / 3600);
 		counter %= 3600;
 	}
+	// we divide in minutes
 	if (counter / 60 > 0) {
 		mins = Math.floor(counter / 60);
 		counter %= 60;
 	}
+	// the remaining are seconds
 	secs = counter;
 
+	// we return the variables converted into string
+	// we add a padStart in case the number is 1 digit
 	return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 };
 
@@ -58,6 +62,7 @@ const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
 	// YOUR CODE HERE...
+	// using modulo we make a circular iteration of the array
 	const resultArray = [];
 	if (index >= 0) {
 		const arrayLength = COUNTRY_NAMES.length;
@@ -99,11 +104,11 @@ const ownPower = (number, lastDigits) => {
 	// it passes the tests but it's not a correct approach for general use
 	// on large numbers.
 	let tmp = 0;
-	const mod = 10 ** lastDigits; // to get last Digits
+	// Using modulo with 10^n, returns the last n digits.
+	const mod = 10 ** lastDigits;
 	for (let i = 1; i <= number; i++) {
 		tmp += i ** i;
 	}
-
 	return (tmp % mod).toString();
 };
 
@@ -130,10 +135,13 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
 	// YOUR CODE HERE...
+	// we multiply backwards using an array due to the max limit
+	// number that can be stored. This is made in order to simulate
+	// how we multiply in real life.
 	const result = [1];
 	let lastDigit = 0;
 	let carry; let tmp;
-	// loops numbers
+	// loops from 1 to n
 	for (let i = 1; i <= n; i++) {
 		carry = 0;
 		// loops the result array
@@ -142,6 +150,8 @@ const digitSum = (n) => {
 			result[j] = tmp % 10;
 			carry = Math.floor(tmp / 10);
 		}
+		// while there is a value to carry, we add it to the result array
+		// by placing the remaing into the next position.
 		while (carry > 0) {
 			lastDigit += 1;
 			result[lastDigit] = carry % 10;
@@ -175,8 +185,10 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
 	// YOUR CODE HERE...
+
 	if (n === 1) return 0;
 	let initial = 1;
+	// we run the fibonacci block until the length is equal to the argument
 	const fiboArray = [0, 1];
 	do {
 		initial += 1;

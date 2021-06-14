@@ -5,7 +5,8 @@ TO-DO:
 - The calculator should be completely functional
 
 */
-
+// Keep in mind that if an operation button is spammed, it will
+// operate using the number in the display
 const app = {
 	operations: {
 		'*': (a, b) => a * b,
@@ -17,33 +18,43 @@ const app = {
 	display: document.getElementById('display'),
 	firstNumber: 0,
 	secondNumber: 0,
+	// to check if the display number is a result or is a number being input
+	isReceivingInput: true,
+	// to check if an operation has been clicked
 	isOperating: false,
+	// to store the clicked operation
 	operationPressed: '',
+
 };
 
 function buttonPressed() {
-	// when an operation button is pressed
+	function solve() {
+		app.secondNumber 		= Number(app.display.textContent);
+		const result 			= app.operations[app.operationPressed](app.firstNumber, app.secondNumber);
+		app.display.textContent = result;
+		app.isOperating 		= false;
+		app.isReceivingInput	= false;
+	}
+	// if button is an operation
 	if (this.classList.contains('operation-btn')) {
-		if (!app.isOperating) {
+		if (app.isOperating) solve();
+		// if +/*- is pressed, "=" is ommited
+		if (this.textContent in app.operations || this.textContent === 'X') {
 			console.log('Operation:', this.textContent);
 			// saving current number displayed
 			app.firstNumber = Number(app.display.textContent);
-			// wipe display
-			app.display.textContent = '0';
+
 			app.operationPressed = this.textContent === 'X' ? '*' : this.textContent;
 			app.isOperating = true;
-		} else {
-			// operate if =
-			app.secondNumber = Number(app.display.textContent);
-			const result = app.operations[app.operationPressed](app.firstNumber, app.secondNumber);
-			app.display.textContent = result;
-			app.isOperating = false;
-			// operate if +-/*
+			app.isReceivingInput = false;
 		}
-	} else if (Number(app.display.textContent) === 0) { // when a number button is pressed
-		app.display.textContent = this.textContent;
-	} else {
+	} else
+	// if button is a number
+	if (app.isReceivingInput) {
 		app.display.textContent += this.textContent;
+	} else {
+		app.display.textContent = this.textContent;
+		app.isReceivingInput = true;
 	}
 }
 
