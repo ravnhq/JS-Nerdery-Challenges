@@ -13,7 +13,18 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-	// YOUR CODE HERE...
+	let hours = Math.floor(seconds / 3600);
+	let sobranSe = seconds % 3600;
+	let min = Math.floor(sobranSe / 60);
+	sobranSe = sobranSe % 60;
+	let final ="";
+	final += hours<9 ? "0" : "";
+	final += String(hours)+":";
+	final += (min<9)? "0"  : "";
+	final += String(min)+":";
+	final += (sobranSe<9)? "0"  : "";
+	final += String(sobranSe);
+	return final;
 };
 
 readableTime(458);
@@ -41,7 +52,9 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-	// YOUR CODE HERE...
+	let indice = index % COUNTRY_NAMES.length;
+	let temp = COUNTRY_NAMES.slice(indice,);
+	return temp.concat(COUNTRY_NAMES.slice(0,indice));
 };
 
 circularArray(2);
@@ -69,13 +82,22 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
-const ownPower = (number, lastDigits) => {
-	// YOUR CODE HERE...
+ const ownPower = (number, lastDigits) => {
+	let result=0;
+	for(let i=1;i<=number;i++){
+		result = result + i**i;
+	}
+	result=BigInt(result);
+	console.log(result);
+	let str=String(result);
+	console.log(str);
+	console.log(str.slice(str.length-lastDigits,));
+	return str.slice(str.length-lastDigits,);
 };
 
 ownPower(10, 3);
 ownPower(12, 7);
-ownPower(21, 12);
+ownPower(21, 12); 
 
 /* *****
 Challenge 4
@@ -95,14 +117,23 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-	// YOUR CODE HERE...
+	let result=1;
+	for(let i = 1 ;i <= n ;i++){
+		result = result * i;
+	}
+	let suma=0;
+	for(let i = 1 ;i <= n ;i++){
+		suma=result%10;
+		result=result/10
+	}
+	return suma;
 };
 
 digitSum(10);
 digitSum(42);
 digitSum(71);
 digitSum(89);
-
+ 
 /* *****
 Challenge 5
 
