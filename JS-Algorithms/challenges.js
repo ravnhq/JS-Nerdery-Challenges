@@ -84,6 +84,8 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 // For example 13: got lleva=1 and the number for the array=3
+/// Multiplicate number using arrays
+
 function splitNumber(num) {
 	let firstN = Math.floor(num / 10);
 	let secondN = num % 10;
@@ -93,7 +95,8 @@ function splitNumber(num) {
 // eslint-disable-next-line prefer-const
 let matrizR = []; // result of matrix
 
-// columnas // filas
+// Creation matriz completed of 0s
+// column=w // row=h
 function llenarCeros(w, h) {
 	for (let r = 0; r < h; r++) {
 		// eslint-disable-next-line prefer-const
@@ -104,6 +107,9 @@ function llenarCeros(w, h) {
 		matrizR.push(arreglo);
 	}
 }
+
+// Sum the matrix
+// [[],[],[]]=[r1,r2,...]
 function sumaM() {
 	let arrayS = [];
 	let long = matrizR[0].length;// 2
@@ -125,7 +131,7 @@ function sumaM() {
 	return arrayS;
 }
 
-// pluss in A[0]=A[0]+B[0]
+// pluss in arrayA=arrayA+arrayB
 function plus(A, B) {
 	let lleva = 0;
 	let temp = 0;
@@ -149,6 +155,7 @@ function plus(A, B) {
 	return A;
 }
 
+// Array A,Array B
 function plusArray(A, B) {
 	let longA = A.length;
 	let longB = B.length;
@@ -158,6 +165,7 @@ function plusArray(A, B) {
 
 // from right to left like if we will doing multiplication to hand
 // save the result in right matrix
+// array A, array B
 function multiplication(A, B) {
 	matrizR = [];
 	let longA = A.length;
@@ -212,7 +220,7 @@ const ownPower = (number, lastDigits) => {
 	return resultFound.replace(/\,/g, '');
 };
 
-ownPower(10, 3);// 317
+ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12); // the result is "075684339445"
 // javascript overflow and give like e+
