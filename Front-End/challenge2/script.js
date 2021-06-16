@@ -31,6 +31,9 @@ function ejecutarbtn(btn, accion) {
 	});
 }
 function operacion(num1, op, num2) {
+	if (op === '/' && tmpNumR === 0) {
+		return false;
+	}
 	if (op === '+') return num1 + num2;
 	if (op === '-') return num1 - num2;
 	if (op === 'X') return num1 * num2;
@@ -58,6 +61,7 @@ function accionN(valuebtn) {
 			}
 			tmpNumL = tmpNumL * 10 + Number(valuebtn);
 		} else {
+			if (tmpNumR === -1) tmpNumR = 0;
 			// Grap the right operator
 			valueS += valuebtn;
 			tmpNumR = tmpNumR * 10 + Number(valuebtn);
@@ -65,10 +69,20 @@ function accionN(valuebtn) {
 		show.textContent = valueS;
 	}
 }
-// Se ejecuta las operaciones trinarias
-// verfica que los tmpNumL y tmpNumR estan con datos
+// Trinary operations are executed like 2+2+2+2/2..
+// verify that the tmpNumL y tmpNumR are with data
 function operacionSeguidas() {
-	if (tmpNumR !== 0) {
+	// In the case divid by zero
+	if (tmpsigno === '/' && tmpNumR === 0) {
+		valueS = '0';
+		show.textContent = valueS;
+		alert('Can not divide by zero');
+		tmpNumL = 0;
+		result = 0;
+		tmpNumR = -1;
+		return false;
+	}
+	if (tmpNumR !== 0 && tmpNumR !== -1) { // trick about tmpNumR
 		result = operacion(tmpNumL, tmpsigno, tmpNumR);
 		console.log('se ejecuto');
 		console.log(result);
@@ -76,56 +90,76 @@ function operacionSeguidas() {
 		operacionTrinaria = true;
 		tmpNumL = result;
 	}
+	return true;
 }
 
 // Action or Function for signs
 function accionSig(valuebtn) {
 	console.log(valuebtn);
+	let ejecuto;
 	if (valuebtn === '+' && tmpNumL !== 0) {
-		operacionSeguidas();
-		valueS += valuebtn;
-		show.textContent = valueS;
-		tmpsigno = '+';
+		// debugger;
+		ejecuto = operacionSeguidas();
+		if (ejecuto) {
+			valueS += valuebtn;
+			show.textContent = valueS;
+			tmpsigno = '+';
+		}
 	} else if (valuebtn === '-' && tmpNumL !== 0) {
-		operacionSeguidas();
-		valueS += valuebtn;
-		show.textContent = valueS;
-		tmpsigno = '-';
+		ejecuto = operacionSeguidas();
+		if (ejecuto) {
+			valueS += valuebtn;
+			show.textContent = valueS;
+			tmpsigno = '-';
+		}
 	} else if (valuebtn === 'X' && tmpNumL !== 0) {
 		/*
-        // Seria para poner prioriades ejej
-        // mire mi calculadora de la compu y es
-        // sencilla
+        // I am trying set priority to the signs
         if(tmpsigno == "+") result=tmpNumL;
         if(tmpsigno == "-") result=tmpNumL*-1;
         if(tmpsigno == "X") operacionSeguidas();
         if(tmpsigno == "/") result=tmpNumL*-1; */
-		operacionSeguidas();
-		valueS += valuebtn;
-		show.textContent = valueS;
-		tmpsigno = 'X';
+		ejecuto = operacionSeguidas();
+		if (ejecuto) {
+			valueS += valuebtn;
+			show.textContent = valueS;
+			tmpsigno = 'X';
+		}
 	} else if (valuebtn === '/' && tmpNumL !== 0) {
-		operacionSeguidas();
-		valueS += valuebtn;
-		show.textContent = valueS;
-		tmpsigno = '/';
+		ejecuto = operacionSeguidas();
+		if (ejecuto) {
+			valueS += valuebtn;
+			show.textContent = valueS;
+			tmpsigno = '/';
+		}
 	} else if (valuebtn === '=') {
 		console.log(result, tmpsigno, tmpNumR);
-		if (!operacionTrinaria) { // es una operacion sencilla como 1+2=2
+		if (!operacionTrinaria) { // Is a simple operation like 1 + 2 = 2
 			result = operacion(tmpNumL, tmpsigno, tmpNumR);
 			operacionTrinaria = false;
-		} else { // es una operacion compleja como 14+11+12, calculo 14+11
-			// despues 25 añado 12 37
+		} else {
+			// Is a operation complex like 14+11+12, calculate 14+11
+			// after 25 add 12 I got 37
 			result = operacion(result, tmpsigno, tmpNumR);
 			operacionTrinaria = false;
 		}
-		// importante para pasar de más de una operacion
-		// a otra operacion.
-		tmpNumL = result;
-		valueS = String(result);
-		show.textContent = valueS;
-		tmpsigno = '';
-		tmpNumR = 0;
+
+		// In case if it is divided by zero
+		if (result === false) {
+			valueS = '0';
+			show.textContent = valueS;
+			alert('Can not divide by zero');
+			tmpsigno = '';
+			result = 0;
+			tmpNumL = 0;
+			tmpNumR = -1;// trick
+		} else {
+			tmpNumL = result;
+			valueS = String(result);
+			show.textContent = valueS;
+			tmpsigno = '';
+			tmpNumR = 0;
+		}
 	}
 }
 
