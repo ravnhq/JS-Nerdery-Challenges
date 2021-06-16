@@ -1,5 +1,5 @@
+/* eslint linebreak-style: ["error", "windows"] */
 const show = document.getElementById('display');
-
 let valueS = show.textContent;
 let result = 0;
 let tmpNumL = 0;
@@ -31,27 +31,35 @@ function ejecutarbtn(btn, accion) {
 	});
 }
 function operacion(num1, op, num2) {
-	if (op == '+') return num1 + num2;
-	if (op == '-') return num1 - num2;
-	if (op == 'X') return num1 * num2;
-	if (op == '/') return num1 / num2;
+	if (op === '+') return num1 + num2;
+	if (op === '-') return num1 - num2;
+	if (op === 'X') return num1 * num2;
+	if (op === '/') return num1 / num2;
+	// eslint-disable-next-line no-debugger
+	debugger;
+	return false;
 }
 // Action or Function for number
 function accionN(valuebtn) {
 	if (Number(valuebtn) != null) {
-		if (valueS == '0') {
+		if (valueS === '0') {
 			valueS = valuebtn;
 			tmpNumL = Number(valuebtn);
-		} else {
-			// Grap the left operator
-			if (tmpsigno == '') {
-				valueS += valuebtn;
-				tmpNumL = tmpNumL * 10 + Number(valuebtn);
+		} else if (tmpsigno === '') {
+			// after you have finished
+			// you can do others operations
+			if (result !== 0) {
+				valueS = valuebtn;
+				result = 0;
 			} else {
-				// Grap the right operator
+			// Grap the left operator
 				valueS += valuebtn;
-				tmpNumR = tmpNumR * 10 + Number(valuebtn);
 			}
+			tmpNumL = tmpNumL * 10 + Number(valuebtn);
+		} else {
+			// Grap the right operator
+			valueS += valuebtn;
+			tmpNumR = tmpNumR * 10 + Number(valuebtn);
 		}
 		show.textContent = valueS;
 	}
@@ -59,7 +67,7 @@ function accionN(valuebtn) {
 // Se ejecuta las operaciones trinarias
 // verfica que los tmpNumL y tmpNumR estan con datos
 function operacionSeguidas() {
-	if (tmpNumR != 0) {
+	if (tmpNumR !== 0) {
 		result = operacion(tmpNumL, tmpsigno, tmpNumR);
 		console.log('se ejecuto');
 		console.log(result);
@@ -71,17 +79,18 @@ function operacionSeguidas() {
 
 // Action or Function for signs
 function accionSig(valuebtn) {
-	if (valuebtn === '+' && tmpNumL != 0) {
+	console.log(valuebtn);
+	if (valuebtn === '+' && tmpNumL !== 0) {
 		operacionSeguidas();
 		valueS += valuebtn;
 		show.textContent = valueS;
 		tmpsigno = '+';
-	} else if (valuebtn === '-' && tmpNumL != 0) {
+	} else if (valuebtn === '-' && tmpNumL !== 0) {
 		operacionSeguidas();
 		valueS += valuebtn;
 		show.textContent = valueS;
 		tmpsigno = '-';
-	} else if (valuebtn === 'X' && tmpNumL != 0) {
+	} else if (valuebtn === 'X' && tmpNumL !== 0) {
 		/*
         // Seria para poner prioriades ejej
         // mire mi calculadora de la compu y es
@@ -94,13 +103,13 @@ function accionSig(valuebtn) {
 		valueS += valuebtn;
 		show.textContent = valueS;
 		tmpsigno = 'X';
-	} else if (valuebtn === '/' && tmpNumL != 0) {
+	} else if (valuebtn === '/' && tmpNumL !== 0) {
 		operacionSeguidas();
 		valueS += valuebtn;
 		show.textContent = valueS;
 		tmpsigno = '/';
-	} else if (valuebtn == '=') {
-		console.log(tmpNumL, tmpsigno, tmpNumR);
+	} else if (valuebtn === '=') {
+		console.log(result, tmpsigno, tmpNumR);
 		if (!operacionTrinaria) { // es una operacion sencilla como 1+2=2
 			result = operacion(tmpNumL, tmpsigno, tmpNumR);
 			operacionTrinaria = false;
@@ -109,9 +118,13 @@ function accionSig(valuebtn) {
 			result = operacion(result, tmpsigno, tmpNumR);
 			operacionTrinaria = false;
 		}
+		// importante para pasar de más de una operacion
+		// a otra operacion.
+		tmpNumL = result;
 		valueS = String(result);
 		show.textContent = valueS;
-		tmpNum = 0;
+		tmpsigno = '';
+		tmpNumR = 0;
 	}
 }
 
