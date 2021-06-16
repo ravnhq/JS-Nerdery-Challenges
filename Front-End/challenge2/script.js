@@ -51,6 +51,7 @@ function accionN(valuebtn) {
 			if (result !== 0) {
 				valueS = valuebtn;
 				result = 0;
+				tmpNumL = 0;
 			} else {
 			// Grap the left operator
 				valueS += valuebtn;
