@@ -36,6 +36,7 @@ describe('Circular Array', () => {
 	});
 });
 
+/*
 describe('Own Powers', () => {
 	test('The last 3 digits from the sum of powers all the way to 10 returns "317"', () => {
 		expect(ownPower(10, 3)).toBe('317');
@@ -77,3 +78,4 @@ describe('N-Digit Fibonacci Number', () => {
 		expect(fibIndex(15)).toBe(69);
 	});
 });
+*/
