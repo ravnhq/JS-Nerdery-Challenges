@@ -24,9 +24,9 @@ const parseTime = (seconds, divisor) => {
 
 const readableTime = (seconds) => {
 	let hour = parseTime(seconds, 3600);
-	seconds = seconds % 3600;
+	seconds %= 3600;
 	let minutes = parseTime(seconds, 60);
-	seconds = seconds % 60;
+	seconds %= 60;
 	seconds = numberToTime(seconds);
 	let time = `${hour}:${minutes}:${seconds}`;
 	return time;
@@ -101,21 +101,11 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 // https://www.mathsisfun.com/calculator-precision.html
 // 21^21+20^20+19^19+18^18+17^17+16^16+15^15+14^14+13^13+12^12+11^11+10405071317
 
-const powerBig = (number) => {
-	let total = 1n;
-	for (let i = 0; i < number; i++)
-		total *= BigInt(number);
-	return total;
-}
-
 const ownPower = (number, lastDigits) => {
-	let sum = 0n;
+	let sum = 0;
 	for (let i = 1; i <= number; i++)
-		sum += BigInt(powerBig(i));
-	// console.log(sum);
-	let finaldigits = sum.toString();
-	finaldigits = finaldigits.slice(-lastDigits);
-	// console.log(finaldigits);
+		sum += Math.pow(i, i);
+	let finaldigits = (sum % Math.pow(10, lastDigits)).toString();
 	return finaldigits;
 };
 
@@ -140,25 +130,34 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
-function factorialize(num) {
-	let finalNum = 1n;
-	for (var i = 1n; i <= num ; i++){
+// const factorialize = (num) => {
+// 	let finalNum = 1;
+// 	for (var i = 1; i <= num; i++) {
+// 		finalNum *= i;
+// 	}
+// 	return finalNum;
+// }
+
+function factorialize(n) {
+	let finalNum = 1;
+	for (var i = n; i >= 1; i--) {
 		finalNum *= i;
 	}
 	return finalNum;
 }
+
 // https://www.mathsisfun.com/calculator-precision.html
 // 42!
 // https://www.dcode.fr/digits-sum
 // 1405006117752879898543142606244511569936384000000000
 
 const digitSum = (n) => {
-	const numberArray = factorialize(n).toString();
-	let sumOfDigits = 0n;
-	for (let i = 0; i < numberArray.length; i++) {
-		sumOfDigits += BigInt(+numberArray[i]);
-	}
-	console.log(sumOfDigits.toString());
+	let numberArray = factorialize(n);
+	let sumOfDigits = 0;
+	numberArray = BigInt(numberArray).toString();
+	for (let i = 0; i < numberArray.length; i++)
+		sumOfDigits += +numberArray[i];
+	return sumOfDigits;
 };
 
 digitSum(10);
@@ -181,7 +180,14 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	// YOUR CODE HERE...
+	var fib = [0, 1];
+	let i = 2;
+	while (fib[i - 1].toString().length != n) {
+		fib[i] = fib[i - 2] + fib[i - 1];
+		i++
+	};
+	// console.log(i - 1);
+	return i - 1;
 };
 
 fibIndex(3);
