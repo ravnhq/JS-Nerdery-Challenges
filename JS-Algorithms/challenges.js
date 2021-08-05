@@ -114,7 +114,7 @@ const digitSum = (n) => {
   let tmp;
   //calculate factorial of n
   for (let i = 1; i <= n; i++) {
-    //multiply digit by digit
+    //multiplication using the digits of the factorial number
     for (let j = 0; j < factorial.length; j++) {
       tmp = factorial[j] * i + carry;
       factorial[j] = tmp % 10; // value
