@@ -109,7 +109,23 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  const factorial = [1];
+  let carry = 0;
+  let tmp;
+  //calculate factorial of n
+  for (let i = 1; i <= n; i++) {
+    //multiply digit by digit
+    for (let j = 0; j < factorial.length; j++) {
+      tmp = factorial[j] * i + carry;
+      factorial[j] = tmp % 10; // value
+      carry = Math.floor(tmp / 10); //carried the extra value
+    }
+    while (carry > 0) {
+      factorial.push(carry % 10); // update the multiplication result
+      carry = Math.floor(carry / 10);
+    }
+  }
+  return factorial.reduce((a, b) => a + b);
 };
 
 digitSum(10);
