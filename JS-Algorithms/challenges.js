@@ -16,9 +16,11 @@ const readableTime = (seconds) => {
   let hrs = Math.floor(seconds / 3600);
   let min = Math.floor((seconds % 3600) / 60);
   let sec = seconds % 60;
+
   hrs = hrs < 10 ? "0" + hrs : hrs;
   min = min < 10 ? "0" + min : min;
   sec = sec < 10 ? "0" + sec : sec;
+
   return hrs + ":" + min + ":" + sec;
 };
 
@@ -49,9 +51,11 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 const circularArray = (index) => {
   const NEW_COUNTRY_NAMES = [];
   const end = COUNTRY_NAMES.length;
+
   for (let i = 0; i < end; i++) {
     NEW_COUNTRY_NAMES.push(COUNTRY_NAMES[(i + index) % end]);
   }
+
   return NEW_COUNTRY_NAMES;
 };
 
@@ -83,7 +87,9 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 const ownPower = (number, lastDigits) => {
   let output = 0;
   const mod = Math.pow(10, lastDigits);
+
   for (let i = 1; i <= number; i++) output += Math.pow(i, i);
+  
   return String(output % mod);
 };
 
@@ -112,19 +118,20 @@ const digitSum = (n) => {
   const factorial = [1];
   let carry = 0;
   let tmp;
-  //calculate factorial of n
+
   for (let i = 1; i <= n; i++) {
-    //multiplication using the digits of the factorial number
+
     for (let j = 0; j < factorial.length; j++) {
       tmp = factorial[j] * i + carry;
-      factorial[j] = tmp % 10; // value
-      carry = Math.floor(tmp / 10); //carried the extra value
+      factorial[j] = tmp % 10;
+      carry = Math.floor(tmp / 10);
     }
     while (carry > 0) {
-      factorial.push(carry % 10); // update the multiplication result
+      factorial.push(carry % 10);
       carry = Math.floor(carry / 10);
     }
   }
+
   return factorial.reduce((a, b) => a + b);
 };
 
