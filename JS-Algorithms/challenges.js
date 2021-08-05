@@ -26,11 +26,7 @@ const readableTime = (seconds) => {
 	const mins = Math.floor(finalSeconds / seconsPer.min);
 	finalSeconds %= seconsPer.min;
 
-	const time = [hours, mins, finalSeconds].reduce((prev, cur, index) => {
-		let str = String(cur).padStart(2, '0');
-		if (index < 2) str += ':';
-		return prev + str;
-	}, '');
+	const time = [hours, mins, finalSeconds].map((item) => String(item).padStart(2, '0')).join(':');
 
 	return time;
 };
