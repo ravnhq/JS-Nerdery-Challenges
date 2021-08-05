@@ -13,7 +13,7 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 readableTime(458);
@@ -38,10 +38,10 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
+const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 circularArray(2);
@@ -70,7 +70,7 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 ownPower(10, 3);
@@ -95,7 +95,7 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 digitSum(10);
@@ -118,7 +118,7 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 fibIndex(3);
