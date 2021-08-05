@@ -13,13 +13,13 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-	let hrs = Math.floor((seconds / 3600));
-	let min = Math.floor((seconds % 3600) / 60);
-	let sec = seconds % 60;
-	hrs = hrs < 10 ? '0'+hrs : hrs;
-	min = min < 10 ? '0'+min : min;
-	sec = sec < 10 ? '0'+sec : sec;
-	return hrs+':'+min+':'+sec; 
+  let hrs = Math.floor(seconds / 3600);
+  let min = Math.floor((seconds % 3600) / 60);
+  let sec = seconds % 60;
+  hrs = hrs < 10 ? "0" + hrs : hrs;
+  min = min < 10 ? "0" + min : min;
+  sec = sec < 10 ? "0" + sec : sec;
+  return hrs + ":" + min + ":" + sec;
 };
 
 readableTime(458);
@@ -44,15 +44,15 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
+const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-	const NEW_COUNTRY_NAMES = [];
-    const end = COUNTRY_NAMES.length;
-	for(let i=0; i < end; i++){
-        NEW_COUNTRY_NAMES.push(COUNTRY_NAMES[(i+index)%end]);
-    }
-    return NEW_COUNTRY_NAMES;
+  const NEW_COUNTRY_NAMES = [];
+  const end = COUNTRY_NAMES.length;
+  for (let i = 0; i < end; i++) {
+    NEW_COUNTRY_NAMES.push(COUNTRY_NAMES[(i + index) % end]);
+  }
+  return NEW_COUNTRY_NAMES;
 };
 
 circularArray(2);
@@ -81,10 +81,10 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-	let output = 0;
-	const mod = Math.pow(10,lastDigits);
-    for (let i = 1; i <= number; i++) output += Math.pow(i,i);
-    return String(output%mod);
+  let output = 0;
+  const mod = Math.pow(10, lastDigits);
+  for (let i = 1; i <= number; i++) output += Math.pow(i, i);
+  return String(output % mod);
 };
 
 ownPower(10, 3);
@@ -109,7 +109,7 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 digitSum(10);
@@ -132,7 +132,7 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	// YOUR CODE HERE...
+  // YOUR CODE HERE...
 };
 
 fibIndex(3);
