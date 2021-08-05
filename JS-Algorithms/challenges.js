@@ -14,6 +14,25 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
 	// YOUR CODE HERE...
+	if (seconds < 0) return '';
+
+	let finalSeconds = seconds;
+
+	const seconsPer = { min: 60, hour: 3600 };
+
+	const hours = Math.floor(finalSeconds / seconsPer.hour);
+	finalSeconds %= seconsPer.hour;
+
+	const mins = Math.floor(finalSeconds / seconsPer.min);
+	finalSeconds %= seconsPer.min;
+
+	const time = [hours, mins, finalSeconds].reduce((prev, cur, index) => {
+		let str = String(cur).padStart(2, '0');
+		if (index < 2) str += ':';
+		return prev + str;
+	}, '');
+
+	return time;
 };
 
 readableTime(458);
@@ -42,6 +61,19 @@ const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
 	// YOUR CODE HERE...
+	if (index < 0) return '';
+
+	const len = COUNTRY_NAMES.length;
+	const newArr = [];
+
+	let current = index % len;
+
+	COUNTRY_NAMES.forEach(() => {
+		newArr.push(COUNTRY_NAMES[current]);
+		current = (current + 1) % len;
+	});
+
+	return newArr;
 };
 
 circularArray(2);
