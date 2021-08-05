@@ -12,8 +12,24 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
+const numberToTime = (number) => {
+	number = number < 10 ? "0" + number : number.toString();
+	return number;
+}
+const parseTime = (seconds, divisor) => {
+	let parsedTime = seconds / divisor > 0 ? Math.floor(seconds / divisor) : 0;
+	parsedTime = numberToTime(parsedTime);
+	return parsedTime;
+}
+
 const readableTime = (seconds) => {
-	// YOUR CODE HERE...
+	let hour = parseTime(seconds, 3600);
+	seconds = seconds % 3600;
+	let minutes = parseTime(seconds, 60);
+	seconds = seconds % 60;
+	seconds = numberToTime(seconds);
+	let time = `${hour}:${minutes}:${seconds}`;
+	return time;
 };
 
 readableTime(458);
@@ -41,7 +57,19 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-	// YOUR CODE HERE...
+	let finalIndex = index;
+	const LENGTH = COUNTRY_NAMES.length;
+	while (finalIndex > LENGTH)
+		finalIndex = finalIndex - LENGTH;
+	const arrayDouble = [];
+	const finalArray = [];
+	for (let i = 0; i < LENGTH; i++) {
+		arrayDouble[i] = COUNTRY_NAMES[i];
+		arrayDouble[LENGTH + i] = COUNTRY_NAMES[i];
+	}
+	for (let i = finalIndex; i < LENGTH + finalIndex; i++)
+		finalArray.push(arrayDouble[i]);
+	return finalArray;
 };
 
 circularArray(2);
@@ -69,8 +97,26 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
+// https://es.symbolab.com/solver/step-by-step/21%5E%7B21%7D%2B20%5E%7B20%7D%2B19%5E%7B19%7D%2B18%5E%7B18%7D%2B17%5E%7B17%7D%2B16%5E%7B16%7D%2B15%5E%7B15%7D%2B14%5E%7B14%7D%2B13%5E%7B13%7D%2B12%5E%7B12%7D%2B11%5E%7B11%7D%2B10%5E%7B10%7D%2B405071317
+// https://www.mathsisfun.com/calculator-precision.html
+// 21^21+20^20+19^19+18^18+17^17+16^16+15^15+14^14+13^13+12^12+11^11+10405071317
+
+const powerBig = (number) => {
+	let total = 1n;
+	for (let i = 0; i < number; i++)
+		total *= BigInt(number);
+	return total;
+}
+
 const ownPower = (number, lastDigits) => {
-	// YOUR CODE HERE...
+	let sum = 0n;
+	for (let i = 1; i <= number; i++)
+		sum += BigInt(powerBig(i));
+	// console.log(sum);
+	let finaldigits = sum.toString();
+	finaldigits = finaldigits.slice(-lastDigits);
+	// console.log(finaldigits);
+	return finaldigits;
 };
 
 ownPower(10, 3);
@@ -94,8 +140,25 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+function factorialize(num) {
+	let finalNum = 1n;
+	for (var i = 1n; i <= num ; i++){
+		finalNum *= i;
+	}
+	return finalNum;
+}
+// https://www.mathsisfun.com/calculator-precision.html
+// 42!
+// https://www.dcode.fr/digits-sum
+// 1405006117752879898543142606244511569936384000000000
+
 const digitSum = (n) => {
-	// YOUR CODE HERE...
+	const numberArray = factorialize(n).toString();
+	let sumOfDigits = 0n;
+	for (let i = 0; i < numberArray.length; i++) {
+		sumOfDigits += BigInt(+numberArray[i]);
+	}
+	console.log(sumOfDigits.toString());
 };
 
 digitSum(10);
