@@ -13,7 +13,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+  const remainSecsAfterHours = seconds % 3600;
+
+  const minutes = String(Math.floor(remainSecsAfterHours / 60))
+    .padStart(2, "0");
+  const remainSecsAfterMins = String(remainSecsAfterHours % 60)
+    .padStart(2, "0");
+
+  return `${hours}:${minutes}:${remainSecsAfterMins}`;
 };
 
 readableTime(458);
@@ -41,7 +49,12 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const newIndex = index % COUNTRY_NAMES.length;
+
+  const frontSlice = COUNTRY_NAMES.slice(newIndex);
+  const BackSlice = COUNTRY_NAMES.slice(0, newIndex);
+
+  return frontSlice.concat(BackSlice);
 };
 
 circularArray(2);
@@ -70,7 +83,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let total = 0;
+  const cutModule = Math.pow(10, lastDigits);
+
+  for (let num = 1; num <= number; num++) {
+    let power = Math.pow(num, num);
+    total += power;
+  }
+  return String(total % cutModule);
 };
 
 ownPower(10, 3);
@@ -94,8 +114,66 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+const digitSumv2 = (n) => {
+  /* I get a different result with this method,
+  I think is giving good factorial results, please check */
+
+  let factorial = "1";
+  let total = 0;
+
+  const prodDigitsNumber = (numString, mult) => {
+    /* Input: - A number in string-reverse-number fashion Ex. 102 = '201'
+              - A number 'mult'.
+    Output: the product of a 'str-rev-number' and 'mult' as 'str-rev-number'*/
+
+    let carry = 0;
+    let coef = 0;
+    let res = 0;
+    let newNumString = "";
+
+    for (let i = 0; i < numString.length; i++) {
+      res = numString[i] * mult + carry;
+      coef = res % 10;
+      carry = Math.trunc(res / 10);
+      newNumString += String(coef);
+    }
+    if (carry > 0) {
+      newNumString += String(carry).split("").reverse().join("");
+    }
+
+    return newNumString;
+  };
+
+  for (let num = 1; num <= n; num++) {
+    factorial = prodDigitsNumber(factorial, num);
+  }
+
+  for (let i = 0; i < factorial.length; i++) {
+    total += Number(factorial[i]);
+  }
+
+  // console.log(factorial);
+  return total;
+};
+
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let total = 0;
+
+  const findFactorial = (num) => {
+    let factorial = 1;
+    for (let i = num; i > 1; i--) {
+      factorial *= i;
+    }
+
+    return factorial;
+  };
+
+  const factorialStr = String(BigInt(findFactorial(n)));
+  for (let i = 0; i < factorialStr.length; i++) {
+    total += Number(factorialStr[i]);
+  }
+
+  return total;
 };
 
 digitSum(10);
@@ -118,7 +196,19 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let first = 0;
+  let second = 1;
+  let current = 0;
+  let index = 1;
+
+  while (String(current).length < n) {
+    current = first + second;
+    first = second;
+    second = current;
+    index++;
+  }
+
+  return index;
 };
 
 fibIndex(3);
