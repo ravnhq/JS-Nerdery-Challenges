@@ -127,7 +127,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let fac = 1;
+
+  for(let i = n; i > 1; i--){
+    fac *= i
+  }
+
+  return Array.from(BigInt(fac).toString()).reduce(
+    (a, b) => Number(a) + Number(b)
+  )
+  
 };
 
 digitSum(10);
@@ -161,9 +170,8 @@ const fibIndex = (n) => {
     num = fib[len - 2] + fib[len - 1];
 
     fib.push(num);
-
   } while (firstNumOfNDigits - num > 0);
-  
+
   return fib.length;
 };
 
