@@ -13,23 +13,36 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const numberToTime = (number) => {
-	number = number < 10 ? "0" + number : number.toString();
-	return number;
-}
+	let time = number.toString();
+
+	if (number < 10) {
+		time = `0${number}`;
+	}
+
+	return time;
+};
+
 const parseTime = (seconds, divisor) => {
-	let parsedTime = seconds / divisor > 0 ? Math.floor(seconds / divisor) : 0;
+	let parsedTime = 0;
+
+	if (seconds / divisor > 0) {
+		parsedTime = Math.floor(seconds / divisor);
+	}
+
 	parsedTime = numberToTime(parsedTime);
+
 	return parsedTime;
-}
+};
 
 const readableTime = (seconds) => {
-	let hour = parseTime(seconds, 3600);
-	seconds %= 3600;
-	let minutes = parseTime(seconds, 60);
-	seconds %= 60;
-	seconds = numberToTime(seconds);
-	let time = `${hour}:${minutes}:${seconds}`;
-	return time;
+	const hour = parseTime(seconds, 3600);
+	let newSeconds = seconds % 3600;
+	const minutes = parseTime(newSeconds, 60);
+
+	newSeconds %= 60;
+	newSeconds = numberToTime(newSeconds);
+
+	return `${hour}:${minutes}:${newSeconds}`;
 };
 
 readableTime(458);
@@ -57,18 +70,24 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-	let finalIndex = index;
-	const LENGTH = COUNTRY_NAMES.length;
-	while (finalIndex > LENGTH)
-		finalIndex = finalIndex - LENGTH;
 	const arrayDouble = [];
 	const finalArray = [];
+	let finalIndex = index;
+	const LENGTH = COUNTRY_NAMES.length;
+
+	while (finalIndex > LENGTH) {
+		finalIndex -= LENGTH;
+	}
+
 	for (let i = 0; i < LENGTH; i++) {
 		arrayDouble[i] = COUNTRY_NAMES[i];
 		arrayDouble[LENGTH + i] = COUNTRY_NAMES[i];
 	}
-	for (let i = finalIndex; i < LENGTH + finalIndex; i++)
+
+	for (let i = finalIndex; i < LENGTH + finalIndex; i++) {
 		finalArray.push(arrayDouble[i]);
+	}
+
 	return finalArray;
 };
 
@@ -97,16 +116,17 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
-// https://es.symbolab.com/solver/step-by-step/21%5E%7B21%7D%2B20%5E%7B20%7D%2B19%5E%7B19%7D%2B18%5E%7B18%7D%2B17%5E%7B17%7D%2B16%5E%7B16%7D%2B15%5E%7B15%7D%2B14%5E%7B14%7D%2B13%5E%7B13%7D%2B12%5E%7B12%7D%2B11%5E%7B11%7D%2B10%5E%7B10%7D%2B405071317
-// https://www.mathsisfun.com/calculator-precision.html
-// 21^21+20^20+19^19+18^18+17^17+16^16+15^15+14^14+13^13+12^12+11^11+10405071317
-
 const ownPower = (number, lastDigits) => {
 	let sum = 0;
-	for (let i = 1; i <= number; i++)
-		sum += Math.pow(i, i);
-	let finaldigits = (sum % Math.pow(10, lastDigits)).toString();
-	return finaldigits;
+	const divisor = 10 ** lastDigits;
+
+	for (let i = 1; i <= number; i++) {
+		sum += i ** i;
+	}
+
+	const finaldigits = (sum % divisor);
+
+	return finaldigits.toString();
 };
 
 ownPower(10, 3);
@@ -130,33 +150,25 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
-// const factorialize = (num) => {
-// 	let finalNum = 1;
-// 	for (var i = 1; i <= num; i++) {
-// 		finalNum *= i;
-// 	}
-// 	return finalNum;
-// }
-
 function factorialize(n) {
 	let finalNum = 1;
-	for (var i = n; i >= 1; i--) {
+
+	for (let i = n; i >= 1; i--) {
 		finalNum *= i;
 	}
+
 	return finalNum;
 }
-
-// https://www.mathsisfun.com/calculator-precision.html
-// 42!
-// https://www.dcode.fr/digits-sum
-// 1405006117752879898543142606244511569936384000000000
 
 const digitSum = (n) => {
 	let numberArray = factorialize(n);
 	let sumOfDigits = 0;
 	numberArray = BigInt(numberArray).toString();
-	for (let i = 0; i < numberArray.length; i++)
+
+	for (let i = 0; i < numberArray.length; i++) {
 		sumOfDigits += +numberArray[i];
+	}
+
 	return sumOfDigits;
 };
 
@@ -180,13 +192,14 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	var fib = [0, 1];
+	const fib = [0, 1];
 	let i = 2;
-	while (fib[i - 1].toString().length != n) {
+
+	while (fib[i - 1].toString().length !== n) {
 		fib[i] = fib[i - 2] + fib[i - 1];
-		i++
-	};
-	// console.log(i - 1);
+		i += 1;
+	}
+
 	return i - 1;
 };
 
