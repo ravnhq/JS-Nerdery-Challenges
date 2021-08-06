@@ -13,26 +13,22 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-<<<<<<< HEAD
-	// YOUR CODE HERE...
-	if (seconds < 0) return '';
+  if (seconds < 0) return '';
 
-	let finalSeconds = seconds;
+  const seconsPer = { min: 60, hour: 3600 };
+  let finalSeconds = seconds;
 
-	const seconsPer = { min: 60, hour: 3600 };
+  const hours = Math.floor(finalSeconds / seconsPer.hour);
+  finalSeconds %= seconsPer.hour;
 
-	const hours = Math.floor(finalSeconds / seconsPer.hour);
-	finalSeconds %= seconsPer.hour;
+  const mins = Math.floor(finalSeconds / seconsPer.min);
+  finalSeconds %= seconsPer.min;
+ 
+  const time = [hours, mins, finalSeconds]
+    .map((item) => String(item).padStart(2, '0'))
+    .join(':');
 
-	const mins = Math.floor(finalSeconds / seconsPer.min);
-	finalSeconds %= seconsPer.min;
-
-	const time = [hours, mins, finalSeconds].map((item) => String(item).padStart(2, '0')).join(':');
-
-	return time;
-=======
-  // YOUR CODE HERE...
->>>>>>> master
+  return time;
 };
 
 readableTime(458);
@@ -57,27 +53,21 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-<<<<<<< HEAD
-	// YOUR CODE HERE...
-	if (index < 0) return '';
+  if (index < 0) return '';
 
-	const len = COUNTRY_NAMES.length;
-	const newArr = [];
+  const len = COUNTRY_NAMES.length;
+  const newArr = [];
+  let current = index % len;
 
-	let current = index % len;
+  COUNTRY_NAMES.forEach(() => {
+    newArr.push(COUNTRY_NAMES[current]);
+    current = (current + 1) % len;
+  });
 
-	COUNTRY_NAMES.forEach(() => {
-		newArr.push(COUNTRY_NAMES[current]);
-		current = (current + 1) % len;
-	});
-
-	return newArr;
-=======
-  // YOUR CODE HERE...
->>>>>>> master
+  return newArr;
 };
 
 circularArray(2);
