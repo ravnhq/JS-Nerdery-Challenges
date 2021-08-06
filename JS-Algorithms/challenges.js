@@ -23,7 +23,7 @@ const readableTime = (seconds) => {
 
   const mins = Math.floor(finalSeconds / seconsPer.min);
   finalSeconds %= seconsPer.min;
- 
+
   const time = [hours, mins, finalSeconds]
     .map((item) => String(item).padStart(2, '0'))
     .join(':');
@@ -96,7 +96,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let acc = 0;
+
+  for (let i = 1; i <= number; i++) acc += i ** i;
+
+  acc %= 10 ** lastDigits;
+
+  return String(acc);
 };
 
 ownPower(10, 3);
