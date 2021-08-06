@@ -12,8 +12,37 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
+const numberToTime = (number) => {
+	let time = number.toString();
+
+	if (number < 10) {
+		time = `0${number}`;
+	}
+
+	return time;
+};
+
+const parseTime = (seconds, divisor) => {
+	let parsedTime = 0;
+
+	if (seconds / divisor > 0) {
+		parsedTime = Math.floor(seconds / divisor);
+	}
+
+	parsedTime = numberToTime(parsedTime);
+
+	return parsedTime;
+};
+
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+	const hour = parseTime(seconds, 3600);
+	let newSeconds = seconds % 3600;
+	const minutes = parseTime(newSeconds, 60);
+
+	newSeconds %= 60;
+	newSeconds = numberToTime(newSeconds);
+
+	return `${hour}:${minutes}:${newSeconds}`;
 };
 
 readableTime(458);
@@ -38,10 +67,28 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+	const arrayDouble = [];
+	const finalArray = [];
+	let finalIndex = index;
+	const LENGTH = COUNTRY_NAMES.length;
+
+	while (finalIndex > LENGTH) {
+		finalIndex -= LENGTH;
+	}
+
+	for (let i = 0; i < LENGTH; i++) {
+		arrayDouble[i] = COUNTRY_NAMES[i];
+		arrayDouble[LENGTH + i] = COUNTRY_NAMES[i];
+	}
+
+	for (let i = finalIndex; i < LENGTH + finalIndex; i++) {
+		finalArray.push(arrayDouble[i]);
+	}
+
+	return finalArray;
 };
 
 circularArray(2);
@@ -70,7 +117,16 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+	let sum = 0;
+	const divisor = 10 ** lastDigits;
+
+	for (let i = 1; i <= number; i++) {
+		sum += i ** i;
+	}
+
+	const finaldigits = (sum % divisor);
+
+	return finaldigits.toString();
 };
 
 ownPower(10, 3);
@@ -94,8 +150,26 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+function factorialize(n) {
+	let finalNum = 1;
+
+	for (let i = n; i >= 1; i--) {
+		finalNum *= i;
+	}
+
+	return finalNum;
+}
+
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+	let numberArray = factorialize(n);
+	let sumOfDigits = 0;
+	numberArray = BigInt(numberArray).toString();
+
+	for (let i = 0; i < numberArray.length; i++) {
+		sumOfDigits += +numberArray[i];
+	}
+
+	return sumOfDigits;
 };
 
 digitSum(10);
@@ -118,7 +192,15 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+	const fib = [0, 1];
+	let i = 2;
+
+	while (fib[i - 1].toString().length !== n) {
+		fib[i] = fib[i - 2] + fib[i - 1];
+		i += 1;
+	}
+
+	return i - 1;
 };
 
 fibIndex(3);
