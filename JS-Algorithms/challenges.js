@@ -13,7 +13,7 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const numberToTime = (number) => {
-	let time = number.toString();
+	let time = String(number);
 
 	if (number < 10) {
 		time = `0${number}`;
@@ -121,7 +121,7 @@ const ownPower = (number, lastDigits) => {
 
 	const finaldigits = (sum % divisor);
 
-	return finaldigits.toString();
+	return String(finaldigits);
 };
 
 ownPower(10, 3);
@@ -158,10 +158,10 @@ function factorialize(n) {
 const digitSum = (n) => {
 	let numberArray = factorialize(n);
 	let sumOfDigits = 0;
-	numberArray = BigInt(numberArray).toString();
+	numberArray = String(BigInt(numberArray));
 
 	for (let i = 0; i < numberArray.length; i++) {
-		sumOfDigits += +numberArray[i];
+		sumOfDigits += +numberArray[i]
 	}
 
 	return sumOfDigits;
@@ -190,7 +190,7 @@ const fibIndex = (n) => {
 	const fib = [0, 1];
 	let i = 2;
 
-	while (fib[i - 1].toString().length !== n) {
+	while (String(fib[i - 1]).length !== n) {
 		fib[i] = fib[i - 2] + fib[i - 1];
 		i += 1;
 	}
