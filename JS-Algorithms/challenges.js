@@ -57,7 +57,7 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  
+
   let circularIndex = index % 5;
   let resultArray = [];
 
@@ -99,7 +99,16 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+
+  let sumOfNumbers = 0;
+  const cutModule = 10 ** lastDigits;
+
+  for (let num = 1; num <= number; num++){
+    sumOfNumbers += num ** num;
+    console.log(sumOfNumbers)
+  }
+
+  return String(sumOfNumbers % cutModule);
 };
 
 ownPower(10, 3);
