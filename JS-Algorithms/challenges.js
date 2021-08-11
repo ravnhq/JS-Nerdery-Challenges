@@ -13,7 +13,23 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  
+  let secondsToHours = 0;
+  let secondsToMinutes = 0;
+
+  for (secondsToHours ; seconds > 3600 ; secondsToHours++) {
+    seconds -= 3600;
+  }
+  
+  for (secondsToMinutes ; seconds > 60 ; secondsToMinutes++){
+    seconds -=60;
+  }
+
+  let hoursToString = String(secondsToHours).padStart(2,'0');
+  let minutesToString = String(secondsToMinutes).padStart(2,'0');
+  let secondsToString = String(seconds).padStart(2,'0');
+
+  return `${hoursToString}:${minutesToString}:${secondsToString}`;
 };
 
 readableTime(458);
@@ -66,6 +82,7 @@ Example:
 
 Invoking "ownPower(10, 3)" should return "317"
 because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 10405071317
+5 + 27 + 256 +3125 +46656 + 823543 +  16777216 + 387420489 + 10000000000
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
