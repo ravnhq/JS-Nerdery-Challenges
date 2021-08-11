@@ -57,7 +57,19 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  
+  let circularIndex = index % 5;
+  let resultArray = [];
+
+  while(circularIndex < COUNTRY_NAMES.length){
+    resultArray.push(COUNTRY_NAMES[circularIndex]);
+    circularIndex++;
+  }
+
+  let restElements = COUNTRY_NAMES.filter(e => !resultArray.includes(e));
+  resultArray = resultArray.concat(restElements);
+  
+  return resultArray;
 };
 
 circularArray(2);
