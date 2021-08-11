@@ -133,7 +133,19 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  
+  let arrayOfNumbers = [];
+  let reducedArray = []
+  let splitedArray ='';
+
+  for (let num = n; num > 1; num--){
+    arrayOfNumbers.push((num));
+  }
+
+  reducedArray = BigInt(arrayOfNumbers.reduce((a,b) => a * b));
+  splitedArray = reducedArray.toString().split('');
+
+  return splitedArray.reduce ((a,b) => Number(a) + Number(b))
 };
 
 digitSum(10);
