@@ -13,7 +13,23 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  if (seconds < 0) return;
+
+  let finalSeconds = seconds;
+
+  const seconsPer = { min: 60, hour: 3600 };
+
+  const hours = Math.floor(finalSeconds / seconsPer.hour);
+  finalSeconds %= seconsPer.hour;
+
+  const mins = Math.floor(finalSeconds / seconsPer.min);
+  finalSeconds %= seconsPer.min;
+
+  const time = [hours, mins, finalSeconds]
+    .map((item) => String(item).padStart(2, '0'))
+    .join(':');
+
+  return time;
 };
 
 readableTime(458);
@@ -38,10 +54,21 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (index < 0) return;
+
+  const len = COUNTRY_NAMES.length;
+  const NEW_CONTRIES = [];
+  let current = index % len;
+
+  COUNTRY_NAMES.forEach(() => {
+    NEW_CONTRIES.push(COUNTRY_NAMES[current]);
+    current = (current + 1) % len;
+  });
+
+  return NEW_CONTRIES;
 };
 
 circularArray(2);
@@ -70,7 +97,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let acc = 0;
+
+  for (let i = 1; i <= number; i++) acc += i ** i;
+
+  acc %= 10 ** lastDigits;
+
+  return String(acc);
 };
 
 ownPower(10, 3);
@@ -95,7 +128,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let fac = 1;
+
+  for (let i = n; i > 1; i--) {
+    fac *= i;
+  }
+
+  return Array.from(BigInt(fac).toString()).reduce(
+    (a, b) => Number(a) + Number(b)
+  );
 };
 
 digitSum(10);
@@ -118,7 +159,20 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  if (n === 1) return 1;
+
+  const FIB = [1, 1];
+  const firstNumOfNDigits = 10 ** (n - 1);
+  let num;
+
+  do {
+    const len = FIB.length;
+    num = FIB[len - 2] + FIB[len - 1];
+
+    FIB.push(num);
+  } while (firstNumOfNDigits - num > 0);
+
+  return FIB.length;
 };
 
 fibIndex(3);
