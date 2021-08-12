@@ -14,6 +14,10 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const hour = String(Math.floor((seconds %= 86400) / 3600)).padStart(2,0);
+  const minute = String(Math.floor((seconds %= 3600) / 60)).padStart(2,0);
+  const second = String(Math.floor(seconds % 60)).padStart(2,0);
+  return `${hour}:${minute}:${second}`;
 };
 
 readableTime(458);
@@ -42,6 +46,10 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const indexVerified =  index % COUNTRY_NAMES.length;
+  const arrayCut = COUNTRY_NAMES.slice(indexVerified, COUNTRY_NAMES.length + 1)
+  const arrayRest = COUNTRY_NAMES.slice(0, indexVerified)
+  return arrayCut.concat(arrayRest);
 };
 
 circularArray(2);
@@ -71,6 +79,11 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let numberSerie = 0
+  const modLastDigits = Math.pow(10, lastDigits);
+  for (let num = 1; num <= number; num++) numberSerie += Math.pow(num, num)
+  
+  return `${numberSerie % modLastDigits}`
 };
 
 ownPower(10, 3);
@@ -96,6 +109,17 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let factorial =  1;
+  let sum = BigInt(0);
+  const divisor = BigInt(10);
+  for (let num = n; num > 0; num--) factorial = factorial * num;
+  
+  let bigFactorial = BigInt(factorial)
+  while (bigFactorial > 0) {
+    sum += bigFactorial % divisor;
+    bigFactorial /= divisor;
+  }
+  return Number(sum);
 };
 
 digitSum(10);
@@ -119,6 +143,19 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  const divisor = Math.pow(10, n - 1)
+  let fibonacci = 1;
+  let valueSaved;
+  let valuePrevious = 0;
+  let index = 1;
+  
+  while (Math.floor(fibonacci / divisor) < 1) {
+    valueSaved = fibonacci
+    fibonacci += valuePrevious;
+    valuePrevious = valueSaved;
+    index++;
+  }
+  return index;
 };
 
 fibIndex(3);
