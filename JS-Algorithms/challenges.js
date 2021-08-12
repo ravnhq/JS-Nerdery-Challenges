@@ -17,11 +17,11 @@ const readableTime = (seconds) => {
   let min = Math.floor((seconds % 3600) / 60);
   let sec = seconds % 60;
 
-  hrs = hrs < 10 ? '0' + hrs : hrs;
-  min = min < 10 ? '0' + min : min;
-  sec = sec < 10 ? '0' + sec : sec;
+  hrs = hrs < 10 ? `0${hrs}` : hrs;
+  min = min < 10 ? `0${min}` : min;
+  sec = sec < 10 ? `0${sec}` : sec;
 
-  return hrs + ':' + min + ':' + sec;
+  return `${hrs}:${min}:${sec}`;
 };
 
 readableTime(458);
@@ -88,7 +88,9 @@ const ownPower = (number, lastDigits) => {
   let output = 0;
   const mod = Math.pow(10, lastDigits);
 
-  for (let i = 1; i <= number; i++) output += Math.pow(i, i);
+  for (let i = 1; i <= number; i++) {
+    output += Math.pow(i, i);
+  }
 
   return String(output % mod);
 };
@@ -115,14 +117,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  const findFactorial_V1 = (num) => {
+  const findFactorialV1 = (num) => {
     let factorial = 1;
-    for (let i = num; i > 1; i--) factorial *= i;
-
-    return String(BigInt(factorial)).split("").map(Number);
+    for (let i = num; i > 1; i--) {
+      factorial *= i;
+    }
+      
+    return String(BigInt(factorial)).split('').map(Number);
   };
 
-  const findFactorial_V2 = (num) => {
+  const findFactorialV2 = (num) => {
     const factorial = [1];
     let carry = 0;
     let tmp;
@@ -143,9 +147,9 @@ const digitSum = (n) => {
     return factorial;
   };
 
-  const factorial = findFactorial_V1(n);
+  const factorial = findFactorialV1(n);
 
-  return factorial.reduce(function (a, b) {return a + b});
+  return factorial.reduce((a, b) => a + b);
 };
 
 digitSum(10);
@@ -169,17 +173,17 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   const fibonacci = [0, 1];
-  let fibonacci_index = 1;
+  let fibonacciIndex = 1;
   let tmp = fibonacci[0] + fibonacci[1];
 
-  while (tmp.toString().length != n) {
+  while (tmp.toString().length !== n) {
     tmp = fibonacci[0] + fibonacci[1];
     fibonacci[0] = fibonacci[1];
     fibonacci[1] = tmp;
-    fibonacci_index++;
+    fibonacciIndex++;
   }
 
-  return fibonacci_index;
+  return fibonacciIndex;
 };
 
 fibIndex(3);
