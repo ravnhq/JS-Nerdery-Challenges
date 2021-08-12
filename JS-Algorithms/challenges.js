@@ -105,7 +105,6 @@ const ownPower = (number, lastDigits) => {
 
   for (let num = 1; num <= number; num++){
     sumOfNumbers += num ** num;
-    console.log(sumOfNumbers)
   }
 
   return String(sumOfNumbers % cutModule);
