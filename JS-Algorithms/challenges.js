@@ -95,9 +95,9 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   let sum = 0;
-  const  power = 10**lastDigits;
+  const  power = 10 ** lastDigits;
   for (let i = 1; i <= number; i++) {
-    sum += i**i;
+    sum += i ** i;
   }
   return (sum % power).toString();
 
@@ -125,7 +125,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let fact = n;
+  let arrayFact = [];
+  let sum = 0;
+  for (let i = fact - 1; i > 0; i--) {
+      fact = fact * i;
+  }
+  arrayFact = [...BigInt(fact).toString()];
+  arrayFact.forEach(element => sum = sum + Number(element));
+  return sum;
 };
 
 digitSum(10);
@@ -148,16 +156,16 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  let sum = 0
-  let fibArray = [0,1]
-  let index = 1
+  let sum = 0;
+  let fibArray = [0,1];
+  let index = 1;
   while (true) {
     if (fibArray[index].toString().length == n) {
-      return index
+      return index;
     } else {
-      sum = fibArray[index] + fibArray[index - 1]
-      index += 1 
-      fibArray.push(sum)
+      sum = fibArray[index] + fibArray[index - 1];
+      index += 1; 
+      fibArray.push(sum);
     }
   }
 };
