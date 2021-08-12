@@ -13,10 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  if (seconds < 0) return '';
+  if (seconds < 0) return;
+
+  let finalSeconds = seconds;
 
   const seconsPer = { min: 60, hour: 3600 };
-  let finalSeconds = seconds;
 
   const hours = Math.floor(finalSeconds / seconsPer.hour);
   finalSeconds %= seconsPer.hour;
@@ -56,18 +57,18 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  if (index < 0) return '';
+  if (index < 0) return;
 
   const len = COUNTRY_NAMES.length;
-  const newArr = [];
+  const NEW_CONTRIES = [];
   let current = index % len;
 
   COUNTRY_NAMES.forEach(() => {
-    newArr.push(COUNTRY_NAMES[current]);
+    NEW_CONTRIES.push(COUNTRY_NAMES[current]);
     current = (current + 1) % len;
   });
 
-  return newArr;
+  return NEW_CONTRIES;
 };
 
 circularArray(2);
@@ -129,14 +130,13 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 const digitSum = (n) => {
   let fac = 1;
 
-  for(let i = n; i > 1; i--){
-    fac *= i
+  for (let i = n; i > 1; i--) {
+    fac *= i;
   }
 
   return Array.from(BigInt(fac).toString()).reduce(
     (a, b) => Number(a) + Number(b)
-  )
-  
+  );
 };
 
 digitSum(10);
@@ -161,18 +161,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 const fibIndex = (n) => {
   if (n === 1) return 1;
 
-  const fib = [1, 1];
+  const FIB = [1, 1];
   const firstNumOfNDigits = 10 ** (n - 1);
   let num;
 
   do {
-    const len = fib.length;
-    num = fib[len - 2] + fib[len - 1];
+    const len = FIB.length;
+    num = FIB[len - 2] + FIB[len - 1];
 
-    fib.push(num);
+    FIB.push(num);
   } while (firstNumOfNDigits - num > 0);
 
-  return fib.length;
+  return FIB.length;
 };
 
 fibIndex(3);
