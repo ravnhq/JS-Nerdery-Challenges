@@ -13,7 +13,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const ss = Math.floor(seconds % 60);
+
+  const HH = hours < 10 ? `0${hours}` : hours;
+  const MM = minutes < 10 ? `0${minutes}` : minutes;
+  const SS = ss < 10 ? `0${ss}` : ss;
+
+  return `${HH}:${MM}:${SS}`;
 };
 
 readableTime(458);
@@ -38,10 +46,15 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const arrLength = COUNTRY_NAMES.length;
+  const sliceStart = index > arrLength ? index % arrLength : index;
+  const slicedFromIndex = COUNTRY_NAMES.slice(sliceStart, arrLength);
+  const restElements = COUNTRY_NAMES.slice(0, sliceStart);
+
+  return [...slicedFromIndex, ...restElements];
 };
 
 circularArray(2);
@@ -70,7 +83,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let acc = 0;
+  const cutModule = 10 ** lastDigits;
+
+  for (let num = 1; num <= number; num++) {
+    acc += num ** num;
+  }
+
+  return String(acc % cutModule);
 };
 
 ownPower(10, 3);
@@ -95,7 +115,18 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let total = 1;
+  let digitsSum = 0;
+
+  for (let num = n; num > 1; num--) {
+    total *= num;
+  }
+
+  for (digit of BigInt(total).toString()) {
+    digitsSum += +digit;
+  }
+
+  return digitsSum;
 };
 
 digitSum(10);
@@ -118,7 +149,22 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  if (n < 1) return 'Put a number higher than 0';
+
+  let prevFibNum = 0;
+  let currentFibNum = 1;
+  let lastFibNumberLength = currentFibNum.toString().length;
+  let lastFibNumIndex = 1;
+
+  while (lastFibNumberLength < n) {
+    let newFibNum = prevFibNum + currentFibNum;
+    prevFibNum = currentFibNum;
+    currentFibNum = newFibNum;
+    lastFibNumberLength = currentFibNum.toString().length;
+    lastFibNumIndex++;
+  }
+
+  return lastFibNumIndex;
 };
 
 fibIndex(3);
