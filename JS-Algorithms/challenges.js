@@ -14,6 +14,23 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+
+  // * Getting hours
+  const hours = Math.floor(seconds / 3600);
+
+  // * Getting minutes
+  const minutes = Math.floor(seconds / 60) - hours * 60;
+
+  // * Getting udpated seconds
+  const newSecs = Math.floor(seconds % 60);
+
+  // * Formatting res,
+  // * padStart() will force the number to have only certain number of digits
+  let res = `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:${newSecs.toString().padStart(2, "0")}`;
+
+  return res;
 };
 
 readableTime(458);
@@ -42,6 +59,13 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  let reordered = [...COUNTRY_NAMES];
+  const circular = COUNTRY_NAMES.slice(
+    index - 1 > reordered.length ? (index = -1) : index
+  );
+  let res = [...circular, ...reordered.slice(0, index)];
+  console.log(res);
+  return res;
 };
 
 circularArray(2);
@@ -71,6 +95,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let res = 0;
+  for (let index = 1; index <= number; index++) {
+    res = Math.pow(index, index) + res;
+  }
+  console.log(BigInt(res).toString().slice(-lastDigits));
+  return BigInt(res).toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -96,6 +126,17 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+
+  const factorial = (x) => {
+    if (x === 0 || x === 1) {
+      return 1;
+    } else {
+      return x * factorial(x - 1);
+    }
+  };
+
+  let res = factorial(n);
+  console.log(res);
 };
 
 digitSum(10);
