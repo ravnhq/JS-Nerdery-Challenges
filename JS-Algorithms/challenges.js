@@ -60,11 +60,14 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 const circularArray = (index) => {
   // YOUR CODE HERE...
   let reordered = [...COUNTRY_NAMES];
+
+  // * Getting the index val
   const circular = COUNTRY_NAMES.slice(
     index - 1 > reordered.length ? (index = -1) : index
   );
+
+  // * Updating the res array to be reordered
   let res = [...circular, ...reordered.slice(0, index)];
-  console.log(res);
   return res;
 };
 
@@ -99,7 +102,7 @@ const ownPower = (number, lastDigits) => {
   for (let index = 1; index <= number; index++) {
     res = Math.pow(index, index) + res;
   }
-  console.log(BigInt(res).toString().slice(-lastDigits));
+  // * Returning the offset val from lastDigits
   return BigInt(res).toString().slice(-lastDigits);
 };
 
@@ -126,17 +129,18 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let temp = n;
+  let i = temp - 1;
+  let finalFactArr = [];
+  while (i > 0) {
+    temp *= i;
+    i--;
+    finalFactArr = [...BigInt(temp).toString()];
+  }
 
-  const factorial = (x) => {
-    if (x === 0 || x === 1) {
-      return 1;
-    } else {
-      return x * factorial(x - 1);
-    }
-  };
+  const retValue = finalFactArr.reduce((n1, n2) => Number(n1) + Number(n2), 0);
 
-  let res = factorial(n);
-  console.log(res);
+  return retValue;
 };
 
 digitSum(10);
@@ -146,7 +150,6 @@ digitSum(89);
 
 /* *****
 Challenge 5
-
 "N-Digit Fibonacci Number"
 
 Modify the function "fibIndex" to return the index of the first Fibonacci
@@ -160,6 +163,20 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  let n1 = 0,
+    n2 = 1,
+    nextNum = 0;
+
+  // * Initialized arr with first numbers
+  let numArr = [n1, n2];
+  while (nextNum.toString().length !== n) {
+    nextNum = n1 + n2;
+    n1 = n2;
+    n2 = nextNum;
+    numArr.push(nextNum);
+  }
+  res = numArr.lastIndexOf(nextNum);
+  return res;
 };
 
 fibIndex(3);
