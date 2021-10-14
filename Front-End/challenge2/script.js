@@ -13,14 +13,6 @@ let reference = "0";
 let memory = "0";
 let operation = 0;
 
-const options = function(option) {
-    return document.getElementById(`${option}`)
-}
-
-const numbers = function(number) {
-    return document.getElementById(`${number}`)
-}
-
 function addValue(num = '0') {
     if((eval(reference) === 0 && (reference.indexOf(".") === -1))) {
         reference = num
@@ -56,6 +48,28 @@ function selectOperation(ope) {
 }
 
 function calculateOperation() {
-    console.log("calculate")
-}
+    if(operation === 1) {
+        reference = eval(memory) + eval(reference);
+    }
 
+    if(operation === 2) {
+        reference = eval(memory) - eval(reference);
+    }
+    if(operation === 3){
+        reference = eval(memory) * eval(reference);
+    }
+
+    if(operation === 4) {
+        if(eval(reference) !== 0) {
+            reference = eval(memory) / eval(reference);
+        } else {
+            reference = "Error";
+        }
+    }
+
+    reference = reference + "";
+    operation = 0;
+    memory = "0";
+
+    display.innerHTML = reference;
+}
