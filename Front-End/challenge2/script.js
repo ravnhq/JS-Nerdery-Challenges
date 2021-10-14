@@ -18,26 +18,12 @@ const buttOper = [
     {name: 'division', bOper: '/'},
 ];
 
-const wrapper = document.querySelector('.wrapper');
-console.log(wrapper)
-
 const display = document.getElementById('display');
 const equals = document.getElementById('equals');
-const maximunCharacters = document.createElement('div');
 
 let reference = "0";
 let memory = "0";
 let operation = 0;
-
-const styles = `
-    padding: 4px 8px;
-    textAlign: center;
-    background: #dbdcde;
-    color: #444444;
-    fontFamily: 'Arial';
-`;
-
-const message = `<p style="${styles}">You should not exceed more than 22 digits</p>`
 
 function operationSelected(character, op) {
     return document.getElementById(`${character}`).addEventListener( 'click', function() {
@@ -49,13 +35,6 @@ function numberSelected(character, number) {
     return document.getElementById(`${character}`).addEventListener( 'click', function() {
         addValue(number);
     });
-}
-
-function fValidation() {
-    if(wrapper.children.length < 6) {
-        maximunCharacters.innerHTML = message;
-        wrapper.insertAdjacentElement('beforeend', maximunCharacters)
-    }
 }
 
 function addValue(num = '0') {
@@ -71,12 +50,8 @@ function addValue(num = '0') {
                 reference += num
             }
         }
-        console.log(operation, '<21')
-        console.log(reference, '<21')
-        console.log(memory, '<21')
     } else {
-        // alert('You should not exceed more than 22 digits');
-        fValidation()
+        alert('You should not exceed more than 22 digits');
     }
 
     display.innerHTML = reference
@@ -147,7 +122,6 @@ function equal() {
     // EQUAL
     equals.addEventListener( 'click', function() {
         calculateOperation();
-        maximunCharacters.innerHTML = ''
     });
 }
 
