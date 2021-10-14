@@ -1,26 +1,31 @@
-/*
-TO-DO:
-
-- Modify this file only
-- The calculator should be completely functional
-
-*/
-
-
 const display = document.getElementById('display');
 const equals = document.getElementById('equals');
+
 let reference = "0";
 let memory = "0";
 let operation = 0;
 
+function operationSelected(character, op) {
+    return document.getElementById(`${character}`).addEventListener( 'click', function() {
+        selectOperation(op);
+    });
+}
+
+function numberSelected(character, number) {
+    return document.getElementById(`${character}`).addEventListener( 'click', function() {
+        addValue(number);
+    });
+}
+
 function addValue(num = '0') {
-    if((eval(reference) === 0 && (reference.indexOf(".") === -1))) {
+
+    if(eval(reference) === 0) {
         reference = num
     } else {
         reference += num
     }
 
-    display.innerHTML = reference;
+    display.innerHTML = reference
 }
 
 function selectOperation(ope) {
@@ -73,3 +78,30 @@ function calculateOperation() {
 
     display.innerHTML = reference;
 }
+
+function init() {
+    // NUMBERS
+    numberSelected('zero', '0');
+    numberSelected('one', '1');
+    numberSelected('two', '2');
+    numberSelected('three', '3');
+    numberSelected('four', '4');
+    numberSelected('five', '5');
+    numberSelected('six', '6');
+    numberSelected('seven', '7');
+    numberSelected('eight', '8');
+    numberSelected('nine', '9');
+    
+    // OPERATIONS
+    operationSelected('add', '+');
+    operationSelected('subtrack', '-');
+    operationSelected('multiplication', '*');
+    operationSelected('division', '/');
+
+    // EQUAL
+    equals.addEventListener( 'click', function() {
+        calculateOperation();
+    });
+}
+
+init();
