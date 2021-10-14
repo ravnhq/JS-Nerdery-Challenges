@@ -9,7 +9,9 @@ TO-DO:
 
 const display = document.getElementById('display');
 const equals = document.getElementById('equals');
-let reference = "0"
+let reference = "0";
+let memory = "0";
+let operation = 0;
 
 const options = function(option) {
     return document.getElementById(`${option}`)
@@ -25,13 +27,35 @@ function addValue(num = '0') {
     } else {
         reference += num
     }
-    
+
     display.innerHTML = reference;
 }
 
+function selectOperation(ope) {
+    if(operation !== 0) {
+        calculateOperation();
+    }
 
-function init () {
-    addValue()
+    if(ope.indexOf("+") > -1) {
+        operation = 1;
+    }
+    if(ope.indexOf("-") > -1) {
+        operation = 2;
+    }
+
+    if(ope.indexOf("*") > -1) {
+        operation = 3;
+    }
+    if(ope.indexOf("/") > -1) {
+        operation = 4;
+    }
+
+    memory = reference;
+    reference = "";
+    display.innerHTML = reference;
 }
 
-init();
+function calculateOperation() {
+    console.log("calculate")
+}
+

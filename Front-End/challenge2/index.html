@@ -15,24 +15,24 @@
 			<button id="seven" onclick="addValue('7')">7</button>
 			<button id="eight" onclick="addValue('8')">8</button>
 			<button id="nine" onclick="addValue('9')">9</button>
-			<button class="operation-btn" id="division">/</button>
+			<button class="operation-btn" id="division" onclick="selectOperation('/')">/</button>
 		</div>
 		<div class="row">
 			<button id="four" onclick="addValue('4')">4</button>
 			<button id="five" onclick="addValue('5')">5</button>
 			<button id="six" onclick="addValue('6')">6</button>
-			<button class="operation-btn" id="multiplication">X</button>
+			<button class="operation-btn" id="multiplication" onclick="selectOperation('*')">X</button>
 		</div>
 		<div class="row">
 			<button id="one" onclick="addValue('1')">1</button>
 			<button id="two" onclick="addValue('2')">2</button>
 			<button id="three" onclick="addValue('3')">3</button>
-			<button class="operation-btn" id="subtrack">-</button>
+			<button class="operation-btn" id="subtrack" onclick="selectOperation('-')">-</button>
 		</div>
 		<div class="row">
 			<button id="zero" onclick="addValue('0')">0</button>
-			<button class="operation-btn" id="equals">=</button>
-			<button class="operation-btn" id="add">+</button>
+			<button class="operation-btn" id="equals" onclick="calculateOperation()">=</button>
+			<button class="operation-btn" id="add" onclick="selectOperation('+')">+</button>
 		</div>
 	</div>
 	
