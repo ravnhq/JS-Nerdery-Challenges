@@ -5,6 +5,26 @@ let reference = "0";
 let memory = "0";
 let operation = 0;
 
+const buttNum = [
+    {name:'zero', realNumber: '0'},
+    {name:'one', realNumber: '1'},
+    {name:'two', realNumber: '2'},
+    {name:'three', realNumber: '3'},
+    {name:'four', realNumber: '4'},
+    {name:'five', realNumber: '5'},
+    {name:'six', realNumber: '6'},
+    {name:'seven', realNumber: '7'},
+    {name:'eight', realNumber: '8'},
+    {name:'nine', realNumber: '9'},
+];
+
+const buttOper = [
+    {name: 'add', bOper: '+'},
+    {name: 'subtrack', bOper: '-'},
+    {name: 'multiplication', bOper: '*'},
+    {name: 'division', bOper: '/'},
+]
+
 function operationSelected(character, op) {
     return document.getElementById(`${character}`).addEventListener( 'click', function() {
         selectOperation(op);
@@ -18,11 +38,16 @@ function numberSelected(character, number) {
 }
 
 function addValue(num = '0') {
-
-    if(eval(reference) === 0) {
-        reference = num
+    if((reference === 'NaN') || (reference === 'undefined') || (reference === 'Error')) {
+        reference = num;
+        memory = "0";
+        operation = 0;
     } else {
-        reference += num
+        if(eval(reference) === 0) {
+            reference = num
+        } else {
+            reference += num
+        }
     }
 
     display.innerHTML = reference
@@ -79,29 +104,27 @@ function calculateOperation() {
     display.innerHTML = reference;
 }
 
-function init() {
-    // NUMBERS
-    numberSelected('zero', '0');
-    numberSelected('one', '1');
-    numberSelected('two', '2');
-    numberSelected('three', '3');
-    numberSelected('four', '4');
-    numberSelected('five', '5');
-    numberSelected('six', '6');
-    numberSelected('seven', '7');
-    numberSelected('eight', '8');
-    numberSelected('nine', '9');
-    
-    // OPERATIONS
-    operationSelected('add', '+');
-    operationSelected('subtrack', '-');
-    operationSelected('multiplication', '*');
-    operationSelected('division', '/');
+function numbers(arr) {
+    //ONLY NUMBERS
+    return arr.map(({name, realNumber}) => numberSelected(`${name}`, `${realNumber}`));
+}
 
+function mainOperations(arr) {
+    // ONLY OPERATIONS
+    return arr.map(({name, bOper}) => operationSelected(`${name}`, `${bOper}`))
+}
+
+function equal() {
     // EQUAL
     equals.addEventListener( 'click', function() {
         calculateOperation();
     });
+}
+
+function init() {
+    numbers(buttNum);
+    mainOperations(buttOper);
+    equal();
 }
 
 init();
