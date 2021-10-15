@@ -55,6 +55,12 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const position = index % COUNTRY_NAMES.length
+  const firstBlock = COUNTRY_NAMES.slice(0, position)
+  const secondBlock = COUNTRY_NAMES.slice(position, COUNTRY_NAMES.length);
+  
+  const allArr = position === 0 ?`${secondBlock}${firstBlock}` : `${secondBlock},${firstBlock}`;
+  return allArr.split(',')
 };
 
 circularArray(2);
