@@ -32,14 +32,17 @@ let numbersButtons = [
    nineButton,
 ];
 
-for (let i = 0; i < numbersButtons.length; i++) {
-   numbersButtons[i].addEventListener("click", () => {
-      result.innerText = Number(numbersButtons[i].innerText);
+numbersButtons.forEach((numberButton) => {
+   numberButton.addEventListener("click", () => {
+      if (Number(result.innerText) === 0) {
+         result.innerText = Number(numberButton.innerText);
+      } else {
+         result.innerText += Number(numberButton.innerText);
+      }
    });
-}
+});
 
-const operationBtns = document.getElementsByClassName("operation-btn");
-console.log(operationBtns.length);
+const operationBtns = document.querySelectorAll(".operation-btn");
 
 addition = () => {};
 
