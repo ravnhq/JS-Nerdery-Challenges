@@ -90,8 +90,8 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
-  const array = Array.from(Array(number+1), (_, i) => i);
-  const powers = array.map( number => (number > 0) ? number**number : 0);
+  const numbers = Array.from(Array(number+1), (_, i) => i);
+  const powers = numbers.map( num => (num > 0) ? num**num : 0);
   const addPowers = powers.reduce((a, b) => a+b);
   const completeNumbers = BigInt(addPowers);
   const stringAddPowers = completeNumbers.toString();
@@ -102,10 +102,6 @@ const ownPower = (number, lastDigits) => {
 ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12);
-
-console.log(ownPower(10, 3))
-console.log(ownPower(12, 7))
-console.log(ownPower(21, 12))
 
 /* *****
 Challenge 4
@@ -126,12 +122,25 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let x = 1;
+  for(let i = n; i >= 1; i--) {
+    x = x * i
+  }
+  const getLongNumber = BigInt(x);
+
+  const string = getLongNumber.toString();
+  const arrString = string.split('')
+
+  console.log(string, 'str')
+  const toNumber = arrString.map(element => parseInt(element));
+  const sumNumbers = toNumber.reduce((a,b) => a+b)
+  console.log(sumNumbers)
 };
 
-digitSum(10);
-digitSum(42);
-digitSum(71);
-digitSum(89);
+digitSum(10); //27
+digitSum(42); //207
+digitSum(71); //409
+digitSum(89); //606
 
 /* *****
 Challenge 5
