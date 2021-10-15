@@ -90,11 +90,22 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  const array = Array.from(Array(number+1), (_, i) => i);
+  const powers = array.map( number => (number > 0) ? number**number : 0);
+  const addPowers = powers.reduce((a, b) => a+b);
+  const completeNumbers = BigInt(addPowers);
+  const stringAddPowers = completeNumbers.toString();
+
+  return stringAddPowers.substring(stringAddPowers.length - lastDigits, stringAddPowers.length);
 };
 
 ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12);
+
+console.log(ownPower(10, 3))
+console.log(ownPower(12, 7))
+console.log(ownPower(21, 12))
 
 /* *****
 Challenge 4
