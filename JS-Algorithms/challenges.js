@@ -14,9 +14,22 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  if(seconds > 0) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor(seconds % 3600 / 60);
+    const sec = Math.floor(seconds % 3600 % 60);
+    
+    const hDisplay = hours > 0 ? (hours > 9 ? `${hours}` : `0${hours}`) : "00";
+    const mDisplay = minutes > 0 ? (minutes > 9 ? `${minutes}` : `0${minutes}`) : "00";
+    const sDisplay = sec > 0 ? (sec > 9 ? `${sec}` : `0${sec}`) : "00";
+    
+    return `${hDisplay}:${mDisplay}:${sDisplay}`
+  } else {
+      return "Seconds cannot be negative";
+  }
 };
 
-readableTime(458);
+readableTime(458); //7 min with 38 seconds
 readableTime(3690);
 readableTime(7293);
 readableTime(32420);
