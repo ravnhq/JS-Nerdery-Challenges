@@ -129,12 +129,11 @@ const digitSum = (n) => {
   const getLongNumber = BigInt(x);
 
   const string = getLongNumber.toString();
-  const arrString = string.split('')
+  const arrString = string.split('');
 
-  console.log(string, 'str')
   const toNumber = arrString.map(element => parseInt(element));
   const sumNumbers = toNumber.reduce((a,b) => a+b)
-  console.log(sumNumbers)
+  return sumNumbers;
 };
 
 digitSum(10); //27
@@ -158,12 +157,29 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+
+  let n1 = 0;
+  let n2 = 1;
+  let nNext;
+  let arr = [n1, n2];
+  for(let i = 0; i <= (n+1)*(n+1); i++) {
+    nNext = n1 + n2;
+    n1 = n2;
+    n2 = nNext;
+    arr.push(nNext);
+  }
+
+  const getStrings = arr.map( number => number.toString() )
+  const filterString = getStrings.filter( sn => sn.length <= n -1 );
+  const lengthOfFilterStrings = filterString.length;
+  return lengthOfFilterStrings;
+
 };
 
-fibIndex(3);
-fibIndex(5);
-fibIndex(12);
-fibIndex(15);
+fibIndex(3); //12
+fibIndex(5);  //21
+fibIndex(12); //55
+fibIndex(15); //69
 
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
