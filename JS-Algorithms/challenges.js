@@ -1,3 +1,7 @@
+
+//creates an array [1,2,...,n]
+const rangeArray = (n) => Array.from({length: n}, (_, a) => a + 1 );
+
 /* *****
 Challenge 1
 
@@ -13,7 +17,22 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  
+  if( seconds < 0 || isNaN(seconds) ){
+    return null;
+  }
+  const SECONDS_PER_DAY = 3600 * 24;
+  const SECONDS_PER_HOUR = 3600;
+  const SECONDS_PER_MINUTE = 60;
+  
+  const secs = seconds % SECONDS_PER_DAY;
+
+  const hours = Math.floor(secs / SECONDS_PER_HOUR);
+  const minutes = Math.floor( (secs % SECONDS_PER_HOUR )/SECONDS_PER_MINUTE );
+  const remSeconds = secs % SECONDS_PER_MINUTE;
+
+  const format = (str) => str.toString().padStart(2,"0");
+  return `${format(hours)}:${format(minutes)}:${format(remSeconds)}`;
 };
 
 readableTime(458);
@@ -41,7 +60,11 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if( index < 0 || isNaN(index) ){
+    return null;
+  }
+  index = index % COUNTRY_NAMES.length;
+  return COUNTRY_NAMES.slice(index).concat(COUNTRY_NAMES.slice(0,index)) 
 };
 
 circularArray(2);
@@ -70,7 +93,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  if( isNaN(number) || isNaN(lastDigits) || lastDigits < 0 || number < 0){
+    return null;
+  }
+  if( lastDigits == 0){
+    return ""
+  }
+  const sumPows = rangeArray(number).reduce((a,b)=> a + b ** b, 0)
+  return String(BigInt(sumPows)).slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -94,8 +124,14 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  if( isNaN(n) || n <= 0 ){
+    return undefined;
+  }
+  // be careful when using BigInt, there exists some "tricky" testcases
+  const factorial = rangeArray(n).reverse().reduce((a,b)=> a * b, 1)
+  return Array.from(BigInt(factorial).toString()).reduce((a,b)=>Number(a) + Number(b),0);
 };
 
 digitSum(10);
@@ -118,7 +154,23 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  if( isNaN(n) || n <= 0  ){
+    return null;
+  }
+  if( n == 1 ){
+    return 1;
+  }
+  let n0 = 1,
+      n1 = 1,
+      n2 = n0 + n1,
+      index = 2;
+  
+  for(; String(n2).length < n;  ++index ){
+    n2 = n0 + n1;
+    n0 = n1;
+    n1 = n2;
+  }
+  return String(n2).length === n ? index : undefined;
 };
 
 fibIndex(3);
