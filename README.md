@@ -19,7 +19,7 @@ simply run `yarn test JS-Algorithms` from the root of this project and check in 
 for the challenge you completed are succesful.
 
 Once all challenges are solved, with their tests passings, create a Pull Request to merge your changes into `master` and
-add Fernando Juares (fhereduardo90) and me, Alexx Mata (AlexxMart) as reviewrs for your PR; also, post a link to your
+add Fernando Juares (fhereduardo90) as reviewer for your PR; also, post a link to your
 PR in the Nerdery channel in Slack so we know you're done.
 
 ## Front-End
