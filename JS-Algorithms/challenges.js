@@ -13,8 +13,7 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-   if (seconds > 0) return new Date(seconds * 1000).toISOString().substr(11, 8);
-   return "Invalid seconds amount";
+   return seconds > 0 ? new Date(seconds * 1000).toISOString().substr(11, 8) : "Invalid seconds amount";
 };
 
 readableTime(458);
@@ -43,6 +42,7 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
    let arr = [...COUNTRY_NAMES];
+
    for (let i = 0; i <= arr.length - 1 + index; i++) {
       arr.push(arr.shift());
    }
@@ -79,8 +79,8 @@ const ownPower = (number, lastDigits) => {
    for (let i = 1; i <= number; i++) {
       ownPow += i ** i;
    }
-   let digitsArray = BigInt(ownPow).toString();
-   let result = digitsArray.slice(digitsArray.length - lastDigits);
+   const digitsArray = BigInt(ownPow).toString();
+   const result = digitsArray.slice(digitsArray.length - lastDigits);
    return result;
 };
 
@@ -137,10 +137,10 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-   let n1 = 0,
-      n2 = 1,
-      nextTerm = n1 + n2;
-   let fiboArray = [n1, n2, nextTerm];
+   let n1 = 0;
+   let n2 = 1;
+   let nextTerm = n1 + n2;
+   const fiboArray = [n1, n2, nextTerm];
    while (nextTerm.toString().length !== n) {
       n1 = n2;
       n2 = nextTerm;
