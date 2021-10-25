@@ -25,14 +25,12 @@ const readableTime = (seconds) => {
   const SECONDS_PER_HOUR = 3600;
   const SECONDS_PER_MINUTE = 60;
   
-  const secs = seconds % SECONDS_PER_DAY;
-
-  const hours = Math.floor(secs / SECONDS_PER_HOUR);
-  const minutes = Math.floor( (secs % SECONDS_PER_HOUR )/SECONDS_PER_MINUTE );
-  const remSeconds = secs % SECONDS_PER_MINUTE;
+  const hours = Math.floor( (seconds % SECONDS_PER_DAY)/ SECONDS_PER_HOUR);
+  const minutes = Math.floor( (seconds % SECONDS_PER_HOUR )/SECONDS_PER_MINUTE );
+  const remainingSeconds = seconds % SECONDS_PER_MINUTE;
 
   const format = (str) => str.toString().padStart(2,"0");
-  return `${format(hours)}:${format(minutes)}:${format(remSeconds)}`;
+  return `${format(hours)}:${format(minutes)}:${format(remainingSeconds)}`;
 };
 
 readableTime(458);
@@ -63,8 +61,8 @@ const circularArray = (index) => {
   if( index < 0 || isNaN(index) ){
     return null;
   }
-  index = index % COUNTRY_NAMES.length;
-  return COUNTRY_NAMES.slice(index).concat(COUNTRY_NAMES.slice(0,index)) 
+  return COUNTRY_NAMES.slice( index % COUNTRY_NAMES.length)
+    .concat(COUNTRY_NAMES.slice(0,index % COUNTRY_NAMES.length));
 };
 
 circularArray(2);
