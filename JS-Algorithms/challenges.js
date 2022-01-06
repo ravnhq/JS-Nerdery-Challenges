@@ -13,7 +13,20 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let stringTime;
+  if (seconds > -1) {
+    const hours = Math.round(seconds / 3600, 0);
+    seconds %= 3600;
+    const minutes = Math.floor(seconds / 60, 0);
+    seconds %= 60;
+
+    const hh = hours > 9 ? hours.toString() : `0${hours}`;
+    const mm = minutes > 9 ? minutes.toString() : `0${minutes}`;
+    const ss = seconds > 9 ? seconds.toString() : `0${seconds}`;
+
+    stringTime = `${hh}:${mm}:${ss}`;
+  }
+  return stringTime;
 };
 
 readableTime(458);
@@ -38,10 +51,17 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  let countries;
+  if (index > -1) {
+    countries = [...COUNTRY_NAMES];
+    const modIndex = index % 5;
+    const country = countries.splice(modIndex);
+    countries.unshift(...country);
+  }
+  return countries;
 };
 
 circularArray(2);
@@ -70,8 +90,15 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0;
+  for (let count = 1; count <= number; count++) {
+    sum += count ** count;
+  }
+  const str = BigInt(sum);
+
+  return str.toString().slice(-lastDigits);
 };
+const a = '3222';
 
 ownPower(10, 3);
 ownPower(12, 7);
@@ -95,7 +122,13 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let fact = 1;
+  for (let count = n; count > 0; count--) {
+    fact *= count;
+  }
+  const arrayStr = [...BigInt(fact).toString()];
+
+  return arrayStr.reduce((a, b) => parseInt(a) + parseInt(b));
 };
 
 digitSum(10);
@@ -118,7 +151,24 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let num1 = 1;
+  let num2 = 1;
+  if (n == 1) {
+    return 1;
+  }
+  let count = 3;
+  let result = 0;
+  while (true) {
+    result = num2 + num1;
+    const strLength = result.toString().length;
+    if (n == strLength) {
+      break;
+    }
+    num1 = num2;
+    num2 = result;
+    count += 1;
+  }
+  return count;
 };
 
 fibIndex(3);
