@@ -14,15 +14,16 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   let stringTime;
-  if (seconds > -1) {
-    const hours = Math.round(seconds / 3600, 0);
-    seconds %= 3600;
-    const minutes = Math.floor(seconds / 60, 0);
-    seconds %= 60;
+  let resSeconds = seconds;
+  if (resSeconds > -1) {
+    const hours = Math.round(resSeconds / 3600, 0);
+    resSeconds %= 3600;
+    const minutes = Math.floor(resSeconds / 60, 0);
+    resSeconds %= 60;
 
     const hh = hours > 9 ? hours.toString() : `0${hours}`;
     const mm = minutes > 9 ? minutes.toString() : `0${minutes}`;
-    const ss = seconds > 9 ? seconds.toString() : `0${seconds}`;
+    const ss = resSeconds > 9 ? resSeconds.toString() : `0${resSeconds}`;
 
     stringTime = `${hh}:${mm}:${ss}`;
   }
@@ -98,7 +99,6 @@ const ownPower = (number, lastDigits) => {
 
   return str.toString().slice(-lastDigits);
 };
-const a = '3222';
 
 ownPower(10, 3);
 ownPower(12, 7);
@@ -128,7 +128,7 @@ const digitSum = (n) => {
   }
   const arrayStr = [...BigInt(fact).toString()];
 
-  return arrayStr.reduce((a, b) => parseInt(a) + parseInt(b));
+  return arrayStr.reduce((a, b) => (+a) + (+b));
 };
 
 digitSum(10);
@@ -153,7 +153,7 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 const fibIndex = (n) => {
   let num1 = 1;
   let num2 = 1;
-  if (n == 1) {
+  if (n === 1) {
     return 1;
   }
   let count = 3;
@@ -161,7 +161,7 @@ const fibIndex = (n) => {
   while (true) {
     result = num2 + num1;
     const strLength = result.toString().length;
-    if (n == strLength) {
+    if (n === strLength) {
       break;
     }
     num1 = num2;

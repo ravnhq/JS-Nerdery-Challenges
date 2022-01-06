@@ -10,7 +10,7 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
-    indent: [2, 'space'],
+    indent: ['error', 2],
     'no-tabs': 0,
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
