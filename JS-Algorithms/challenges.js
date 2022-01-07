@@ -13,21 +13,20 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  let stringTime;
-  let resSeconds = seconds;
-  if (resSeconds > -1) {
-    const hours = Math.round(resSeconds / 3600, 0);
-    resSeconds %= 3600;
-    const minutes = Math.floor(resSeconds / 60, 0);
-    resSeconds %= 60;
-
-    const hh = hours > 9 ? hours.toString() : `0${hours}`;
-    const mm = minutes > 9 ? minutes.toString() : `0${minutes}`;
-    const ss = resSeconds > 9 ? resSeconds.toString() : `0${resSeconds}`;
-
-    stringTime = `${hh}:${mm}:${ss}`;
+  if (seconds < 0) {
+    throw new Error(`Invalid Input Negative Number: ${seconds}`);
   }
-  return stringTime;
+  let resSeconds = seconds;
+  const hours = Math.round(resSeconds / 3600, 0);
+  resSeconds %= 3600;
+  const minutes = Math.floor(resSeconds / 60, 0);
+  resSeconds %= 60;
+
+  const hh = hours > 9 ? hours.toString() : `0${hours}`;
+  const mm = minutes > 9 ? minutes.toString() : `0${minutes}`;
+  const ss = resSeconds > 9 ? resSeconds.toString() : `0${resSeconds}`;
+
+  return `${hh}:${mm}:${ss}`;
 };
 
 readableTime(458);
@@ -55,13 +54,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  let countries;
-  if (index > -1) {
-    countries = [...COUNTRY_NAMES];
-    const modIndex = index % 5;
-    const country = countries.splice(modIndex);
-    countries.unshift(...country);
+  if (index < 0) {
+    throw new Error(`Invalid Input Negative Number: ${index}`);
   }
+  const countries = [...COUNTRY_NAMES];
+  const modIndex = index % 5;
+  const country = countries.splice(modIndex);
+  countries.unshift(...country);
+
   return countries;
 };
 
@@ -122,6 +122,9 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
+  if (n < 0) {
+    throw new Error(`Invalid Input Negative Number: ${n}`);
+  }
   let fact = 1;
   for (let count = n; count > 0; count--) {
     fact *= count;
@@ -151,6 +154,9 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
+  if (n < 0) {
+    throw new Error(`Invalid Input Negative Number: ${n}`);
+  }
   let num1 = 1;
   let num2 = 1;
   if (n === 1) {
@@ -158,7 +164,8 @@ const fibIndex = (n) => {
   }
   let count = 3;
   let result = 0;
-  while (true) {
+  const flag = true;
+  while (flag) {
     result = num2 + num1;
     const strLength = result.toString().length;
     if (n === strLength) {
