@@ -1,3 +1,10 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+/* eslint-disable max-len */
+/* eslint-disable radix */
+/* eslint-disable no-restricted-properties */
+/* eslint-disable no-plusplus */
 /* *****
 Challenge 1
 
@@ -13,7 +20,16 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let h = Math.floor(seconds / 3600).toString();
+  let m = (Math.floor(seconds / 60) % 60).toString();
+  let s = (seconds % 60).toString();
+
+  // check two-digit numbers
+  h = (h.length <= 1) ? `0${h}` : h;
+  m = (m.length <= 1) ? `0${m}` : m;
+  s = (s.length <= 1) ? `0${s}` : s;
+
+  return `${h}:${m}:${s}`;
 };
 
 readableTime(458);
@@ -38,10 +54,19 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const responseArray = [];
+  let index2 = (index % 10 > 4) ? (index % 10) - 5 : index % 10;
+
+  for (let i = 0; i < 5; i++) {
+    index2 = (index2 > 4) ? index2 - 5 : index2;
+    responseArray.push(COUNTRY_NAMES[index2]);
+    index2++;
+  }
+
+  return responseArray;
 };
 
 circularArray(2);
@@ -70,7 +95,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0;
+  for (let i = 1; i <= number; i++) {
+    sum += Math.pow(i, i);
+  }
+
+  sum = BigInt(sum);
+
+  return sum.toString().slice(sum.toString().length - lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +127,19 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1;
+  for (let i = n; i > 0; i--) {
+    factorial *= i;
+  }
+
+  factorial = BigInt(factorial).toString();
+
+  let sum = 0;
+  for (let j = 0; j < factorial.length; j++) {
+    sum += parseInt(factorial[j]);
+  }
+
+  return sum;
 };
 
 digitSum(10);
@@ -118,7 +162,27 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let temp = 0;
+  let temp2 = 1;
+  let fib;
+  let founded = true;
+
+  const fibonacciSeq = [1];
+
+  for (let i = 0; founded; i++) {
+    fib = temp + temp2;
+    temp = temp2;
+    temp2 = fib;
+
+    fibonacciSeq.push(fib);
+
+    if (fib.toString().length == n) {
+      const index = fibonacciSeq.findIndex((f) => { if (f.toString().length === n) return true; });
+      founded = false;
+      return index + 1;
+    }
+  }
+  return '';
 };
 
 fibIndex(3);
