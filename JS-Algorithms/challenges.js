@@ -17,17 +17,19 @@ const readableTime = (seconds) => {
   let hours = Math.floor(seconds/3600);
   let minutes = Math.floor((seconds - (hours * 3600))/60);
   let secs = seconds - (hours * 3600) - (minutes * 60);
-  
+  //Get hours
   if (hours < 10) {
   	hours = "0" + hours;
   }
+  //Get minutes
   if (minutes < 10) {
   	minutes = "0" + minutes;
   }
+  //Get seconds
   if (secs < 10) {
   	secs = "0" + secs;
   }
-  
+  //Returns a readable time
   return hours + ':' + minutes + ':' + secs;
 };
 
@@ -57,6 +59,11 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const len = COUNTRY_NAMES.length;
+  const newIndex = (index % len + len) % len;
+  let newArray = COUNTRY_NAMES.slice(newIndex, len);
+  newArray = newArray.concat(COUNTRY_NAMES.slice(0,newIndex));
+  return newArray;
 };
 
 circularArray(2);
