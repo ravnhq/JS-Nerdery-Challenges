@@ -14,20 +14,20 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
-  let hours = Math.floor(seconds/3600);
-  let minutes = Math.floor((seconds - (hours * 3600))/60);
+  let hours = Math.floor(seconds / 3600);
+  let minutes = Math.floor((seconds - (hours * 3600)) / 60);
   let secs = seconds - (hours * 3600) - (minutes * 60);
   //Get hours
   if (hours < 10) {
-  	hours = "0" + hours;
+    hours = "0" + hours;
   }
   //Get minutes
   if (minutes < 10) {
-  	minutes = "0" + minutes;
+    minutes = "0" + minutes;
   }
   //Get seconds
   if (secs < 10) {
-  	secs = "0" + secs;
+    secs = "0" + secs;
   }
   //Returns a readable time
   return hours + ':' + minutes + ':' + secs;
@@ -62,7 +62,7 @@ const circularArray = (index) => {
   const len = COUNTRY_NAMES.length;
   const newIndex = (index % len + len) % len;
   let newArray = COUNTRY_NAMES.slice(newIndex, len);
-  newArray = newArray.concat(COUNTRY_NAMES.slice(0,newIndex));
+  newArray = newArray.concat(COUNTRY_NAMES.slice(0, newIndex));
   return newArray;
 };
 
@@ -93,6 +93,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let num = 0;
+  for (let n = 1; n < number + 1; n++) {
+    num = num + Math.pow(n, n)
+  }
+  let newNumber = num.toString().slice(-3);
+  return newNumber;
 };
 
 ownPower(10, 3);
