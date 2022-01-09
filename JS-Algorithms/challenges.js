@@ -54,6 +54,37 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+
+  if (index > 0) {
+    //Total
+    const totalElement = COUNTRY_NAMES.length;
+    let newArray = [];
+
+    //Find start index
+    let index2 = 0;
+    for (x = 0; x < index; x++) {
+      index2++;
+      if (index2 >= totalElement) {
+        index2 = 0;
+      }
+    }
+
+    //Add elements from the indicated index to the end
+    for (let x = 0; x < totalElement - index2; x++) {
+      newArray.push(COUNTRY_NAMES[index2 + x]);
+    }
+
+    //Add elements from the beginning up to the indicated index
+    for (let x = 0; x < index2; x++) {
+      newArray.push(COUNTRY_NAMES[x]);
+    }
+
+    console.log(newArray);
+    return newArray;
+  } else {
+    console.log("The indicated index is not available in the array");
+    return "The indicated index is not available in the array";
+  }
 };
 
 circularArray(2);
