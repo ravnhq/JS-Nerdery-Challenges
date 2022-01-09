@@ -97,7 +97,7 @@ const ownPower = (number, lastDigits) => {
   for (let n = 1; n < number + 1; n++) {
     num = num + Math.pow(n, n)
   }
-  let newNumber = num.toString().slice(-3);
+  let newNumber = num.toString().slice(-lastDigits);
   return newNumber;
 };
 
@@ -163,14 +163,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 const fibIndex = (n) => {
   // YOUR CODE HERE...
   let n1 = 0, n2 = 1, next;
+  let cont = 0;
   next = n1 + n2;
   while (next) {
+    cont = cont + 1
     if (next.toString().length === n) {
-      return next
+      return cont + 1;
     }
     n1 = n2;
     n2 = next;
     next = n1 + n2;
+
+    
   }
 };
 
