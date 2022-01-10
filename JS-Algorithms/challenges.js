@@ -190,6 +190,33 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+
+  //Find the index that matches the condition
+  if (n > 0) {
+    //fibonacci numbers
+    let numberSequence = 0;
+    let previousNumber1 = 1;
+    let previousNumber2 = 0;
+
+    let index = 1;
+    let change = 0;
+
+    while (change == 0) {
+      index++;
+      numberSequence = previousNumber1 + previousNumber2;
+      previousNumber2 = previousNumber1;
+      previousNumber1 = numberSequence;
+
+      if (String(numberSequence).length == n) {
+        change = 1;
+      }
+    }
+
+    console.log(index);
+    return index;
+  } else {
+    return "The number of digits must be greater than 0";
+  }
 };
 
 fibIndex(3);
