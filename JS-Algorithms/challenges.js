@@ -154,7 +154,7 @@ const digitSum = (n) => {
 
   //We find the factorial of the number
   let factorial = 1;
-  for (let x = 1; x <= n; x++) {
+  for (let x = n; x > 0; x--) {
     factorial *= x;
   }
 
@@ -162,7 +162,7 @@ const digitSum = (n) => {
   let sumDigit = 0;
   let stringFactorial = String(BigInt(factorial));
   for (let x = 0; x < stringFactorial.length; x++) {
-    sumDigit += parseInt(stringFactorial.charAt(x));
+    sumDigit += parseInt(stringFactorial[x]);
   }
 
   console.log(sumDigit);
