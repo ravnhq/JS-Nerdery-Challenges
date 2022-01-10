@@ -7,3 +7,8 @@ btn_increase.addEventListener( "click" , e => {
   display_counter.textContent = parseInt(display_counter.textContent) + 1 
   console.log(display_counter.textContent)
 })
+
+btn_increase.addEventListener( "click" , e => {
+  display_counter.textContent = parseInt(display_counter.textContent) + 1 
+  console.log(display_counter.textContent)
+})
