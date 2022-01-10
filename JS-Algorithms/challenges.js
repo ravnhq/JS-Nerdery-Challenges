@@ -127,20 +127,18 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 const digitSum = (n) => {
   // YOUR CODE HERE...
   let result = n;
-  BigInt(result);
-  let sum = 0;
-  BigInt(sum)
-
+  let finalSum = 0;
+  
   while (n > 1) {
     n--;
-    result = result * n
+    result = result * n;
   }
-
-  while (result) {
-    sum += result % 10
-    result = Math.floor(result / 10);
+  let fact = String(BigInt(result))
+  for (let i = 0; i < fact.length; i++ ){
+    finalSum += Number(fact[i]);
   }
-  return sum;
+  return finalSum;
+  
 };
 
 digitSum(10);
