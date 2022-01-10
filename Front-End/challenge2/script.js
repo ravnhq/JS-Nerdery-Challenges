@@ -77,12 +77,24 @@ const executeOperation = () => {
       result = parseInt(firstNumber, 10) - parseInt(secondNumber, 10);
       break;
     case "X":
-      result = parseInt(firstNumber, 10) * parseInt(secondNumber, 10);
+      if (parseInt(secondNumber, 10) === 0) {
+        result = 0;
+      } else {
+        result = parseInt(firstNumber, 10) * parseInt(secondNumber, 10);
+      }
       break;
     case "/":
       result = parseInt(firstNumber, 10) / parseInt(secondNumber, 10);
       break;
   }
-  showValue.innerText = result;
+
+  if (operator === "/") {
+    if (parseInt(secondNumber, 10) === 0) {
+      showValue.innerText = "Error";
+    }
+  } else {
+    showValue.innerText = result;
+  }
+
   clearVariables();
 };
