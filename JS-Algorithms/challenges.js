@@ -97,6 +97,8 @@ const ownPower = (number, lastDigits) => {
   for (let n = 1; n < number + 1; n++) {
     num = num + Math.pow(n, n)
   }
+
+  num = BigInt(num);
   let newNumber = num.toString().slice(-lastDigits);
   return newNumber;
 };
