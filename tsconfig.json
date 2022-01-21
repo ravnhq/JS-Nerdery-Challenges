@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "baseUrl": ".",
+      "esModuleInterop": true,
+      "isolatedModules": false,
+  
+      "module": "esnext",
+      "moduleResolution": "node",
+      "noEmit": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "target": "esnext",
+      "paths": {
+        "@JS-Algorithms*": ["./JS-Algorithms/*"]
+      }
+    },
+    "include": ["JS-Algorithms"],
+    "exclude": ["node_modules"]
+  }
