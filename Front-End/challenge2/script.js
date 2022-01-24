@@ -90,11 +90,10 @@ const executeOperation = () => {
 
   if (operator === "/") {
     if (parseInt(secondNumber, 10) === 0) {
-      showValue.innerText = "Error";
     }
   } else {
     showValue.innerText = result;
   }
-
+  
   clearVariables();
 };

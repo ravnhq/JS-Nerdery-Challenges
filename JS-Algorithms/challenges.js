@@ -1,3 +1,4 @@
+"use strict";
 /* *****
 Challenge 1
 
@@ -11,28 +12,26 @@ Example:
 
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
-
 const readableTime = (seconds) => {
-  if (seconds > 0) {
-    let secondsT = seconds % 60;
-    let hoursT = Math.floor((seconds - secondsT) / 60 / 60);
-    let minutesT = (seconds - secondsT) / 60 - 60 * hoursT;
-
-    const hoursS = hoursT > 9 ? `${hoursT}` : `0${hoursT}`;
-    const minutesS = minutesT > 9 ? `${minutesT}` : `0${minutesT}`;
-    const secondsS = secondsT > 9 ? `${secondsT}` : `0${secondsT}`;
-
-    return `${hoursS}:${minutesS}:${secondsS}`;
-  } else {
+    if (seconds > 0) {
+        const conversionValue = 60;
+        const secondsTime = seconds % conversionValue;
+        const hoursTime = Math.floor((seconds - secondsTime) / conversionValue / conversionValue);
+        const minutesTime = (seconds - secondsTime) / conversionValue - conversionValue * hoursTime;
+        const hoursString = addZero(hoursTime);
+        const minutesString = addZero(minutesTime);
+        const secondsString = addZero(secondsTime);
+        return `${hoursString}:${minutesString}:${secondsString}`;
+    }
     return "The seconds must be greater than zero";
-  }
 };
-
+const addZero = (number) => {
+    return number > 9 ? number.toString() : `0${number}`;
+};
 readableTime(458);
 readableTime(3690);
 readableTime(7293);
 readableTime(32420);
-
 /* *****
 Challenge 2
 
@@ -49,49 +48,43 @@ Example:
 
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
-
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
-
+const COUNTRY_NAMES = [
+    "Germany",
+    "Norway",
+    "Island",
+    "Japan",
+    "Israel",
+];
 const circularArray = (index) => {
-  // YOUR CODE HERE...
-
-  if (index > 0) {
-    //Total
-    const totalElement = COUNTRY_NAMES.length;
-    let newArray = [];
-
-    //Find start index
-    let index2 = 0;
-    for (x = 0; x < index; x++) {
-      index2++;
-      if (index2 >= totalElement) {
-        index2 = 0;
-      }
+    // YOUR CODE HERE...
+    if (index > 0) {
+        //Total
+        const totalElement = COUNTRY_NAMES.length;
+        let newArray = [];
+        //Find start index
+        let index2 = 0;
+        for (let x = 0; x < index; x++) {
+            index2++;
+            if (index2 >= totalElement) {
+                index2 = 0;
+            }
+        }
+        //Add elements from the indicated index to the end
+        for (let x = 0; x < totalElement - index2; x++) {
+            newArray.push(COUNTRY_NAMES[index2 + x]);
+        }
+        //Add elements from the beginning up to the indicated index
+        for (let x = 0; x < index2; x++) {
+            newArray.push(COUNTRY_NAMES[x]);
+        }
+        return newArray;
     }
-
-    //Add elements from the indicated index to the end
-    for (let x = 0; x < totalElement - index2; x++) {
-      newArray.push(COUNTRY_NAMES[index2 + x]);
-    }
-
-    //Add elements from the beginning up to the indicated index
-    for (let x = 0; x < index2; x++) {
-      newArray.push(COUNTRY_NAMES[x]);
-    }
-
-    console.log(newArray);
-    return newArray;
-  } else {
-    console.log("The indicated index is not available in the array");
     return "The indicated index is not available in the array";
-  }
 };
-
 circularArray(2);
 circularArray(3);
 circularArray(5);
 circularArray(9);
-
 /* *****
 Challenge 3
 
@@ -111,27 +104,20 @@ Invoking "ownPower(10, 3)" should return "317"
 because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 10405071317
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
-
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
-  let sumPow = 0;
-
-  //Sum of powers
-  for (let x = 1; x <= number; x++) {
-    sumPow = sumPow + Math.pow(x, x);
-  }
-
-  //BigInt to represent the value that is large
-  sumPow = BigInt(sumPow);
-
-  console.log(sumPow.toString().slice(sumPow.toString().length - lastDigits));
-  return sumPow.toString().slice(sumPow.toString().length - lastDigits);
+    // YOUR CODE HERE...
+    let sumPow = 0;
+    //Sum of powers
+    for (let x = 1; x <= number; x++) {
+        sumPow = sumPow + Math.pow(x, x);
+    }
+    //BigInt to represent the value that is large
+    const sumPowString = BigInt(sumPow).toString();
+    return sumPowString.slice(sumPowString.length - lastDigits);
 };
-
 ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12);
-
 /* *****
 Challenge 4
 
@@ -148,32 +134,25 @@ Example:
 Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
-
 const digitSum = (n) => {
-  // YOUR CODE HERE...
-
-  //We find the factorial of the number
-  let factorial = 1;
-  for (let x = n; x > 0; x--) {
-    factorial *= x;
-  }
-
-  //We add the digits of the factorial
-  let sumDigit = 0;
-  let stringFactorial = String(BigInt(factorial));
-  for (let x = 0; x < stringFactorial.length; x++) {
-    sumDigit += parseInt(stringFactorial[x]);
-  }
-
-  console.log(sumDigit);
-  return sumDigit;
+    // YOUR CODE HERE...
+    //We find the factorial of the number
+    let factorial = 1;
+    for (let x = n; x > 0; x--) {
+        factorial *= x;
+    }
+    //We add the digits of the factorial
+    let sumDigit = 0;
+    let stringFactorial = BigInt(factorial).toString();
+    for (let x = 0; x < stringFactorial.length; x++) {
+        sumDigit += parseInt(stringFactorial[x]);
+    }
+    return sumDigit;
 };
-
 digitSum(10);
 digitSum(42);
 digitSum(71);
 digitSum(89);
-
 /* *****
 Challenge 5
 
@@ -187,43 +166,33 @@ Example:
 Invoking "fibIndex(3)" should return "12".
 Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
 ***** */
-
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
-
-  //Find the index that matches the condition
-  if (n > 0) {
-    //fibonacci numbers
-    let numberSequence = 0;
-    let previousNumber1 = 1;
-    let previousNumber2 = 0;
-
-    let index = 1;
-    let change = 0;
-
-    while (change == 0) {
-      index++;
-      numberSequence = previousNumber1 + previousNumber2;
-      previousNumber2 = previousNumber1;
-      previousNumber1 = numberSequence;
-
-      if (String(numberSequence).length == n) {
-        change = 1;
-      }
+    // YOUR CODE HERE...
+    //Find the index that matches the condition
+    if (n > 0) {
+        //fibonacci numbers
+        let numberSequence = 0;
+        let previousNumber1 = 1;
+        let previousNumber2 = 0;
+        let index = 1;
+        let change = 0;
+        while (change == 0) {
+            index++;
+            numberSequence = previousNumber1 + previousNumber2;
+            previousNumber2 = previousNumber1;
+            previousNumber1 = numberSequence;
+            if (numberSequence.toString().length == n) {
+                change = 1;
+            }
+        }
+        return index;
     }
-
-    console.log(index);
-    return index;
-  } else {
     return "The number of digits must be greater than 0";
-  }
 };
-
 fibIndex(3);
 fibIndex(5);
 fibIndex(12);
 fibIndex(15);
-
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
 exports.ownPower = ownPower;
