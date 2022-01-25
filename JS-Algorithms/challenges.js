@@ -45,7 +45,10 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const position = index>COUNTRY_NAMES.length-1 ? index-COUNTRY_NAMES.length:index
+  let filterCountry = COUNTRY_NAMES.filter( country => country !== COUNTRY_NAMES[position] )
+  filterCountry.unshift(COUNTRY_NAMES[position])
+  return filterCountry
 };
 
 circularArray(2);

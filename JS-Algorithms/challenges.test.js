@@ -22,22 +22,22 @@ describe("Readable Time", () => {
 });
 
 describe("Circular Array", () => {
-  test("The circular array from the 2nd index should return ['Island', 'Japan', 'Israel', 'Germany', 'Norway']", () => {
+  test("The circular array from the 2nd index should return ['Island', 'Germany', 'Norway', 'Japan', 'Israel']", () => {
     expect(circularArray(2)).toEqual([
       "Island",
-      "Japan",
-      "Israel",
       "Germany",
       "Norway",
+      "Japan",
+      "Israel"
     ]);
   });
-  test("The circular array from the 3rd index should return ['Japan', 'Israel', 'Germany', 'Norway', 'Island']", () => {
+  test("The circular array from the 3rd index should return ['Japan', 'Germany', 'Norway', 'Island', 'Israel']", () => {
     expect(circularArray(3)).toEqual([
       "Japan",
-      "Israel",
       "Germany",
       "Norway",
       "Island",
+      "Israel"
     ]);
   });
   test("The circular array from the 5th index should return ['Germany', 'Norway', 'Island', 'Japan', 'Israel']", () => {
