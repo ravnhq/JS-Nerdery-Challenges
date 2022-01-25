@@ -77,7 +77,16 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let numberSum = 0
+
+  for( let i=1; number>=i; i++){
+    numberSum += Math.pow(i,i)
+  }
+  // use BigInt in case the sum is very large
+  const wordSum =  BigInt(numberSum).toString()
+
+  return wordSum.slice(wordSum.length-lastDigits, wordSum.length)
+
 };
 
 ownPower(10, 3);
