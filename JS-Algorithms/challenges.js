@@ -12,8 +12,24 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
+const addPadding = (num) => {
+  if (num.toString().length < 2) {
+    return `0${num}`;
+  }
+  return num;
+};
+
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let hours = 0;
+  let minutes = 0;
+  let secs = seconds;
+  if (secs > 3600) {
+    hours = Math.floor(secs / 3600);
+    secs %= 3600;
+  }
+  minutes = Math.floor(secs / 60);
+  secs %= 60;
+  return `${addPadding(hours)}:${addPadding(minutes)}:${addPadding(secs)}`;
 };
 
 readableTime(458);
@@ -38,7 +54,7 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
