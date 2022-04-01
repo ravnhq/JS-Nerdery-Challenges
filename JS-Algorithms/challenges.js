@@ -148,7 +148,7 @@ digitSum(10);
 digitSum(42);
 digitSum(71);
 digitSum(89);
- 
+
 /* *****
 Challenge 5
 
@@ -164,7 +164,17 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  const sequence = [];
+  let initial = 0;
+  let final = 1;
+  let sum = 0;
+  while (initial.toString().length !== n) {
+    sequence.push(initial);
+    sum = initial + final;
+    initial = final;
+    final = sum;
+  }
+  return sequence.length;
 };
 
 fibIndex(3);
