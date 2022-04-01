@@ -92,13 +92,13 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
-const sumPositivePowers = (number) => {
+const addPositivePowers = (number) => {
   if (number === 1) return number;
-  return (number ** number) + sumPositivePowers(number - 1);
+  return (number ** number) + addPositivePowers(number - 1);
 };
 
 const ownPower = (number, lastDigits) => {
-  const enforceBigIntPow = BigInt(sumPositivePowers(number));
+  const enforceBigIntPow = BigInt(addPositivePowers(number));
   const numToStr = enforceBigIntPow.toString();
   return numToStr.slice(numToStr.length - lastDigits);
 };
@@ -123,13 +123,25 @@ Example:
 Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
-const sumFactorials = (n) => {
-  if (n === 1) return n;
-  return n * sumFactorials(n - 1);
+
+const getFactorial = (n) => {
+  const bigIntNum = BigInt(n);
+  let factorial = 1n;
+  for (let i = 0n; i < bigIntNum; i++) {
+    factorial *= bigIntNum - i;
+  }
+  return String(factorial);
 };
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  const factorial = getFactorial(n);
+  const strNumToArray = factorial.split('');
+  const initialValue = 0;
+  const sum = strNumToArray.reduce(
+    (previousValue, currentValue) => (parseInt(previousValue) + parseInt(currentValue)),
+    initialValue,
+  );
+  return sum;
 };
 
 digitSum(10);
