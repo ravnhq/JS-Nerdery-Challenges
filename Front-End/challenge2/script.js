@@ -16,61 +16,61 @@ let result = '';
 let operand = '';
 
 const appendDigitToOperand = (button) => {
-  operand += button;
-  display.innerText = eval(operand);
+    operand += button;
+    display.innerText = eval(operand);
 };
 
 const updateDisplay = () => {
-  display.innerText = (eval(result.slice(0, result.length - 1)));
+    display.innerText = (eval(result.slice(0, result.length - 1)));
 };
 
 const updateResult = (button) => {
-  result += 0 + operand + button;
+    result += 0 + operand + button;
 };
 
 const clearResult = () => {
-  operand = '0';
-  result = '';
+    operand = '0';
+    result = '';
 };
 
 const clearOperand = () => {
-  operand = '';
+    operand = '';
 };
 
 const displayFinalResult = () => {
-  try {
-    if (!isFinite(eval(result))) {
-      display.innerText = 'Error';
-    } else {
-      display.innerText = eval(result);
+    try {
+        if (!isFinite(eval(result))) {
+            display.innerText = 'Error';
+        } else {
+            display.innerText = eval(result);
+        }
+    } catch (error) {
+        updateDisplay();
     }
-  } catch (error) {
-    updateDisplay();
-  }
-  clearResult();
+    clearResult();
 };
 
 calculatorApp.forEach((x) => x.addEventListener('click', (e) => {
-  const button = e.target.innerText;
-  switch (button) {
+    const button = e.target.innerText;
+    switch (button) {
     case '=':
-      result += operand;
-      displayFinalResult();
-      break;
+        result += operand;
+        displayFinalResult();
+        break;
     case '+':
     case '-':
     case '/':
-      updateResult(button);
-      updateDisplay();
-      clearOperand();
-      break;
+        updateResult(button);
+        updateDisplay();
+        clearOperand();
+        break;
     case 'X':
-      result += `0${operand}*`;
-      updateDisplay();
-      clearOperand();
-      break;
+        result += `0${operand}*`;
+        updateDisplay();
+        clearOperand();
+        break;
     default:
-      appendDigitToOperand(button);
-      break;
-  }
+        appendDigitToOperand(button);
+        break;
+    }
 }));

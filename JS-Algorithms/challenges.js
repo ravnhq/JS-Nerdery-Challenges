@@ -13,23 +13,23 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const addPadding = (num) => {
-  if (num.toString().length < 2) {
-    return `0${num}`;
-  }
-  return num;
+    if (num.toString().length < 2) {
+        return `0${num}`;
+    }
+    return num;
 };
 
 const readableTime = (seconds) => {
-  let hours = 0;
-  let minutes = 0;
-  let secs = seconds;
-  if (secs > 3600) {
-    hours = Math.floor(secs / 3600);
-    secs %= 3600;
-  }
-  minutes = Math.floor(secs / 60);
-  secs %= 60;
-  return `${addPadding(hours)}:${addPadding(minutes)}:${addPadding(secs)}`;
+    let hours = 0;
+    let minutes = 0;
+    let secs = seconds;
+    if (secs > 3600) {
+        hours = Math.floor(secs / 3600);
+        secs %= 3600;
+    }
+    minutes = Math.floor(secs / 60);
+    secs %= 60;
+    return `${addPadding(hours)}:${addPadding(minutes)}:${addPadding(secs)}`;
 };
 
 readableTime(458);
@@ -57,14 +57,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  const arr = COUNTRY_NAMES.slice();
-  let workingIndex = index;
-  if (workingIndex > arr.length) {
-    workingIndex = -1;
-  }
-  const firstHalf = arr.slice(workingIndex);
-  const secondHalf = arr.slice(0, workingIndex);
-  return firstHalf.concat(secondHalf);
+    const arr = COUNTRY_NAMES.slice();
+    let workingIndex = index;
+    if (workingIndex > arr.length) {
+        workingIndex = -1;
+    }
+    const firstHalf = arr.slice(workingIndex);
+    const secondHalf = arr.slice(0, workingIndex);
+    return firstHalf.concat(secondHalf);
 };
 
 circularArray(2);
@@ -93,14 +93,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const addPositivePowers = (number) => {
-  if (number === 1) return number;
-  return (number ** number) + addPositivePowers(number - 1);
+    if (number === 1) return number;
+    return (number ** number) + addPositivePowers(number - 1);
 };
 
 const ownPower = (number, lastDigits) => {
-  const enforceBigIntPow = BigInt(addPositivePowers(number));
-  const numToStr = enforceBigIntPow.toString();
-  return numToStr.slice(numToStr.length - lastDigits);
+    const enforceBigIntPow = BigInt(addPositivePowers(number));
+    const numToStr = enforceBigIntPow.toString();
+    return numToStr.slice(numToStr.length - lastDigits);
 };
 
 ownPower(10, 3);
@@ -125,23 +125,23 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const getFactorial = (n) => {
-  const bigIntNum = BigInt(n);
-  let factorial = 1n;
-  for (let i = 0n; i < bigIntNum; i++) {
-    factorial *= bigIntNum - i;
-  }
-  return String(factorial);
+    const bigIntNum = BigInt(n);
+    let factorial = 1n;
+    for (let i = 0n; i < bigIntNum; i++) {
+        factorial *= bigIntNum - i;
+    }
+    return String(factorial);
 };
 
 const digitSum = (n) => {
-  const factorial = getFactorial(n);
-  const strNumToArray = factorial.split('');
-  const initialValue = 0;
-  const sum = strNumToArray.reduce(
-    (previousValue, currentValue) => (parseInt(previousValue) + parseInt(currentValue)),
-    initialValue,
-  );
-  return sum;
+    const factorial = getFactorial(n);
+    const strNumToArray = factorial.split('');
+    const initialValue = 0;
+    const sum = strNumToArray.reduce(
+        (previousValue, currentValue) => (parseInt(previousValue) + parseInt(currentValue)),
+        initialValue,
+    );
+    return sum;
 };
 
 digitSum(10);
@@ -164,17 +164,17 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  const sequence = [];
-  let initial = 0;
-  let final = 1;
-  let sum = 0;
-  while (initial.toString().length !== n) {
-    sequence.push(initial);
-    sum = initial + final;
-    initial = final;
-    final = sum;
-  }
-  return sequence.length;
+    const sequence = [];
+    let initial = 0;
+    let final = 1;
+    let sum = 0;
+    while (initial.toString().length !== n) {
+        sequence.push(initial);
+        sum = initial + final;
+        initial = final;
+        final = sum;
+    }
+    return sequence.length;
 };
 
 fibIndex(3);

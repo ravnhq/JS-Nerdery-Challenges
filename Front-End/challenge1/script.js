@@ -6,21 +6,21 @@ const increaseButton = document.getElementById('increase');
 let count = parseInt(counterDisplay.innerText);
 
 const increaseCount = () => {
-  count += 1;
-  counterDisplay.innerText = count;
+    count += 1;
+    counterDisplay.innerText = count;
 };
 
 const decreaseCount = () => {
-  if (count > 0) {
-    count -= 1;
-  }
-  counterDisplay.innerText = count;
+    if (count > 0) {
+        count -= 1;
+    }
+    counterDisplay.innerText = count;
 };
 
 app.addEventListener('click', (e) => {
-  if (e.target === decreaseButton) {
-    decreaseCount();
-  } else if (e.target === increaseButton) {
-    increaseCount();
-  }
+    if (e.target === decreaseButton) {
+        decreaseCount();
+    } else if (e.target === increaseButton) {
+        increaseCount();
+    }
 });
