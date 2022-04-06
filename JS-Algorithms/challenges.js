@@ -14,6 +14,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  let hours = Math.floor(seconds / 3600);
+  let mins = Math.floor((seconds % 3600) / 60);
+  let secs = seconds % 60;
+
+  hours < 10 ? (hours = `0${hours}`) : hours;
+  mins < 10 ? (mins = `0${mins}`) : mins;
+  secs < 10 ? (secs = `0${secs}`) : secs;
+
+  return `${hours}:${mins}:${secs}`;
   
 };
 
@@ -43,10 +52,14 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
-  const newIndex = index % COUNTRY_NAMES.length;
-  const ARRAY_AUX1 = COUNTRY_NAMES.slice(newIndex);
-  const ARRAY_AUX2 = COUNTRY_NAMES.slice(0, newIndex);
-  return [...ARRAY_AUX1, ...ARRAY_AUX2];
+  if (index > 0) {
+    const newIndex = index % COUNTRY_NAMES.length;
+    const ARRAY_AUX1 = COUNTRY_NAMES.slice(newIndex);
+    const ARRAY_AUX2 = COUNTRY_NAMES.slice(0, newIndex);
+    return [...ARRAY_AUX1, ...ARRAY_AUX2];
+  } else {
+    return;
+  }
 };
 
 circularArray(2);
@@ -76,6 +89,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let result = 0;
+  for (let i = 1; i <= number; i++) {
+    result = result + Math.pow(i, i);
+  }
+  result = BigInt(result);
+  const aux = "" + result;
+  return aux.slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -101,6 +121,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let total = 1;
+  let accumulator = 0;
+  let i = n;
+  while (i > 0) {
+    total = total * i;
+    i--;
+  }
+  const array = (BigInt(total)).toString().split("");
+  array.forEach((element) => (accumulator += Number(element)));
+  return accumulator;
 };
 
 digitSum(10);
@@ -124,6 +154,20 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  const fibonacci = [];
+  fibonacci[0] = 0;
+  fibonacci[1] = 1;
+  if(n==1) return fibonacci[0]
+  let i = 2;
+  while (true) {
+    fibonacci[i] = fibonacci[i - 2] + fibonacci[i - 1];
+    if (fibonacci[i].toString().length === n) {
+      return i
+    }
+    i++;
+  }
+
+
 };
 
 fibIndex(3);
