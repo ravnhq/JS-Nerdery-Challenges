@@ -30,17 +30,20 @@ function evaluate(fn) {
 
 function addValue(value) {
   if (touch == 0) {
-    if (value == 0) {
-      return
-    } else {
+    if (value == "0") {
       display.innerHTML = value;
-      touch++;
+      touch++
     }
   } else {
-    if (value == 0 && display.textContent == "0") {
+    if (value == "0" && display.textContent == "0") {
       return
     } else {
-      display.innerHTML += value;
+      if(display.textContent == "0"){
+        display.innerHTML = value
+      }else{
+        display.innerHTML += value;
+      }
+      
     }
   }
 
@@ -50,7 +53,10 @@ function addSymbol(value) {
   if (touch == 0) {
     return
   } else {
-    if (display.textContent[display.textContent.length - 1] == value || !parseInt(display.textContent[display.textContent.length - 1]) ) {
+    if (display.textContent[display.textContent.length - 1] == value || !parseInt(display.textContent[display.textContent.length - 1])) {
+      if(display.textContent[display.textContent.length-1]=="0"){
+        display.innerHTML += value;
+      }
       return
     } else {
       display.innerHTML += value;
