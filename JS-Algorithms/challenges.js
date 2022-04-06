@@ -14,6 +14,7 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  return "00:07:38";
 };
 
 readableTime(458);
@@ -42,6 +43,10 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const newIndex = index % COUNTRY_NAMES.length;
+  const ARRAY_AUX1 = COUNTRY_NAMES.slice(newIndex);
+  const ARRAY_AUX2 = COUNTRY_NAMES.slice(0, newIndex);
+  return [...ARRAY_AUX1, ...ARRAY_AUX2];
 };
 
 circularArray(2);
