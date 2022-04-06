@@ -30,11 +30,10 @@ function evaluate(fn) {
 
 function addValue(value) {
   if (touch == 0) {
-    if (value == "0") {
+    
       display.innerHTML = value;
       touch++
-    }
-  } else {
+    } else {
     if (value == "0" && display.textContent == "0") {
       return
     } else {
