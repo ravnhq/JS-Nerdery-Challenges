@@ -23,6 +23,7 @@ const multiplication = document.getElementById('multiplication')
 const division = document.getElementById('division')
 let touch = 0;
 let result = 0;
+let more = false;
 
 function evaluate(fn) {
   return new Function('return ' + fn)();
@@ -30,35 +31,38 @@ function evaluate(fn) {
 
 function addValue(value) {
   if (touch == 0) {
-    
-      display.innerHTML = value;
-      touch++
-    } else {
+    display.innerHTML = value;
+    touch = 1
+  } else {
     if (value == "0" && display.textContent == "0") {
       return
     } else {
-      if(display.textContent == "0"){
+      if (display.textContent == "0") {
         display.innerHTML = value
-      }else{
+      } else {
         display.innerHTML += value;
       }
-      
+
     }
   }
 
 }
 
 function addSymbol(value) {
-  if (touch == 0) {
+  if (touch == 0 && more == false) {
     return
   } else {
+    touch = 1
     if (display.textContent[display.textContent.length - 1] == value || !parseInt(display.textContent[display.textContent.length - 1])) {
-      if(display.textContent[display.textContent.length-1]=="0"){
+
+      if (display.textContent[display.textContent.length - 1] == "0") {
         display.innerHTML += value;
+
       }
       return
     } else {
       display.innerHTML += value;
+
     }
 
   }
@@ -67,10 +71,16 @@ function addSymbol(value) {
 function resolve() {
   result = display.textContent
   result = result.split('').map((element, index) => element == "X" ? result[index] = "*" : element).toString().replace(/,/g, "")
-  console.log(result)
-  display.innerHTML = evaluate(result)
-  console.log(result)
-  touch = 0;
+  try {
+    display.innerHTML = evaluate(result)
+    touch = 0
+    more = true
+  } catch (error) {
+    console.log(error)
+  }
+  return true
+
+
 }
 
 
