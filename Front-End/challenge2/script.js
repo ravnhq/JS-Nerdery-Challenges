@@ -23,7 +23,7 @@ const multiplication = document.getElementById('multiplication')
 const division = document.getElementById('division')
 let touch = 0;
 let result = 0;
-let more = false;
+let flag = false;
 
 function evaluate(fn) {
   return new Function('return ' + fn)();
@@ -49,7 +49,7 @@ function addValue(value) {
 }
 
 function addSymbol(value) {
-  if (touch == 0 && more == false) {
+  if (touch == 0 && flag == false) {
     return
   } else {
     touch = 1
@@ -74,7 +74,7 @@ function resolve() {
   try {
     display.innerHTML = evaluate(result)
     touch = 0
-    more = true
+    flag = true
   } catch (error) {
     console.log(error)
   }
