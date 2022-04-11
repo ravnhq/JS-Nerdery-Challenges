@@ -25,7 +25,7 @@ const updateDisplay = () => {
 };
 
 const updateResult = (button) => {
-    result += 0 + operand + button;
+    result += operand + button;
 };
 
 const clearResult = () => {
@@ -65,7 +65,7 @@ calculatorApp.forEach((x) => x.addEventListener('click', (e) => {
         clearOperand();
         break;
     case 'X':
-        result += `0${operand}*`;
+        result += `${operand}*`;
         updateDisplay();
         clearOperand();
         break;
