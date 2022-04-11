@@ -1,32 +1,58 @@
-# Challenges instructions
+# Steps
 
-## Steps
+1. Clone repo
+2. Run `yarn` in the root of the project
 
-1. Fork this repo to your account
-1. Before you start making changes create a new `develop` branch (`git checkout -b develop`)
-1. Run `yarn` in your terminar in the root of this repo
-1. Modify the code ONLY in the sections flagged as `// YOUR CODE HERE...`
+## JS-Algorithms
 
-## JavaScript Algorithms
-
-In the file `JS-Algorithms/challenges.js` you will five different challenges,
-please complete them in order and don't skip any.
-
-Each challenge offers an explanation of what you are supposed to do and an example of the expected output.
-
-We encourage you to run the test suite when you think you're done with each challenge. For this section
-simply run `yarn test JS-Algorithms` from the root of this project and check in the results for the scenarios
-for the challenge you completed are succesful.
-
-Once all challenges are solved, with their tests passings, create a Pull Request to merge your changes into `master` and
-add Fernando Juares (fhereduardo90) as reviewer for your PR; also, post a link to your
-PR in the Nerdery channel in Slack so we know you're done.
-
+Run `yarn test JS-Algorithms` in the root of the project
 ## Front-End
 
-In the directory `Front-End` you will find different directories, one for each challenge that you have to complete. Please
-complete them all in order modifying ONLY the JavaScript file in each directory.
+### Calculator App
 
-Once you are done with all of the challenges, create a Pull Request to merge your changes into `master` and
-add Fernando Juares (fhereduardo90) and me, Alexx Mata (AlexxMart) as reviewrs for your PR; also, post a link to your
-PR in the Nerdery channel in Slack so we know you're done.
+#### How to use:
+
+(C) key or Clear: Since there was no clear button in the UI provided, the equals
+operator serves as clear after returning operation result instead of its usual
+repeat-last-operation functionality. As per the rest of the cases, the app uses 
+as reference (and tries to emulate behaviour from) an actual iPhone calculator 
+wherever applicable. 
+
+#### Cases covered:
+
+-   Positive and negative integer arithmetic operations:
+
+    -   -1 + -1 = -2
+    -   -1 + 1 = 0
+    -   1 + 1 = 2
+    -   1 + -1 = 0
+    -   -2 \* 1 = -2
+    -   -2 \* -1 = 2
+    -   2 \* -1 = -2
+    -   2 \* 1 = 2
+    -   22 - 5 = 17
+    -   -22 - 5 = -27
+    -   22 / 2 = 11
+    -   22 / -2 = -11
+    -   -22 / 2 = -11
+    -   -22 / -2 = 11 
+
+-   Division and multiplication with no previous operands will assume operand of
+    zero and return zero:
+
+    -   \* num = 0
+    -   / num = 0
+
+-   Multiple operations will be chained and display updated result upon entering
+    next operator key. 
+
+    -   3 + 5 + (8)...
+
+-   Incomplete operations will ignore the last operator and display final result.
+    Note: This is also the only possible error handled.
+
+    -   3 + 5 + = 8
+
+-   Division by zero will return Error
+    -   num / 0 = Error
+  
