@@ -1,17 +1,3 @@
-/*
-TO-DO:
-- Handle edge case: operations beginning with * or / will cause uncaught error
-in eval
-- Handle edge case: operations beginning with - or + will display undefined but
-work as intended
-*/
-
-/*
-How to use:
-(C) key or Clear: Since there is no clear button, the equals operator serves
-as clear instead of its usual repeat last operation functionality.
-*/
-
 const calculatorApp = document.querySelectorAll('button');
 const display = document.getElementById('display');
 let result = '';
@@ -22,54 +8,83 @@ const appendDigitToOperand = (button) => {
     display.innerText = eval(operand);
 };
 
-const updateDisplay = () => {
-    display.innerText = (eval(result.slice(0, result.length - 1)));
-};
-
-const updateResult = (button) => {
-    result += operand + button;
-};
-
-const clearResult = () => {
-    operand = '0';
-    result = '';
-};
-
 const clearOperand = () => {
     operand = '';
 };
 
-const displayFinalResult = () => {
-    try {
-        if (!isFinite(eval(result))) {
-            display.innerText = 'Error';
+const clearResult = () => {
+    operand = '';
+    result = '';
+};
+
+const clearDisplay = () => {
+    display.innerText = eval('0');
+};
+
+const updateOperation = (button) => {
+    if (button === '+' || button === '-') {
+        if (!operand) {
+            result += `${operand}${button}`;
         } else {
-            display.innerText = eval(result);
+            result += `${operand}${button}`;
+            display.innerText = (eval(result.slice(0, result.length - 1)));
+            clearOperand();
+        }
+    }
+    if (button === 'X') {
+        if (!operand) {
+            result += `0${operand}*`;
+            display.innerText = (eval(result.slice(0, result.length - 1)));
+        } else {
+            result += `${operand}*`;
+            display.innerText = (eval(result.slice(0, result.length - 1)));
+            clearOperand();
+        }
+    }
+    if (button === '/') {
+        if (!operand) {
+            result += `0${operand}/`;
+            display.innerText = (eval(result.slice(0, result.length - 1)));
+        } else {
+            result += `${operand}/`;
+            display.innerText = (eval(result.slice(0, result.length - 1)));
+            clearOperand();
+        }
+    }
+};
+
+const displayFinalResult = () => {
+    result += operand;
+    try {
+        if (result) {
+            if (!isFinite(eval(result))) {
+                display.innerText = 'Error';
+            } else {
+                display.innerText = eval(result);
+            }
+            clearResult();
+        } else {
+            clearDisplay();
         }
     } catch (error) {
-        updateDisplay();
+        if (error.toString() === 'SyntaxError: Unexpected end of input') {
+            display.innerText = (eval(result.slice(0, result.length - 1)));
+            clearResult();
+        }
     }
-    clearResult();
 };
 
 calculatorApp.forEach((x) => x.addEventListener('click', (e) => {
     const button = e.target.innerText;
     switch (button) {
     case '=':
-        result += operand;
         displayFinalResult();
         break;
     case '+':
     case '-':
-    case '/':
-        updateResult(button);
-        updateDisplay();
-        clearOperand();
-        break;
     case 'X':
-        result += `${operand}*`;
-        updateDisplay();
-        clearOperand();
+    case '/':
+        updateOperation(button);
         break;
     default:
         appendDigitToOperand(button);
