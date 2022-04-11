@@ -1,7 +1,9 @@
 /*
 TO-DO:
-- Modify this file only
-- The calculator should be completely functional
+- Handle edge case: operations beginning with * or / will cause uncaught error
+in eval
+- Handle edge case: operations beginning with - or + will display undefined but
+work as intended
 */
 
 /*
