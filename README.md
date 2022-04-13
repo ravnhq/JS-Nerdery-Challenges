@@ -24,9 +24,11 @@ PR in the Nerdery channel in Slack so we know you're done.
 
 ## Front-End
 
+### You're required to solve this section if you're taking the Front-End path. Otherwise, is totally optional.
+
 In the directory `Front-End` you will find different directories, one for each challenge that you have to complete. Please
 complete them all in order modifying ONLY the JavaScript file in each directory.
 
-Once you are done with all of the challenges, create a Pull Request to merge your changes into `master` and
-add Fernando Juares (fhereduardo90) and me, Alexx Mata (AlexxMart) as reviewrs for your PR; also, post a link to your
-PR in the Nerdery channel in Slack so we know you're done.
+Once you are done with all the challenges, create a Pull Request to merge your changes into `master` and
+add Gerardo Estrada (Gerald17), Jose Tobar (josectobar), Donovan Hiland (donovanhiland) or Steven Heffner (stevenheffner) accordingly as reviewers for your PR; in doubt ask your Nerdery mentors.
+Also, post a link to your PR in the Nerdery channel in Slack, so we know you're done.
