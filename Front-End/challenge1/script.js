@@ -1,14 +1,14 @@
-const increase = document.getElementById("increase");
-const decrease = document.getElementById("decrease");
-const span = document.getElementById("counter");
-let i = 0;
+const increaseButton = document.getElementById("increase");
+const decreaseButton = document.getElementById("decrease");
+const display = document.getElementById("counter");
+let counter = 0;
 
-increase.addEventListener("click", function (e) {
-    i++;
-    span.innerHTML = i;
+increaseButton.addEventListener("click", function (e) {
+  counter++;
+  display.innerHTML = counter;
 });
 
-decrease.addEventListener("click", function (e) {
-    i--;
-    span.innerHTML = i;
+decreaseButton.addEventListener("click", function (e) {
+  counter--;
+  display.innerHTML = counter;
 });

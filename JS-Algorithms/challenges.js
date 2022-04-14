@@ -16,12 +16,13 @@ const readableTime = (seconds) => {
   let hours = Math.floor(seconds / 3600);
   let mins = Math.floor((seconds % 3600) / 60);
   let secs = seconds % 60;
+  let result = "";
 
-  hours < 10 ? (hours = `0${hours}`) : hours;
-  mins < 10 ? (mins = `0${mins}`) : mins;
-  secs < 10 ? (secs = `0${secs}`) : secs;
+  hours < 10 ? (result += `0${hours}:`) : (result += `${hours}:`);
+  mins < 10 ? (result += `0${mins}:`) : (result += `${mins}:`);
+  secs < 10 ? (result += `0${secs}`) : (result += `${secs}`);
 
-  return `${hours}:${mins}:${secs}`;
+  return result;
 };
 
 readableTime(458);
@@ -51,9 +52,9 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 const circularArray = (index) => {
   if (index > 0) {
     const newIndex = index % COUNTRY_NAMES.length;
-    const ARRAY_AUX1 = COUNTRY_NAMES.slice(newIndex);
-    const ARRAY_AUX2 = COUNTRY_NAMES.slice(0, newIndex);
-    return [...ARRAY_AUX1, ...ARRAY_AUX2];
+    const arrayAux1 = COUNTRY_NAMES.slice(newIndex);
+    const arrayAux2 = COUNTRY_NAMES.slice(0, newIndex);
+    return [...arrayAux1, ...arrayAux2];
   } else {
     return;
   }
@@ -160,8 +161,6 @@ const fibIndex = (n) => {
     }
     i++;
   }
-
-
 };
 
 fibIndex(3);
