@@ -14,16 +14,24 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  let dateArray = [];
+
   let hours = Math.floor(seconds / 3600);
   seconds = seconds % 3600;
   let minutes = Math.floor(seconds / 60);
   seconds = seconds % 60;
 
-  if(hours < 10) { hours = "0" + hours;}
-  if(minutes < 10) {minutes = "0" + minutes;}
-  if(seconds < 10) {seconds = "0" + seconds;}
+  dateArray.push(hours, minutes, seconds);
 
-  return `${hours}:${minutes}:${seconds}`;
+  dateArray = dateArray.map(time => {
+    if(time < 10){
+      return time = "0" + time;
+    } else{
+      return time.toString();
+    }
+  });
+  
+  return `${dateArray[0]}:${dateArray[1]}:${dateArray[2]}`;
 };
 
 readableTime(458);
@@ -49,23 +57,15 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 ***** */
 
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
-const MODIFIED_COUNTRY_NAMES = new Array();
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
   if(index >= 5) index = index % 5;
 
-  for(let countryIndex = 0; countryIndex < COUNTRY_NAMES.length; countryIndex++){
+  let firstPart = COUNTRY_NAMES.slice(index);
+  let secondPart = COUNTRY_NAMES.slice(0, index);
 
-    MODIFIED_COUNTRY_NAMES[countryIndex] = COUNTRY_NAMES[index];
-    index++;
-
-    if(index >= COUNTRY_NAMES.length){
-      index = 0;
-    }
-  }
-
-  return MODIFIED_COUNTRY_NAMES; 
+  return [...firstPart, ...secondPart]; 
 };
 
 circularArray(2);
@@ -112,13 +112,16 @@ const ownPower = (number, lastDigits) => {
   sumPow = BigInt(sumPow);
 
   let sumInString = sumPow.toString();
-  let finalString = "";
+  
+  /*let finalString = "";
 
   for(let finalDigit = lastDigits; finalDigit > 0 ; finalDigit--){
     finalString = finalString + sumInString[sumInString.length - finalDigit];
   }
+  return finalString;*/
 
-  return finalString;
+  //Additional challenge
+  return sumInString.slice(sumInString.length - lastDigits);
 };
 
 ownPower(10, 3);
@@ -188,9 +191,7 @@ const fibIndex = (n) => {
   let sumFirstAndSec = firstNum + secondNum;
   let indexFirstFib = 0;
 
-  fibonacciList.push(firstNum);
-  fibonacciList.push(secondNum);
-  fibonacciList.push(sumFirstAndSec);
+  fibonacciList.push(firstNum, secondNum, sumFirstAndSec);
 
   while(sumFirstAndSec.toString().length < (n + 1)){
     firstNum = secondNum;
