@@ -8,12 +8,13 @@ TO-DO:
 
 "use strict"
 
-const wrapper = document.querySelector('.wrapper')
+let numberStr = '';
+let viewString = '';
+let stack = [];
+const operations = ['+', '-', 'X', '/'];
 
-let numberStr = ''
-let viewString = ''
-let operations = ['+', '-', 'X', '/']
-let stack = []
+
+const wrapper = document.querySelector('.wrapper')
 
 const updateValue = (value) => {
     document.getElementById('display').textContent = value;
@@ -22,31 +23,29 @@ const updateValue = (value) => {
 const evaluateStack = (arrStack) => {
 
     //Convertimos a Notacion Posfija
-    if (arrStack.length == 0)
+    if (arrStack.length === 0)
         return 0;
 
-    let auxStack = []
+    let auxStack = [];
     let lastOp = '$';
-    for (let i = 0; i < arrStack.length; i++) {
-        if (operations.includes(arrStack[i])) {
-            lastOp = arrStack[i];
+    for (let index = 0; index < arrStack.length; index++) {
+        if (operations.includes(arrStack[index])) {
+            lastOp = arrStack[index];
         } else {
-            auxStack.push(arrStack[i])
+            auxStack.push(arrStack[index])
             if (lastOp != '$') {
-                auxStack.push(lastOp)
+                auxStack.push(lastOp);
             }
         }
     }
-    console.log(auxStack)
-    
 
 
-    let mainStack = []
-    let last;
+    let mainStack = [];
+    let last = '';
     mainStack.push(parseFloat(auxStack[0]));
 
-    for (let i = 1; i < auxStack.length; i++) {
-        let current = auxStack[i]
+    for (let index = 1; index < auxStack.length; index++) {
+        let current = auxStack[index]
         if (!operations.includes(current)) {
             mainStack.push(current)
         } else {
@@ -63,44 +62,38 @@ const evaluateStack = (arrStack) => {
                     last = mainStack.pop()
                     mainStack[mainStack.length - 1] /= parseFloat(last);
                     break;
-                case 'X':
+                default:
                     last = mainStack.pop()
                     mainStack[mainStack.length - 1] *= parseFloat(last);
                     break;
-                default:
-                    break;
+                
+                    
             }
         }
     }
-    return mainStack[0]
+    return mainStack[0];
 }
 
-
-
-wrapper.addEventListener('click', (e1) => {
-    let val = e1.target.textContent
-    console.log(val)
-    if (operations.includes(val)) {
+wrapper.addEventListener('click', (e) => {
+    const value = e.target.textContent;
+    if (operations.includes(value)) {
         stack.push(numberStr);
-        stack.push(val)
-        numberStr = ''
-        console.log(stack)
-        viewString += val
-        updateValue(viewString)
+        stack.push(value);
+        numberStr = '';
+        viewString += value;
+        updateValue(viewString);
     }
-    else if (val === '=') {
-        console.log('igual')
+    else if (value === '=') {
         stack.push(numberStr);
-        numberStr = ''
-        console.log(stack)
+        numberStr = '';
         updateValue(evaluateStack(stack));
-        stack = []
-        viewString = ''
+        stack = [];
+        viewString = '';
     }
     else {
-        numberStr += val;
-        viewString += val
-        updateValue(viewString)
+        numberStr += value;
+        viewString += value;
+        updateValue(viewString);
 
     }
 

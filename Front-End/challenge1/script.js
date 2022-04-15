@@ -7,22 +7,18 @@ const decrease = document.getElementById('decrease');
 
 
 
-const Increase = () => {
+const increaseCounter = () => {
     updateCounter(++counter);
 }
-const Decrease = () => {
+const decreaseCounter = () => {
     updateCounter(--counter);
 }
 const updateCounter = (value) => {
     document.getElementById('counter').textContent = value;
 }
 
-increase.addEventListener('click', () => {
-    Increase()
-})
+increase.addEventListener('click', increaseCounter)
 
-decrease.addEventListener('click', () => {
-    Decrease()
-})
+decrease.addEventListener('click', decreaseCounter)
 
 
