@@ -6,98 +6,54 @@ TO-DO:
 
 */
 
-var resultInScreen = "";
-var digitizedNumber = 0;;
-var buttonsDigitizedList = new Array();
-var stringOfDigitizedButtons = "";
-var show = "";
+let resultInScreen = "";
+let digitizedNumber = 0;;
+const buttonsDigitizedList = new Array();
+let stringOfDigitizedButtons = "";
 
-document.getElementById("add").addEventListener("click", add);
-document.getElementById("subtrack").addEventListener("click", subtrack);
-document.getElementById("division").addEventListener("click", division);
-document.getElementById("multiplication").addEventListener("click", multiplication);
+const operationsArray = [
+    {"name": "add", "value": "+"},
+    {"name": "subtrack", "value": "-"},
+    {"name": "division", "value": "/"},
+    {"name": "multiplication", "value": "*"}
+]
 
-document.getElementById("zero").addEventListener("click", clickButtonZero);
-document.getElementById("one").addEventListener("click", clickButtonOne);
-document.getElementById("two").addEventListener("click", clickButtonTwo);
-document.getElementById("three").addEventListener("click", clickButtonThree);
-document.getElementById("four").addEventListener("click", clickButtonFour);
-document.getElementById("five").addEventListener("click", clickButtonFive);
-document.getElementById("six").addEventListener("click", clickButtonSix);
-document.getElementById("seven").addEventListener("click", clickButtonSeven);
-document.getElementById("eight").addEventListener("click", clickButtonEight);
-document.getElementById("nine").addEventListener("click", clickButtonNine);
+const numbersArray = [
+    {"name": "zero", "value": "0"},
+    {"name": "one", "value": "1"},
+    {"name": "two", "value": "2"},
+    {"name": "three", "value": "3"},
+    {"name": "four", "value": "4"},
+    {"name": "five", "value": "5"},
+    {"name": "six", "value": "6"},
+    {"name": "seven", "value": "7"},
+    {"name": "eight", "value": "8"},
+    {"name": "nine", "value": "9"}
+]
 
-document.getElementById("equals").addEventListener("click", clickButtonEquals);
+addEventListeners();
 
-function clickButtonZero(){
-    resultInScreen = resultInScreen + "0";
+function addEventListeners(){
+
+    for(let number of numbersArray){
+        document.getElementById(number.name).addEventListener("click", clicNumberkButton.bind(this, number.value));
+    }
+
+    for(let operation of operationsArray){
+        document.getElementById(operation.name).addEventListener("click", clickOperationButton.bind(this, operation.value));
+    }
+
+    document.getElementById("equals").addEventListener("click", clickButtonEquals);
+}
+
+function clicNumberkButton(number){
+    resultInScreen = resultInScreen + number;
     document.getElementById("display").innerHTML = resultInScreen;
 }
 
-function clickButtonOne(){
-    resultInScreen = resultInScreen + "1";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonTwo(){
-    resultInScreen = resultInScreen + "2";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonThree(){
-    resultInScreen = resultInScreen + "3";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonFour(){
-    resultInScreen = resultInScreen + "4";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonFive(){
-    resultInScreen = resultInScreen + "5";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonSix(){
-    resultInScreen = resultInScreen + "6";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonSeven(){
-    resultInScreen = resultInScreen + "7";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonEight(){
-    resultInScreen = resultInScreen + "8";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function clickButtonNine(){
-    resultInScreen = resultInScreen + "9";
-    document.getElementById("display").innerHTML = resultInScreen;
-}
-
-function add(){
-    getNumber();
-    buttonsDigitizedList.push("+");
-}
-
-function subtrack(){
-    getNumber();
-    buttonsDigitizedList.push("-");
-}
-
-function division(){
-    getNumber();
-    buttonsDigitizedList.push("/");
-}
-
-function multiplication(){
-    getNumber();
-    buttonsDigitizedList.push("*");
+function clickOperationButton(operation){
+    getNumber()
+    buttonsDigitizedList.push(operation);
 }
 
 function clickButtonEquals(){
