@@ -1,3 +1,12 @@
+/**
+ * Create an array for the given range, similar to python.
+ * @param {number} start 
+ * @param {number} end 
+ */
+const bigIntRange = (start, end) => {
+  return Array.from({ length: end - start }, (_, i) => BigInt(i + start))
+}
+
 /* *****
 Challenge 1
 
@@ -13,7 +22,14 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const format = (number) => `0${number}`.slice(-2);
+
+  const hours = Math.floor(seconds / 3600);
+  seconds = seconds % 3600;
+  const minutes = Math.floor(seconds / 60);
+  seconds = seconds % 60;
+
+  return `${format(hours)}:${format(minutes)}:${format(seconds)}`
 };
 
 readableTime(458);
@@ -41,7 +57,13 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (index < 0) throw "Index cannot be negative";
+  index = index % COUNTRY_NAMES.length;
+
+  const newHead = COUNTRY_NAMES.slice(index);
+  const newTail = COUNTRY_NAMES.slice(0, index);
+
+  return newHead.concat(newTail)
 };
 
 circularArray(2);
@@ -70,7 +92,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  const modulus = (10n ** BigInt(lastDigits))
+  // We could use modular exponentiation, fastest and less memory footprint
+  // Ex: fastPow(i, i, modulus) === (i ** i) % modulus
+  const sum = bigIntRange(1, number + 1)
+    .reduce((acc, i) => acc + i ** i, 0n)
+
+  return (sum % modulus).toString()
 };
 
 ownPower(10, 3);
@@ -95,7 +123,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let fact = bigIntRange(1, n + 1)
+    .reduce((acc, x) => acc * x, 1n)
+
+  let res = 0n;
+  while (fact != 0) {
+    res += fact % 10n;
+    fact = fact / 10n;
+  }
+
+  return Number(res);
 };
 
 digitSum(10);
@@ -118,7 +155,20 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let idx = 0;
+  let a = 0;
+  let b = 1;
+  let temp = 0;
+
+  while (true) {
+    if (`${a}`.length == n)
+      return idx;
+
+    temp = a;
+    a = b;
+    b = temp + b;
+    idx += 1;
+  }
 };
 
 fibIndex(3);

@@ -67,23 +67,23 @@ describe("Own Powers", () => {
   test('The last 7 digits from the sum of powers all the way to 12 returns "7190184"', () => {
     expect(ownPower(12, 7)).toBe("7190184");
   });
-  test('The last 12 digits from the sum of powers all the way to 21 returns "499809480704"', () => {
-    expect(ownPower(21, 12)).toBe("499809480704");
+  test('The last 12 digits from the sum of powers all the way to 21 returns "75684339445"', () => {
+    expect(ownPower(21, 12)).toBe("75684339445");
   });
 });
 
 describe("Sum of Factorial Digits", () => {
-  test("The sum of the factorial digits of 10 returns the numbet 27", () => {
+  test("The sum of the factorial digits of 10 returns the number 27", () => {
     expect(digitSum(10)).toBe(27);
   });
-  test("The sum of the factorial digits of 42 returns the numbet 207", () => {
-    expect(digitSum(42)).toBe(207);
+  test("The sum of the factorial digits of 42 returns the number 189", () => {
+    expect(digitSum(42)).toBe(189);
   });
-  test("The sum of the factorial digits of 71 returns the numbet 409", () => {
-    expect(digitSum(71)).toBe(409);
+  test("The sum of the factorial digits of 71 returns the number 423", () => {
+    expect(digitSum(71)).toBe(423);
   });
-  test("The sum of the factorial digits of 89 returns the numbet 606", () => {
-    expect(digitSum(89)).toBe(606);
+  test("The sum of the factorial digits of 89 returns the number 549", () => {
+    expect(digitSum(89)).toBe(549);
   });
 });
 
