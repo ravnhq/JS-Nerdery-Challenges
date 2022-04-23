@@ -14,6 +14,13 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const format = (number) => {
+    return number < 10 ? ('0' + number) : number.toString();
+  };
+  let hour = format(parseInt(seconds / 3600));
+  let minutes = format(parseInt((seconds % 3600) / 60));
+  seconds = format((seconds % 3600) % 60);
+  return hour + ':' + minutes + ':' + seconds;
 };
 
 readableTime(458);
@@ -42,6 +49,9 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const LENGTH = COUNTRY_NAMES.length;
+  let newArray = COUNTRY_NAMES.slice(index% LENGTH, LENGTH).concat(COUNTRY_NAMES.slice(0, index% LENGTH));
+  return newArray;
 };
 
 circularArray(2);
@@ -71,6 +81,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let power = 0;
+  for (let i = 1; i <= number; i++) {
+      power += i**i;
+  }
+  power = BigInt(power);
+  power = power.toString();
+  power = power.substring(power.length-lastDigits,power.length);
+  return power;
 };
 
 ownPower(10, 3);
@@ -96,6 +114,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let total = 1;
+  let result = 0;
+  for (let i=n; i>0; i--) {
+      total = total * i;
+  }
+  total = BigInt(total).toString();
+  for (let i = 0; i < total.length; i++) {
+      result += parseInt(total[i]);
+  }
+  return result;
 };
 
 digitSum(10);
@@ -119,6 +147,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  let aux1 = 0;
+  let aux2 = 1;
+  let serie = [aux1];
+  let i = 2;
+  while(aux2.toString().length != n){
+      serie.push(aux2);
+      aux2 = aux1+aux2;
+      aux1 = aux2-aux1;
+      i++;
+  };
+  serie.push(aux2);
+  return serie.indexOf(aux2);
 };
 
 fibIndex(3);
