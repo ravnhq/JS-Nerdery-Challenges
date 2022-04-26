@@ -5,3 +5,5 @@ TO-DO:
 - The calculator should be completely functional
 
 */
+
+console.log("javascript")
