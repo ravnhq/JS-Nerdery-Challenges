@@ -29,7 +29,7 @@ for (let button of arrayButton) {
 function evaluate(mathematicExpression) {
   return new Function("return " + mathematicExpression)();
 }
-
+console.log("ds");
 function addValue(value) {
   if (isTouched === false) {
     display.innerHTML = value;
