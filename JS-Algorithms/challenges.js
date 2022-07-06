@@ -54,6 +54,15 @@ const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const countryIndexArray = COUNTRY_NAMES.slice(
+    index % COUNTRY_NAMES.length,
+    COUNTRY_NAMES.length
+  );
+  const result = COUNTRY_NAMES.filter(
+    (country) => !countryIndexArray.includes(country)
+  );
+  const newCountryArray = countryIndexArray.concat(result);
+  return newCountryArray;
 };
 
 circularArray(2);
