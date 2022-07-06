@@ -7,3 +7,7 @@ buttonIncrease.addEventListener('click', (event) => {
   i++;
   counterSpan.innerHTML = i;
 });
+buttonDecrease.addEventListener('click', (event) => {
+  i--;
+  counterSpan.innerHTML = i;
+});
