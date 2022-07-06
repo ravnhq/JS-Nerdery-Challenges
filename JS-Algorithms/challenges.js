@@ -149,31 +149,48 @@ digitSum(42);
 digitSum(71);
 digitSum(89);
 
-// /* *****
-// Challenge 5
+/* *****
+Challenge 5
 
-// "N-Digit Fibonacci Number"
+"N-Digit Fibonacci Number"
 
-// Modify the function "fibIndex" to return the index of the first Fibonacci
-// number whose digits-length equals the number passed in to the function.
+Modify the function "fibIndex" to return the index of the first Fibonacci
+number whose digits-length equals the number passed in to the function.
 
-// Example:
+Example:
 
-// Invoking "fibIndex(3)" should return "12".
-// Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
-// ***** */
+Invoking "fibIndex(3)" should return "12".
+Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
+***** */
 
-// const fibIndex = (n) => {
-//   // YOUR CODE HERE...
-// };
+const fibIndex = (n) => {
+  // YOUR CODE HERE...
+  let a = 0,
+    b = 1,
+    c,
+    s = 1;
+  let arrayResult = [];
+  let bigNumb;
+  let i = 1;
+  while (arrayResult.length < n) {
+    c = a + b;
+    bigNumb = BigInt(c);
+    arrayResult = bigNumb.toString().split('');
+    s = s + c;
+    a = b;
+    b = c;
+    i++;
+  }
+  console.log(i);
+};
 
-// fibIndex(3);
-// fibIndex(5);
-// fibIndex(12);
-// fibIndex(15);
+fibIndex(3);
+fibIndex(5);
+fibIndex(12);
+fibIndex(15);
 
-// exports.readableTime = readableTime;
-// exports.circularArray = circularArray;
-// exports.ownPower = ownPower;
-// exports.digitSum = digitSum;
-// exports.fibIndex = fibIndex;
+exports.readableTime = readableTime;
+exports.circularArray = circularArray;
+exports.ownPower = ownPower;
+exports.digitSum = digitSum;
+exports.fibIndex = fibIndex;
