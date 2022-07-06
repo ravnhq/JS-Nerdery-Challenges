@@ -181,7 +181,7 @@ const fibIndex = (n) => {
     b = c;
     i++;
   }
-  console.log(i);
+  return i;
 };
 
 fibIndex(3);
