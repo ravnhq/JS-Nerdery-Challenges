@@ -70,33 +70,48 @@ circularArray(3);
 circularArray(5);
 circularArray(9);
 
-// /* *****
-// Challenge 3
+/* *****
+Challenge 3
 
-// "Own Powers"
+"Own Powers"
 
-// The function "ownPower" accepts two arguments. "number" and "lastDigits".
+The function "ownPower" accepts two arguments. "number" and "lastDigits".
 
-// The "number" indicates how long is the series of numbers you are going to work with, your
-// job is to multiply each of those numbers by their own powers and after that sum all the results.
+The "number" indicates how long is the series of numbers you are going to work with, your
+job is to multiply each of those numbers by their own powers and after that sum all the results.
 
-// "lastDigits" is the length of the number that your function should return, as a string!.
-// See example below.
+"lastDigits" is the length of the number that your function should return, as a string!.
+See example below.
 
-// Example:
+Example:
 
-// Invoking "ownPower(10, 3)" should return "317"
-// because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 10405071317
-// The last 3 digits for the sum of powers from 1 to 10 is "317"
-// ***** */
+Invoking "ownPower(10, 3)" should return "317"
+because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 10405071317
+The last 3 digits for the sum of powers from 1 to 10 is "317"
+***** */
 
-// const ownPower = (number, lastDigits) => {
-//   // YOUR CODE HERE...
-// };
+const ownPower = (number, lastDigits) => {
+  // YOUR CODE HERE...
+  let powResult = 0;
+  let sumResult = 0;
+  let powNumber = 0;
+  for (let i = 1; i <= number; i++) {
+    powNumber = i;
+    powResult = Math.pow(powNumber, i);
+    sumResult = sumResult + powResult;
+  }
+  const result = BigInt(sumResult);
+  const resultArray = result.toString().split('');
+  const lastDigitsResult = resultArray
+    .slice(resultArray.length - lastDigits, resultArray.length)
+    .join('')
+    .toString();
+  return lastDigitsResult;
+};
 
-// ownPower(10, 3);
-// ownPower(12, 7);
-// ownPower(21, 12);
+ownPower(10, 3);
+ownPower(12, 7);
+ownPower(21, 12);
 
 // /* *****
 // Challenge 4
