@@ -113,31 +113,41 @@ ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12);
 
-// /* *****
-// Challenge 4
+/* *****
+Challenge 4
 
-// "Sum of factorial digits"
+"Sum of factorial digits"
 
-// A factorial (x!) means x! * (x - 1)... * 3 * 2 * 1.
-// For example: 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800
+A factorial (x!) means x! * (x - 1)... * 3 * 2 * 1.
+For example: 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800
 
-// Modify the function "digitSum" to return a number that
-// equals to the sum of the digits in the result of 10!
+Modify the function "digitSum" to return a number that
+equals to the sum of the digits in the result of 10!
 
-// Example:
+Example:
 
-// Invoking "digitSum(10)" should return "27".
-// Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
-// ***** */
+Invoking "digitSum(10)" should return "27".
+Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
+***** */
 
-// const digitSum = (n) => {
-//   // YOUR CODE HERE...
-// };
+const digitSum = (n) => {
+  // YOUR CODE HERE...
+  let factorialResult = 1;
+  for (let i = n; i >= 1; i--) {
+    factorialResult *= i;
+  }
+  const result = BigInt(factorialResult);
+  const arrayResult = result.toString().split('');
+  const factorialSum = arrayResult
+    .map((number) => Number(number))
+    .reduce((prev, current) => prev + current);
+  return factorialSum;
+};
 
-// digitSum(10);
-// digitSum(42);
-// digitSum(71);
-// digitSum(89);
+digitSum(10);
+digitSum(42);
+digitSum(71);
+digitSum(89);
 
 // /* *****
 // Challenge 5
