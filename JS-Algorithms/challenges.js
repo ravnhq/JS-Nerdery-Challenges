@@ -45,7 +45,13 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  index = Math.abs(index);
+  let countryNamesAux = [...COUNTRY_NAMES]
+  for (let i = 0; i < index; i++) {
+    let aux = countryNamesAux.splice(0,1)[0];
+    countryNamesAux.push(aux)
+  }
+  return countryNamesAux
 };
 
 circularArray(2);
