@@ -15,25 +15,24 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 const readableTime = (seconds) => {
   const MINUTE_IN_SECONDS = 60;
   const HOUR_IN_SECONDS = 3600;
-  let resultHours = 0;
-  let resultMinutes = 0;
-  let resultSeconds = 0;
-  if (seconds >= HOUR_IN_SECONDS) {
-    resultHours = Math.floor(seconds / HOUR_IN_SECONDS);
-    resultMinutes = seconds % HOUR_IN_SECONDS;
-  }
-  if (resultMinutes >= MINUTE_IN_SECONDS) {
-    resultMinutes = seconds / 60;
-    resultSeconds = seconds % MINUTE_IN_SECONDS;
-  }
+  let resultHours = Math.floor(seconds / HOUR_IN_SECONDS);
+  let resultMinutes = Math.floor(
+    (seconds - resultHours * HOUR_IN_SECONDS) / 60
+  );
+  let resultSeconds = Math.floor(
+    (seconds - resultHours * HOUR_IN_SECONDS) % 60
+  );
+  let stringHours = resultHours.toLocaleString(undefined, {
+    minimumIntegerDigits: 2,
+  });
+  let stringMinutes = resultMinutes.toLocaleString(undefined, {
+    minimumIntegerDigits: 2,
+  });
+  let stringSeconds = resultSeconds.toLocaleString(undefined, {
+    minimumIntegerDigits: 2,
+  });
 
-  resultSeconds = seconds;
-
-  let minutes = seconds / 60;
-
-  let hours = minutes / 60;
-
-  console.log(seconds / 60 + " " + (seconds % 60));
+  return stringHours + ":" + stringMinutes + ":" + stringSeconds;
 };
 
 readableTime(458);
