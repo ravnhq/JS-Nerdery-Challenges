@@ -110,7 +110,18 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let num = 1;
+  if(n <= 1){
+    return 1;
+  }
+  while( n > 0){
+    num = num * n;
+    n-- ;
+  }
+  const letter = BigInt(num);
+  let sum  = 0;
+  letter.toString().split('').forEach(digit => sum += parseInt(digit));
+  return sum;
 };
 
 digitSum(10);
