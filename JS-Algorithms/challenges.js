@@ -15,6 +15,7 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 const readableTime = (seconds) => {
   const MINUTE_IN_HOUR = 60;
   const HOUR_IN_SECONDS = 3600;
+  // setting the values of
   let resultHours = Math.floor(seconds / HOUR_IN_SECONDS);
   let resultMinutes = Math.floor(
     (seconds - resultHours * HOUR_IN_SECONDS) / MINUTE_IN_HOUR
@@ -60,7 +61,18 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const resultArray = [];
+  //get a number in the range
+  while (index > 4) {
+    index -= 5;
+  }
+  //Go through array and if last index achieved, restart
+  for (let i = 0; i < COUNTRY_NAMES.length; i++) {
+    resultArray.push(COUNTRY_NAMES[index]);
+    index++;
+    if (index === COUNTRY_NAMES.length) index = 0;
+  }
+  return resultArray;
 };
 
 circularArray(2);
