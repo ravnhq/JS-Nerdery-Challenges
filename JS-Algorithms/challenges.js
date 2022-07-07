@@ -13,9 +13,13 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
+  //Easy way
+  //console.log(new Date(seconds * 1000).toISOString().slice(11, 19));
+
+  //Hard way lol
   const MINUTE_IN_HOUR = 60;
   const HOUR_IN_SECONDS = 3600;
-  // setting the values of
+  // setting the values
   let resultHours = Math.floor(seconds / HOUR_IN_SECONDS);
   let resultMinutes = Math.floor(
     (seconds - resultHours * HOUR_IN_SECONDS) / MINUTE_IN_HOUR
@@ -23,13 +27,14 @@ const readableTime = (seconds) => {
   let resultSeconds = Math.floor(
     (seconds - resultHours * HOUR_IN_SECONDS) % MINUTE_IN_HOUR
   );
-  let stringHours = resultHours.toLocaleString(undefined, {
+  // converting to the correct format
+  const stringHours = resultHours.toLocaleString(undefined, {
     minimumIntegerDigits: 2,
   });
-  let stringMinutes = resultMinutes.toLocaleString(undefined, {
+  const stringMinutes = resultMinutes.toLocaleString(undefined, {
     minimumIntegerDigits: 2,
   });
-  let stringSeconds = resultSeconds.toLocaleString(undefined, {
+  const stringSeconds = resultSeconds.toLocaleString(undefined, {
     minimumIntegerDigits: 2,
   });
 
@@ -101,12 +106,22 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let totalSum = 0;
+  let resultTemp;
+  for (let i = 1; i <= number; i++) {
+    // console.log(i + ": " + i ** i);
+    totalSum += Math.pow(i, i);
+  }
+  // console.log(BigInt(totalSum));
+  const bigIntParse = BigInt(totalSum).toString().split("");
+  resultTemp = bigIntParse.slice(-lastDigits);
+  const result = resultTemp.join("");
+  return result;
 };
 
-ownPower(10, 3);
-ownPower(12, 7);
-ownPower(21, 12);
+ownPower(10, 3); //317
+ownPower(12, 7); //7190184
+ownPower(21, 12); //499809480704
 
 /* *****
 Challenge 4
@@ -126,13 +141,23 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1;
+  let totalSum = 0;
+  for (let i = n; i > 1; i--) {
+    factorial *= i;
+    // console.log(i + " " + n + " " + factorial);
+  }
+  const bigIntParse = BigInt(factorial).toString().split("");
+  for (let i = 0; i < bigIntParse.length; i++) {
+    totalSum += parseInt(bigIntParse[i]);
+  }
+  return totalSum;
 };
 
-digitSum(10);
-digitSum(42);
-digitSum(71);
-digitSum(89);
+digitSum(10); //27
+digitSum(42); //207
+digitSum(71); //409
+digitSum(89); //606
 
 /* *****
 Challenge 5
@@ -149,13 +174,24 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let count = 1;
+  if (n <= 1) return n;
+  let prev2 = 0;
+  let prev1 = 1;
+  let crnt = 1;
+  while (crnt.toString().length !== n) {
+    crnt = prev1 + prev2;
+    prev2 = prev1;
+    prev1 = crnt;
+    count++;
+  }
+  return count;
 };
 
-fibIndex(3);
-fibIndex(5);
-fibIndex(12);
-fibIndex(15);
+fibIndex(3); //12
+fibIndex(5); //21
+fibIndex(12); //55
+fibIndex(15); //69
 
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
