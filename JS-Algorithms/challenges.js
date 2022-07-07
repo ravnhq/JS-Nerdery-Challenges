@@ -137,10 +137,12 @@ const digitSum = (n) => {
     factorialResult *= i;
   }
   const result = BigInt(factorialResult);
+  console.log(result);
   const arrayResult = result.toString().split('');
   const factorialSum = arrayResult
     .map((number) => Number(number))
     .reduce((prev, current) => prev + current);
+  console.log(factorialSum);
   return factorialSum;
 };
 
@@ -165,23 +167,23 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
-  let a = 0,
-    b = 1,
-    c,
+  let previous = 0,
+    next = 1,
+    current,
     s = 1;
   let arrayResult = [];
   let bigNumb;
-  let i = 1;
+  let index = 1;
   while (arrayResult.length < n) {
-    c = a + b;
-    bigNumb = BigInt(c);
+    current = previous + next;
+    bigNumb = BigInt(current);
     arrayResult = bigNumb.toString().split('');
-    s = s + c;
-    a = b;
-    b = c;
-    i++;
+    s = s + current;
+    previous = next;
+    next = current;
+    index++;
   }
-  return i;
+  return index;
 };
 
 fibIndex(3);
