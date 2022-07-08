@@ -162,6 +162,29 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  const fib = (num) => {
+    let a = 1;
+    let b = 0;
+    let temp;
+  
+    while (num >= 0){
+      temp = a;
+      a = a + b;
+      b = temp;
+      num--;
+    }
+  
+    return b;
+  }
+
+  let lastFib;
+  let currentFib = 0;
+  while (lastFib?.toString().length !== n) {
+    lastFib = fib(currentFib);
+    currentFib++;
+  };
+
+  return currentFib;
 };
 
 fibIndex(3);
