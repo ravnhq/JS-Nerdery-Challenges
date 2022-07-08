@@ -87,6 +87,17 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  if ( isNaN(number) || isNaN(lastDigits) || number < 0 || lastDigits < 0 ) return null;
+
+  let total = 0; 
+  for ( let i = 1 ; i <= number ; i++ ) {
+    total = total + Math.pow(i,i);
+  }
+
+  const value = BigInt(total);
+  const result = value.toString().slice(-lastDigits);
+
+  return result;
 };
 
 ownPower(10, 3);
