@@ -51,6 +51,13 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  if( isNaN(index) || index < 0 ) return null;
+
+  const newIndex = index % COUNTRY_NAMES.length;
+  const newArray = [ ...COUNTRY_NAMES, ...COUNTRY_NAMES ];
+  const result = newArray.slice(newIndex, COUNTRY_NAMES.length + newIndex);
+
+  return result;
 };
 
 circularArray(2);
