@@ -123,6 +123,22 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let fact = 1;
+  let result = 0;
+  if ( isNaN(n) || n < 0) return null;
+  
+  if(n === 0 || n === 1) return 1;
+  
+  for(let i = n; i >= 1; i--){
+    fact *= i;
+  }
+  const value = BigInt(fact).toString().split('');
+
+  for ( let j = 0; j < value.length; j++){
+    result += Number(value[j]);
+  }
+
+  return result;
 };
 
 digitSum(10);
