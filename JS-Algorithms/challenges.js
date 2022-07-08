@@ -14,6 +14,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  if( isNaN(seconds) || seconds < 0) return null;
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds - (hours * 3600)) / 60 );
+  const second = seconds - (hours * 3600) - (minutes * 60);
+
+  const time = hours.toString().padStart(2,'0') + ':' + minutes.toString().padStart(2,'0') + ':' + second.toString().padStart(2,'0');
+ 
+  return time;
 };
 
 readableTime(458);
