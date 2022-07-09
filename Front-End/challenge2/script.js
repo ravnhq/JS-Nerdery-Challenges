@@ -74,46 +74,84 @@ buttonNine.addEventListener('click', () => {
 });
 
 buttonDivision.addEventListener('click', () => {
-  operation = '/';
-  display.innerHTML = '';
-  operatorA = ArrayValue.join('');
-  console.log(parseFloat(operatorA));
-  ArrayValue = [];
-});
-
-buttonMultiplication.addEventListener('click', () => {
-  operation = '*';
-  display.innerHTML = '';
-  operatorA = ArrayValue.join('');
-  console.log(parseFloat(operatorA));
-  ArrayValue = [];
-});
-
-buttonSubtrack.addEventListener('click', () => {
-  if (ArrayValue.length != 0) {
-    operation = '-';
+  if (operatorA != 0) {
+    operatorB = ArrayValue.join('');
+    operationHandler(operation);
+    ArrayValue = [];
+  } else {
     display.innerHTML = '';
     operatorA = ArrayValue.join('');
     console.log(parseFloat(operatorA));
     ArrayValue = [];
-  } else {
-    currentValue = '-';
-    ArrayValue.push(currentValue);
   }
+  operation = '/';
+});
+
+buttonMultiplication.addEventListener('click', () => {
+  if (operatorA != 0) {
+    operatorB = ArrayValue.join('');
+    operationHandler(operation);
+    ArrayValue = [];
+  } else {
+    display.innerHTML = '';
+    operatorA = ArrayValue.join('');
+    console.log(parseFloat(operatorA));
+    ArrayValue = [];
+  }
+  operation = '*';
+});
+
+buttonSubtrack.addEventListener('click', () => {
+  if (operatorA != 0) {
+    operatorB = ArrayValue.join('');
+    operationHandler(operation);
+    ArrayValue = [];
+  } else {
+    if (ArrayValue.length != 0) {
+      display.innerHTML = '';
+      operatorA = ArrayValue.join('');
+      console.log(parseFloat(operatorA));
+      ArrayValue = [];
+    } else {
+      currentValue = '-';
+      ArrayValue.push(currentValue);
+    }
+  }
+  operation = '-';
 });
 buttonAdd.addEventListener('click', () => {
+  if (operatorA != 0 && operatorB == 0) {
+    operatorB = ArrayValue.join('');
+    operationHandler(operation);
+    ArrayValue = [];
+  } else {
+    if (ArrayValue.length != 0) {
+      display.innerHTML = '';
+      operatorA = ArrayValue.join('');
+      console.log(parseFloat(operatorA));
+      ArrayValue = [];
+    } else {
+      currentValue = '+';
+      ArrayValue.push(currentValue);
+    }
+  }
+
   operation = '+';
-  display.innerHTML = '';
-  operatorA = ArrayValue.join('');
-  console.log(parseFloat(operatorA));
-  ArrayValue = [];
 });
 buttonEquals.addEventListener('click', () => {
-  display.innerHTML = '';
-  operatorB = ArrayValue.join('');
-  operationHandler(operation);
-  console.log(parseFloat(operatorA), parseFloat(operatorB));
+  if (operation != '') {
+    display.innerHTML = '';
+    operatorB = ArrayValue.join('');
+    operationHandler(operation);
+    operation = '';
+    console.log(parseFloat(operatorA), parseFloat(operatorB));
+  } else {
+    operatorA = 0;
+    operatorB = 0;
+    display.innerHTML = '0';
+  }
 });
+const clearHandler = () => {};
 
 //functions
 
@@ -127,6 +165,7 @@ const operationHandler = (operation) => {
   switch (operation) {
     case '+':
       result = parseFloat(operatorA) + parseFloat(operatorB);
+
       break;
     case '-':
       result = parseFloat(operatorA) - parseFloat(operatorB);
@@ -141,4 +180,6 @@ const operationHandler = (operation) => {
       break;
   }
   display.innerHTML = result;
+  operatorA = result;
+  operatorB = 0;
 };
