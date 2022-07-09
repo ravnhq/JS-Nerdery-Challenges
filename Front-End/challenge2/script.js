@@ -140,11 +140,16 @@ buttonAdd.addEventListener('click', () => {
 });
 buttonEquals.addEventListener('click', () => {
   if (operation != '') {
-    display.innerHTML = '';
-    operatorB = ArrayValue.join('');
-    operationHandler(operation);
-    operation = '';
-    console.log(parseFloat(operatorA), parseFloat(operatorB));
+    if (ArrayValue.length != 0) {
+      display.innerHTML = '';
+      operatorB = ArrayValue.join('');
+      operationHandler(operation);
+      operation = '';
+      console.log(parseFloat(operatorA), parseFloat(operatorB));
+    } else {
+      operation = '';
+      operationHandler(operation);
+    }
   } else {
     operatorA = 0;
     operatorB = 0;
@@ -177,6 +182,7 @@ const operationHandler = (operation) => {
       result = parseFloat(operatorA) / parseFloat(operatorB);
       break;
     default:
+      result = operatorA;
       break;
   }
   display.innerHTML = result;
