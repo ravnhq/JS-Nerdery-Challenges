@@ -122,3 +122,23 @@ const displayHandler = (currentValue) => {
   ArrayValue.push(currentValue);
   ArrayValue.forEach((item) => (display.innerHTML += item));
 };
+
+const operationHandler = (operation) => {
+  switch (operation) {
+    case '+':
+      result = parseFloat(operatorA) + parseFloat(operatorB);
+      break;
+    case '-':
+      result = parseFloat(operatorA) - parseFloat(operatorB);
+      break;
+    case '*':
+      result = parseFloat(operatorA) * parseFloat(operatorB);
+      break;
+    case '/':
+      result = parseFloat(operatorA) / parseFloat(operatorB);
+      break;
+    default:
+      break;
+  }
+  display.innerHTML = result;
+};
