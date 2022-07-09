@@ -34,7 +34,6 @@ const operation = () =>{
             return firstValue - secondValue;
     }
 }
-
 allButtons.forEach(button =>{
     button.onclick = () =>{
         if (isSymbol(button.innerText)) {
@@ -57,7 +56,6 @@ allButtons.forEach(button =>{
             }
             if (limitOperation === 2) {
                 //calculate Operation
-                console.log("Realizar Operacion", firstValueToOperation + "-" + secondValueToOperation);
                 displayOperation.textContent = operation();
                 firstValueToOperation =  displayOperation.innerText;
                 secondValueToOperation = "";
@@ -90,5 +88,15 @@ allButtons.forEach(button =>{
         displayOperation.textContent = displayOperation.textContent + button.innerHTML;
         firstValueToOperation = limitOperation === 0 ? firstValueToOperation + button.innerText : firstValueToOperation;
         secondValueToOperation = limitOperation === 2 ? secondValueToOperation + button.innerText: secondValueToOperation;
+    }
+});
+window.addEventListener("keydown",(e)=>{
+    if(e.key === "Delete"){
+        restart = true;
+        limitOperation = 0;
+        firstValueToOperation = ""; 
+        secondValueToOperation = "";
+        symbolOpressed = "";
+        displayOperation.textContent = "0";
     }
 });
