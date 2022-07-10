@@ -1,5 +1,8 @@
 //creates an array from 0 to 9
 const NUMBERS_FROM_0_TO_9 = [...Array(10).keys()];
+// global variables
+let equalClicks = 0;
+let lastWasEqual = false;
 
 const display = document.getElementById("display");
 display.innerHTML = "";
@@ -35,14 +38,13 @@ numberButtons.forEach((elem) =>
   })
 );
 
-let equalClicks = 0;
-let lastWasEqual = false;
 equalSymbol.addEventListener("click", () => {
   equalClicks++;
   // if 2nd click => delete display
   if (equalClicks > 1 && lastWasEqual) {
     display.innerHTML = "";
     equalClicks = 0;
+    // if display is truthy => solve
   } else if (display.innerHTML)
     display.innerHTML = solveEcuation(display.innerHTML);
   lastWasEqual = true;
@@ -57,11 +59,10 @@ operationButtons.forEach((elem) =>
       display.innerHTML = "";
     lastWasEqual = false;
     //if contains more than two numbers => resolve
-    if (
-      display.innerHTML.split(/\+|\-|\*|X|\//).filter((n) => n).length == 2 &&
-      isOperationSymbol(elem.innerHTML)
-    )
+    if (display.innerHTML.split(/\+|\-|\*|X|\//).filter((n) => n).length === 2)
       display.innerHTML = solveEcuation(display.innerHTML);
+
+    //functional code not used to meet the requirements of the project
     // if (
     //   //if last index is + or - and new input same => replace
     //   isOperationSymbol(display.innerHTML.at(-1)) === 1 &&
@@ -96,6 +97,7 @@ operationButtons.forEach((elem) =>
   })
 );
 
+// solves ecuation duh lol
 function solveEcuation(ecuation) {
   let solved;
   let lastIsSymbol = operationsArray.some((elem) => {
@@ -127,7 +129,7 @@ function solveEcuation(ecuation) {
   return solved;
 }
 
-// function that returns 1 if * or / and 2 if + or -
+// function that returns 1 if + or - and 2 if * or /
 function isOperationSymbol(char) {
   if (char === "+" || char === "-") return 1;
   if (char === "X" || char === "*" || char === "/") return 2;
