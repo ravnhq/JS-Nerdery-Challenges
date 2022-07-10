@@ -1,70 +1,135 @@
-// import { evaluate } from "mathjs";
-let math = require("mathjs");
-/*
-TO-DO:
+//creates an array from 0 to 9
+const NUMBERS_FROM_0_TO_9 = [...Array(10).keys()];
 
-- Modify this file only
-- The calculator should be completely functional
-
-*/
-// dom selection of all buttons and display
 const display = document.getElementById("display");
-const divisionButton = document.getElementById("division");
-const multiplicationButton = document.getElementById("multiplication");
-const subtrackButton = document.getElementById("subtrack");
-const addButton = document.getElementById("add");
-const equalsButtons = document.getElementById("equals");
-const zeroButton = document.getElementById("zero");
-const oneButton = document.getElementById("one");
-const twoButton = document.getElementById("two");
-const threeButton = document.getElementById("three");
-const fourButton = document.getElementById("four");
-const fiveButton = document.getElementById("five");
-const sixButton = document.getElementById("six");
-const sevenButton = document.getElementById("seven");
-const eightButton = document.getElementById("eight");
-const nineButton = document.getElementById("nine");
+display.innerHTML = "";
+const buttons = document.querySelectorAll("button");
 
-// event listeners for all buttons
-// divisionButton.addEventListener("click");
-// multiplicationButton.addEventListener("click");
-// subtrackButton.addEventListener("click");
-// addButton.addEventListener("click");
-// equalsButtons.addEventListener("click");
+const operationButtons = [];
+const numberButtons = [];
+let equalSymbol;
+const operationsArray = [];
 
-// buttons with numbers just append the number pressed to the display
-zeroButton.addEventListener("click", () => {
-  display.innerHTML += 0;
-});
-oneButton.addEventListener("click", () => {
-  display.innerHTML += 1;
-});
-twoButton.addEventListener("click", () => {
-  display.innerHTML += 2;
-});
-threeButton.addEventListener("click", () => {
-  display.innerHTML += 3;
-});
-fourButton.addEventListener("click", () => {
-  display.innerHTML += 4;
-});
-fiveButton.addEventListener("click", () => {
-  display.innerHTML += 5;
-});
-sixButton.addEventListener("click", () => {
-  display.innerHTML += 6;
-});
-sevenButton.addEventListener("click", () => {
-  display.innerHTML += 7;
-});
-eightButton.addEventListener("click", () => {
-  display.innerHTML += 8;
-});
-nineButton.addEventListener("click", () => {
-  display.innerHTML += 9;
+// setting $operationButtons and $numberButtons with their respective buttons
+buttons.forEach((elem) => {
+  if (NUMBERS_FROM_0_TO_9.includes(parseInt(elem.innerHTML)))
+    numberButtons.push(elem);
+  else {
+    if (elem.innerHTML === "=") equalSymbol = elem;
+    else {
+      operationButtons.push(elem);
+      operationsArray.push(elem.innerHTML);
+    }
+  }
 });
 
-function addSign(sign) {
-  console.log(math.evaluate("2+2+2-7"));
+//giving functionality to the buttons
+numberButtons.forEach((elem) =>
+  elem.addEventListener("click", () => {
+    //if contains Error => reset display
+    if (display.innerHTML.includes("Error") || lastWasEqual)
+      display.innerHTML = "";
+    lastWasEqual = false;
+    //add to display
+    display.innerHTML += elem.innerHTML;
+  })
+);
+
+let equalClicks = 0;
+let lastWasEqual = false;
+equalSymbol.addEventListener("click", () => {
+  equalClicks++;
+  // if 2nd click => delete display
+  if (equalClicks > 1 && lastWasEqual) {
+    display.innerHTML = "";
+    equalClicks = 0;
+  } else if (display.innerHTML)
+    display.innerHTML = solveEcuation(display.innerHTML);
+  lastWasEqual = true;
+});
+operationButtons.forEach((elem) =>
+  elem.addEventListener("click", () => {
+    //if contains Error or last was equal => reset display
+    if (
+      display.innerHTML.includes("Error") ||
+      (lastWasEqual && elem.innerHTML === "=")
+    )
+      display.innerHTML = "";
+    lastWasEqual = false;
+    //if contains more than two numbers => resolve
+    if (
+      display.innerHTML.split(/\+|\-|\*|X|\//).filter((n) => n).length == 2 &&
+      isOperationSymbol(elem.innerHTML)
+    )
+      display.innerHTML = solveEcuation(display.innerHTML);
+    // if (
+    //   //if last index is + or - and new input same => replace
+    //   isOperationSymbol(display.innerHTML.at(-1)) === 1 &&
+    //   isOperationSymbol(elem.innerHTML) === 1
+    // ) {
+    //   //if last input was symbol => replace it with new symbol
+    //   display.innerHTML = display.innerHTML.slice(0, -1);
+    // }
+
+    //if last index is symbol and new is * or / => delete
+    if (
+      isOperationSymbol(display.innerHTML.at(-1)) &&
+      isOperationSymbol(elem.innerHTML) === 2
+    ) {
+      for (let i = display.innerHTML.length - 1; i >= 0; i--) {
+        if (isOperationSymbol(display.innerHTML[i])) {
+          display.innerHTML = display.innerHTML.slice(0, -1);
+        } else break;
+      }
+      // display.innerHTML = display.innerHTML.slice(0, -1);
+      // if new last is not operation => push elem to string
+      if (!isOperationSymbol(display.innerHTML.at(-1)))
+        display.innerHTML += elem.innerHTML;
+      // if it is a symbol=>replace
+      else {
+        display.innerHTML = display.innerHTML.slice(0, -1);
+        display.innerHTML += elem.innerHTML;
+      }
+    } else {
+      display.innerHTML += elem.innerHTML;
+    }
+  })
+);
+
+function solveEcuation(ecuation) {
+  let solved;
+  let lastIsSymbol = operationsArray.some((elem) => {
+    if (ecuation.at(-1) === elem) return true;
+    return false;
+  });
+  ecuation = ecuation.replace("X", "*"); //Should I use an if statement for this?
+  //- Division and multiplication with no previous operands will assume operand of zero and return zero:
+  if (isOperationSymbol(ecuation[0]) === 2) {
+    ecuation = "0" + ecuation;
+  }
+  // - Incomplete operations will ignore the last operator and display final result. Note: This is also the only possible error handled
+  if (lastIsSymbol) {
+    console.log("lastIsSymbol:" + lastIsSymbol);
+    ecuation = ecuation.slice(0, -1);
+  }
+  //- Division by zero will return Error
+  if (ecuation.includes("/")) {
+    const ecuationArray = ecuation.split("/");
+    if (parseInt(ecuationArray[1]) === 0) return "Error";
+  }
+
+  try {
+    solved = math.evaluate(ecuation);
+  } catch (error) {
+    alert("Syntax Error: Impossible to resolve: " + ecuation);
+    return null;
+  }
+  return solved;
 }
-addSign();
+
+// function that returns 1 if * or / and 2 if + or -
+function isOperationSymbol(char) {
+  if (char === "+" || char === "-") return 1;
+  if (char === "X" || char === "*" || char === "/") return 2;
+  return 0;
+}
