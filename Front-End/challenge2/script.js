@@ -26,3 +26,23 @@ const subtrack = document.getElementById("subtrack");
 const multiplication = document.getElementById("multiplication");
 const division = document.getElementById("division");
 const equals = document.getElementById("equals");
+
+const clean = () => {
+  display.textContent = '';
+}
+
+const numberFunction = e => {
+  if(display.textContent === '0') clean();
+  display.textContent = display.textContent + e.target.textContent;
+}
+
+zero.addEventListener("click", numberFunction);
+one.addEventListener("click", numberFunction);
+two.addEventListener("click", numberFunction);
+three.addEventListener("click", numberFunction);
+four.addEventListener("click", numberFunction);
+five.addEventListener("click", numberFunction);
+six.addEventListener("click", numberFunction);
+seven.addEventListener("click", numberFunction);
+eight.addEventListener("click", numberFunction);
+nine.addEventListener("click", numberFunction);
