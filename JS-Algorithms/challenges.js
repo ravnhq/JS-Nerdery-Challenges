@@ -13,7 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let minuts = Math.floor(seconds / 60);
+  const hours = Math.floor((minuts) / 60);
+  minuts = minuts % 60;
+  const dataFormat = (time) => time < 10 ? "0" + time : "" + time;
+  return dataFormat(hours) + ":" + dataFormat(minuts) + ":" + dataFormat(seconds % 60)
 };
 
 readableTime(458);
@@ -41,7 +45,13 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  index = Math.abs(index);
+  let countryNamesAux = [...COUNTRY_NAMES]
+  for (let i = 0; i < index; i++) {
+    let aux = countryNamesAux.splice(0,1)[0];
+    countryNamesAux.push(aux)
+  }
+  return countryNamesAux
 };
 
 circularArray(2);
@@ -70,7 +80,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0;
+  for (let i = 1; i <= number; i++) {
+    sum = sum + Math.pow(i, i);    
+  }
+  const numberToString = sum% (Math.pow(10, lastDigits));
+  return numberToString.toString();
 };
 
 ownPower(10, 3);
@@ -95,7 +110,18 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let num = 1;
+  if(n <= 1){
+    return 1;
+  }
+  while( n > 0){
+    num = num * n;
+    n-- ;
+  }
+  const letter = BigInt(num);
+  let sum  = 0;
+  letter.toString().split('').forEach(digit => sum += parseInt(digit));
+  return sum;
 };
 
 digitSum(10);
@@ -118,7 +144,19 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let lastNumber = 1;
+  let firstNumber = 0;
+  let posittion = 1;
+  if(n === 1){
+    return 1;
+  }
+  while (lastNumber.toString().length !== n) {
+    const aux = lastNumber;
+    lastNumber = aux + firstNumber;
+    firstNumber = aux;
+    posittion++;
+  }
+  return posittion;
 };
 
 fibIndex(3);
