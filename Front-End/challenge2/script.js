@@ -128,7 +128,6 @@ buttonAdd.addEventListener('click', () => {
     if (ArrayValue.length != 0) {
       display.innerHTML = '';
       operatorA = ArrayValue.join('');
-      console.log(parseFloat(operatorA));
       ArrayValue = [];
     } else {
       currentValue = '+';
@@ -153,6 +152,7 @@ buttonEquals.addEventListener('click', () => {
   } else {
     operatorA = 0;
     operatorB = 0;
+    ArrayValue = [];
     display.innerHTML = '0';
   }
 });
