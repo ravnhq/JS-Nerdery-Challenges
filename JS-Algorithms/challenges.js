@@ -99,6 +99,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  function sum(n) {
+    if (n===0) return 0;
+    return Math.pow(n, n) + sum(n-1);
+  }
+  let summation = BigInt(sum(number));
+  return (summation+'').slice(lastDigits*-1);
 };
 
 ownPower(10, 3);
