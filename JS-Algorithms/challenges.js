@@ -70,7 +70,7 @@ const circularArray = (index) => {
         (idx + (countryNamesLength - circularIndex)) % countryNamesLength
     ] = COUNTRY_NAMES[idx];
   });
-  
+
   return circularCountries;
 };
 
@@ -101,11 +101,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
-  function sum(n) {
+  function sumOfPowers(n) {
     if (n===0) return 0;
-    return Math.pow(n, n) + sum(n-1);
+    return Math.pow(n, n) + sumOfPowers(n-1);
   }
-  let summation = BigInt(sum(number));
+
+  let summation = BigInt(sumOfPowers(number));
+  
   return (summation+'').slice(lastDigits*-1);
 };
 
