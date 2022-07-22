@@ -127,7 +127,17 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  if (typeof n !== "number" || n < 0) throw new Error("Invalid number");
+
+  let sum = 0;
+  let acc = 1;
+  for (let i = n; i > 0; --i) {
+    acc *= i;
+  }
+  let numBig = BigInt(acc);
+  const numString = numBig.toString();
+  numString.split("").forEach((digit) => (sum += parseInt(digit)));
+  return sum;
 };
 
 digitSum(10);
