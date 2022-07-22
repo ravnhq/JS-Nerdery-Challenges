@@ -59,7 +59,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (typeof index !== "number" || index < 0) throw new Error("Invalid input");
+
+  arr = Array(COUNTRY_NAMES.length);
+  padd = COUNTRY_NAMES.length - (index % COUNTRY_NAMES.length);
+  COUNTRY_NAMES.forEach(
+    (country, i) => (arr[(padd + i) % COUNTRY_NAMES.length] = country)
+  );
+  return arr;
 };
 
 circularArray(2);
