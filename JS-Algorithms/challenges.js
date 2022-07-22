@@ -13,7 +13,25 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  if (typeof seconds !== "number" || seconds < 0)
+    throw new Error("Invalid input");
+
+  const zero = "0";
+  const separator = ":";
+
+  let minutes = Math.floor(seconds / 60);
+  seconds = seconds % 60;
+  let hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+  let timeString = "";
+
+  timeString += hours.toString().padStart(2, "0") + separator;
+
+  timeString += minutes.toString().padStart(2, "0") + separator;
+
+  timeString += seconds.toString().padStart(2, "0");
+
+  return timeString;
 };
 
 readableTime(458);
@@ -41,7 +59,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (typeof index !== "number" || index < 0) throw new Error("Invalid input");
+
+  arr = Array(COUNTRY_NAMES.length);
+  padd = COUNTRY_NAMES.length - (index % COUNTRY_NAMES.length);
+  COUNTRY_NAMES.forEach(
+    (country, i) => (arr[(padd + i) % COUNTRY_NAMES.length] = country)
+  );
+  return arr;
 };
 
 circularArray(2);
@@ -70,7 +95,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  if (typeof number !== "number" || number < 0)
+    throw new Error("Invalid number");
+  if (typeof lastDigits !== "number" || lastDigits < 0)
+    throw new Error("Invalid last digits");
+
+  const fac = (n) => (n < 2 ? 1 : Math.pow(n, n) + fac(n - 1));
+  let sum = fac(number);
+  return (sum % Math.pow(10, lastDigits)).toString();
 };
 
 ownPower(10, 3);
@@ -95,7 +127,17 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  if (typeof n !== "number" || n < 0) throw new Error("Invalid number");
+
+  let sum = 0;
+  let acc = 1;
+  for (let i = n; i > 0; --i) {
+    acc *= i;
+  }
+  let numBig = BigInt(acc);
+  const numString = numBig.toString();
+  numString.split("").forEach((digit) => (sum += parseInt(digit)));
+  return sum;
 };
 
 digitSum(10);
@@ -118,7 +160,16 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  if (typeof n !== "number" || n < 0) throw new Error("Invalid index");
+
+  let fib = [0, 1];
+  let index = 0;
+
+  while (fib[index].toString().length < n) {
+    fib.push(fib[index] + fib[++index]);
+  }
+
+  return index;
 };
 
 fibIndex(3);
