@@ -15,8 +15,10 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
   const hours = Math.floor(seconds/3600);
-  const minutes = Math.floor((seconds%3600)/60);
-  const lastSeconds = (seconds%3600)%60;  
+  seconds = seconds%3600;
+  const minutes = Math.floor(seconds/60);
+  seconds = seconds%60;
+  const lastSeconds = seconds%60;  
   
   const formatWithLeadingZeros = (number, totalLength) => {
     const zeros = Array(totalLength).fill('0');
