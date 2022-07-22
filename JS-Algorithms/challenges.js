@@ -95,7 +95,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  if (typeof number !== "number" || number < 0)
+    throw new Error("Invalid number");
+  if (typeof lastDigits !== "number" || lastDigits < 0)
+    throw new Error("Invalid last digits");
+
+  const fac = (n) => (n < 2 ? 1 : Math.pow(n, n) + fac(n - 1));
+  let sum = fac(number);
+  return (sum % Math.pow(10, lastDigits)).toString();
 };
 
 ownPower(10, 3);
