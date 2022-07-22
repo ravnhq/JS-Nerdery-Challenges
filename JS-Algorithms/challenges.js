@@ -14,6 +14,27 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const miliseconds = seconds => seconds*1000;
+  
+  const date = new Date(miliseconds(seconds));
+
+  const originDate = new Date(0);
+
+  const hours = (date.getHours() + (24 - originDate.getHours()))%24;
+  
+  let withLeadingZeros = (number, totalLength) => {
+    const zeros = Array(totalLength).fill('0');
+    const digits = [...number.toString()] ;
+    digits.forEach((digit, index) => {
+      zeros[(index+1)%totalLength] = digit; 
+    });
+    return zeros.join('');
+  }
+  
+  return `${withLeadingZeros(hours, 2)}\
+:${withLeadingZeros(date.getMinutes(), 2)}\
+:${date.getSeconds()}`;
+
 };
 
 readableTime(458);
