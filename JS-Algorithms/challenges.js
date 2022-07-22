@@ -160,7 +160,16 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  if (typeof n !== "number" || n < 0) throw new Error("Invalid index");
+
+  let fib = [0, 1];
+  let index = 0;
+
+  while (fib[index].toString().length < n) {
+    fib.push(fib[index] + fib[++index]);
+  }
+
+  return index;
 };
 
 fibIndex(3);
