@@ -140,10 +140,11 @@ const digitSum = (n) => {
     factorial *= current--;
   }
   
-  let sum = [...(''+BigInt(factorial))].reduce((sum, digit) => 
+  let sumOfDigits = [...BigInt(factorial)+''].reduce((sum, digit) => 
     sum += Number.parseInt(digit)
   , 0);
-  return sum;
+
+  return sumOfDigits;
 };
 
 digitSum(10);
