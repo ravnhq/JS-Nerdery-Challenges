@@ -59,6 +59,17 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const countryNamesLength = COUNTRY_NAMES.length;
+  const circularIndex = index % countryNamesLength;
+
+  const circular = Array(countryNamesLength);
+
+  COUNTRY_NAMES.forEach((country, idx) => {
+    circular[
+        (idx + (countryNamesLength - circularIndex)) % countryNamesLength
+    ] = COUNTRY_NAMES[idx];
+  });
+  return circular;
 };
 
 circularArray(2);
