@@ -13,7 +13,25 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  if (typeof seconds !== "number" || seconds < 0)
+    throw new Error("Invalid input");
+
+  const zero = "0";
+  const separator = ":";
+
+  let minutes = Math.floor(seconds / 60);
+  seconds = seconds % 60;
+  let hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+  let timeString = "";
+
+  timeString += hours.toString().padStart(2, "0") + separator;
+
+  timeString += minutes.toString().padStart(2, "0") + separator;
+
+  timeString += seconds.toString().padStart(2, "0");
+
+  return timeString;
 };
 
 readableTime(458);
