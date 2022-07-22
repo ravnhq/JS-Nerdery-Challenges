@@ -163,6 +163,17 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  let a = 0;
+  let b = 1;
+  let c = a + b;
+  let index = 1;
+  while ((c+'').length !== n) {
+    b = a;
+    a = c;
+    c = a + b;
+    index++;
+  }
+  return index;
 };
 
 fibIndex(3);
