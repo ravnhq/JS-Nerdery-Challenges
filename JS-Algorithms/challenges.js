@@ -108,7 +108,7 @@ const ownPower = (number, lastDigits) => {
     return Math.pow(n, n) + sumOfPowers(n-1);
   }
 
-  let summation = BigInt(sumOfPowers(number));
+  const summation = BigInt(sumOfPowers(number));
   
   return (summation+'').slice(lastDigits*-1);
 };
@@ -142,7 +142,7 @@ const digitSum = (n) => {
     factorial *= current--;
   }
   
-  let sumOfDigits = [...BigInt(factorial)+''].reduce((sum, digit) => 
+  const sumOfDigits = [...BigInt(factorial)+''].reduce((sum, digit) => 
     sum += Number.parseInt(digit)
   , 0);
 
