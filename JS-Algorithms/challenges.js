@@ -14,6 +14,25 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const hours = Math.floor(seconds/3600);
+  seconds = seconds%3600;
+  const minutes = Math.floor(seconds/60);
+  seconds = seconds%60;
+  const lastSeconds = seconds%60;  
+  
+  const formatWithLeadingZeros = (number, totalLength) => {
+    const zeros = Array(totalLength).fill('0');
+    const digits = [...number.toString()] ;
+    digits.forEach((digit, index) => {
+      zeros[(index + 1) % totalLength] = digit; 
+    });
+    return zeros.join('');
+  }
+  
+  return `${formatWithLeadingZeros(hours, 2)}\
+:${formatWithLeadingZeros(minutes, 2)}\
+:${lastSeconds}`;
+
 };
 
 readableTime(458);
@@ -42,6 +61,19 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const countryNamesLength = COUNTRY_NAMES.length;
+
+  const circularIndex = index % countryNamesLength;
+
+  const circularCountries = Array(countryNamesLength);
+
+  COUNTRY_NAMES.forEach((country, idx) => {
+    circularCountries[
+        (idx + (countryNamesLength - circularIndex)) % countryNamesLength
+    ] = COUNTRY_NAMES[idx];
+  });
+
+  return circularCountries;
 };
 
 circularArray(2);
@@ -71,6 +103,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  function sumOfPowers(n) {
+    if (n===0) return 0;
+    return Math.pow(n, n) + sumOfPowers(n-1);
+  }
+
+  const summation = BigInt(sumOfPowers(number));
+  
+  return (summation+'').slice(lastDigits*-1);
 };
 
 ownPower(10, 3);
@@ -96,6 +136,17 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let current = n;
+  let factorial = 1;
+  while (current > 0) {
+    factorial *= current--;
+  }
+  
+  const sumOfDigits = [...BigInt(factorial)+''].reduce((sum, digit) => 
+    sum += Number.parseInt(digit)
+  , 0);
+
+  return sumOfDigits;
 };
 
 digitSum(10);
@@ -119,6 +170,20 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  let partialFib1 = 0;
+  let partialFib2 = 1;
+  let fib = partialFib2 + partialFib1;
+
+  let index = 2;
+
+  while ((fib+'').length !== n) {
+    partialFib1 = partialFib2;
+    partialFib2 = fib;
+    fib = partialFib2 + partialFib1;
+
+    index++;
+  }
+  return index--;
 };
 
 fibIndex(3);
