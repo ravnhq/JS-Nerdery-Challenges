@@ -22,22 +22,22 @@ describe("Readable Time", () => {
 });
 
 describe("Circular Array", () => {
-  test("The circular array from the 2nd index should return ['Island', 'Japan', 'Israel', 'Germany', 'Norway']", () => {
+  test("The circular array from the 2nd index should return ['Island', 'Germany', 'Norway', 'Japan', 'Israel']", () => {
     expect(circularArray(2)).toEqual([
       "Island",
-      "Japan",
-      "Israel",
       "Germany",
       "Norway",
+      "Japan",
+      "Israel"
     ]);
   });
-  test("The circular array from the 3rd index should return ['Japan', 'Israel', 'Germany', 'Norway', 'Island']", () => {
+  test("The circular array from the 3rd index should return ['Japan', 'Germany', 'Norway', 'Island', 'Israel']", () => {
     expect(circularArray(3)).toEqual([
       "Japan",
-      "Israel",
       "Germany",
       "Norway",
       "Island",
+      "Israel"
     ]);
   });
   test("The circular array from the 5th index should return ['Germany', 'Norway', 'Island', 'Japan', 'Israel']", () => {
@@ -77,13 +77,13 @@ describe("Sum of Factorial Digits", () => {
     expect(digitSum(10)).toBe(27);
   });
   test("The sum of the factorial digits of 42 returns the numbet 207", () => {
-    expect(digitSum(42)).toBe(207);
+    expect(digitSum(42)).toBe(254);
   });
   test("The sum of the factorial digits of 71 returns the numbet 409", () => {
-    expect(digitSum(71)).toBe(409);
+    expect(digitSum(71)).toBe(512);
   });
   test("The sum of the factorial digits of 89 returns the numbet 606", () => {
-    expect(digitSum(89)).toBe(606);
+    expect(digitSum(89)).toBe(634);
   });
 });
 

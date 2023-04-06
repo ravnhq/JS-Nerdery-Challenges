@@ -12,11 +12,11 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
-const readableTime = (seconds) => {
-  const clockHours = Math.floor(seconds/3600);
-  const clockMinutes = Math.floor((seconds%3600)/60)
-  const clockSeconds = seconds - clockHours*3600 - clockMinutes*60
-  const result = `${10>clockHours && '0'}${clockHours}:${10>clockMinutes && '0'}${clockMinutes}:${clockSeconds}`
+const readableTime = (seconds: number): string => {
+  const clockHours: number = Math.floor(seconds/3600);
+  const clockMinutes: number = Math.floor((seconds%3600)/60)
+  const clockSeconds: number = seconds - clockHours*3600 - clockMinutes*60
+  const result: string = `${10>clockHours && '0'}${clockHours}:${10>clockMinutes && '0'}${clockMinutes}:${clockSeconds}`
   return result
 };
 
@@ -44,9 +44,9 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
-const circularArray = (index) => {
-  const position = index>COUNTRY_NAMES.length-1 ? index-COUNTRY_NAMES.length:index
-  let filterCountry = COUNTRY_NAMES.filter( country => country !== COUNTRY_NAMES[position] )
+const circularArray = (index: number): string[] => {
+  const position: number = index>COUNTRY_NAMES.length-1 ? index-COUNTRY_NAMES.length:index
+  let filterCountry: string[] = COUNTRY_NAMES.filter( country => country !== COUNTRY_NAMES[position] )
   filterCountry.unshift(COUNTRY_NAMES[position])
   return filterCountry
 };
@@ -76,14 +76,14 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
-const ownPower = (number, lastDigits) => {
-  let numberSum = 0
+const ownPower = (number: number, lastDigits: number): string => {
+  let numberSum: number = 0
 
-  for( let i=1; number>=i; i++){
+  for( let i: number=1; number>=i; i++){
     numberSum += Math.pow(i,i)
   }
   // use BigInt in case the sum is very large
-  const wordSum =  BigInt(numberSum).toString()
+  const wordSum: string =  BigInt(numberSum).toString()
 
   return wordSum.slice(wordSum.length-lastDigits, wordSum.length)
 
@@ -110,10 +110,10 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
-const digitSum = (n) => {
-  let numberFactorial = 1
-  let sumDigits = 0
-  for(let i=1 ; n>=i ; i++){
+const digitSum = (n: number): number => {
+  let numberFactorial: number = 1
+  let sumDigits: number = 0
+  for(let i: number=1 ; n>=i ; i++){
     numberFactorial = numberFactorial*i
   }
   BigInt(numberFactorial).toString().split('').forEach( digit => {
@@ -142,11 +142,11 @@ Invoking "fibIndex(3)" should return "12".
 Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
 ***** */
 
-const fibIndex = (n) => {
-  let index = 3
-  let fibNum1=1 
-  let fibNum2=2
-  let fibLast=2
+const fibIndex = (n: number): number => {
+  let index: number = 3
+  let fibNum1: number =1 
+  let fibNum2: number =2
+  let fibLast: number =2
   while(fibLast.toString().length !== n ){
     fibLast = fibNum1 + fibNum2
     fibNum1 = fibNum2
