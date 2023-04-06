@@ -112,7 +112,20 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1
+  let sum = 0
+
+  for (let i = n; i >= 1; i--) {
+    factorial *= i
+  }
+
+  const factorialDigits = BigInt(factorial).toString().split('')
+
+  for (let index = 0; index < factorialDigits.length; index++) {
+    sum += Number(factorialDigits[index]);
+
+  }
+  return sum
 };
 
 digitSum(10);
