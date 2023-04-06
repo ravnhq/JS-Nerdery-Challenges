@@ -1,63 +1,39 @@
-const display = document.getElementById('display')
-
 const buttons = document.querySelectorAll('button')
+let input = ''
+let currentOperation = ''
 
-buttons.forEach(btn => btn.addEventListener('click', handleCalculatorClick))
+for (let index = 0; index < buttons.length; index++) {
+    buttons[index].addEventListener('click', function (event) {
+        const clickedId = event.target.id
 
-const digitregex = /\d/g
-
-function updateDisplayValue(type, value) {
-    const operators = ['+', '-', 'X', '/']
-    switch (type) {
-        case 'operation':
-            if (operators.includes(display.textContent.charAt(display.textContent.length - 1)))
+        switch (clickedId) {
+            case 'add':
+                currentOperation += " + ";
+                input = '';
                 break;
-            else display.textContent += value
-            break;
-        case 'digit':
-            if (display.textContent === '0') {
-                display.textContent = value
-            } else {
-                display.textContent += value
-            }
-            break;
-        default:
-            getResult(display.textContent.replace(digitregex, ''))
-            break;
-    }
+            case 'subtrack':
+                currentOperation += " - ";
+                input = '';
+                break;
+            case 'multiplication':
+                currentOperation += " * ";
+                input = '';
+                break;
+            case 'division':
+                currentOperation += " / ";
+                input = '';
+                break;
+            case 'equals':
+                input = eval(currentOperation) === Infinity ? 'Error' : eval(currentOperation)
+
+                break;
+            default:
+                input += event.target.innerHTML
+                currentOperation += event.target.innerHTML
+                break;
+        }
+
+        document.getElementById('display').innerHTML = input
+    })
 }
 
-function handleCalculatorClick(event) {
-    const btnContent = event.currentTarget.textContent
-    updateDisplayValue(calculationType(btnContent), btnContent)
-}
-
-function calculationType(str) {
-    if (str === '=') return 'result'
-
-    return digitregex.test(str) ? 'digit' : 'operation'
-}
-
-function getResult(operator) {
-    const operatorIndex = display.textContent.indexOf(operator)
-    const a = parseInt(display.textContent.substring(0, operatorIndex))
-    const b = parseInt(display.textContent.substring(operatorIndex + 1, display.textContent.length))
-    let result = 0
-
-    switch (operator) {
-        case '+':
-            result = a + b
-            break;
-        case '-':
-            result = a - b
-            break;
-        case '/':
-            result = a / b
-            break;
-        default:
-            result = a * b
-            break;
-    }
-
-    display.textContent += `=${result}`
-}
