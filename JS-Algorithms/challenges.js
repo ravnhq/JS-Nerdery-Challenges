@@ -12,8 +12,12 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
-const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+const readableTime = (seconds = 3690) => {
+  const hour = Math.floor(seconds / 3600)
+  const minutes = Math.floor(((seconds / 3600) - hour) * 60)
+  const sec = Math.round(((((seconds / 3600) - hour) * 60) - minutes) * 60)
+
+  return (`${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${sec < 10 ? `0${sec}` : sec}`)
 };
 
 readableTime(458);
@@ -41,7 +45,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  let aux = 0;
+
+  while(index > COUNTRY_NAMES.length) {
+    aux = index - COUNTRY_NAMES.length 
+    index = aux;
+  }
+
+  return COUNTRY_NAMES.slice(index, COUNTRY_NAMES.length).concat(COUNTRY_NAMES.slice(0, index));
 };
 
 circularArray(2);
@@ -70,7 +81,15 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let total = 0;
+
+  for (let i = 1; i <= number; i++) {
+    total += Math.pow(i, i);
+  }
+
+  const newTotal = BigInt(total)
+
+  return  newTotal.toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +114,20 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1;
+
+  for (let i = n; i > 1; i--) {
+    factorial *= i;
+  }
+
+  let suma = 0;
+  const cadena =  BigInt(factorial).toString();
+
+  for (let i = 0; i < cadena.length; i++) {
+    suma += parseInt(cadena.charAt(i));
+  }
+
+  return suma;
 };
 
 digitSum(10);
@@ -118,9 +150,24 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
-};
+  let n1 = 0, n2 = 1, nextTerm;
+  let result = [0, 1]
 
+
+  nextTerm = n1 + n2;
+
+  while(true) {
+    n1 = n2;
+    n2 = nextTerm;
+    nextTerm = n1 + n2;
+  
+    result.push(nextTerm)
+
+    if (result.slice(-1).toString().length === n )
+      return result.length
+    
+  };
+}
 fibIndex(3);
 fibIndex(5);
 fibIndex(12);
