@@ -14,6 +14,19 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  let format = "";
+
+  let hours = Math.floor(seconds / 3600);
+  let rest_minutes = seconds % 3600;
+  let minutes = Math.floor(rest_minutes / 60);
+  let myseconds = rest_minutes % 60;
+
+  hours < 10 ? (format += "0" + hours) : (format += hours);
+  format += ":";
+  minutes < 10 ? (format += "0" + minutes) : (format += minutes);
+  format += ":";
+  myseconds < 10 ? (format += "0" + myseconds) : (format += myseconds);
+  return format;
 };
 
 readableTime(458);
@@ -42,6 +55,13 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  if (index < 0) return;
+  let head = 0;
+  let size = COUNTRY_NAMES.length;
+  index > size ? (head = index % size) : (head = index);
+  let firstPart = COUNTRY_NAMES.slice(0, head);
+  let secondPart = COUNTRY_NAMES.slice(head);
+  return secondPart.concat(firstPart);
 };
 
 circularArray(2);
@@ -71,6 +91,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let myarr = [...Array(number).keys()].map((element) => element + 1);
+  let allPower = myarr.reduce((accu, number) => {
+    number = number ** number;
+    accu = number + accu;
+    return accu;
+  }, 0);
+  let res = BigInt(allPower).toString().slice(-lastDigits);
+  return res;
 };
 
 ownPower(10, 3);
@@ -96,6 +124,14 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let myarr = [...Array(n).keys()].map((element) => element + 1);
+  let factorial = myarr.reverse().reduce((accu, number) => accu * number, 1);
+  let res = BigInt(factorial)
+    .toString()
+    .split("")
+    .map(Number)
+    .reduce((accu, number) => accu + number, 0);
+  return res;
 };
 
 digitSum(10);
@@ -119,6 +155,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  let index = 0;
+  let sum = 0;
+  let accu = 1;
+  let arr = [0];
+  while (accu.toString().length < n) {
+    sum = accu + index;
+    arr.push(accu);
+    index = accu;
+    accu = sum;
+  }
+  arr.push(accu);
+  return arr.indexOf(accu);
 };
 
 fibIndex(3);
