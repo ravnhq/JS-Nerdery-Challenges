@@ -13,7 +13,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let hours, minutes, second;
+  hours = Math.trunc(seconds / 3600);
+  leftSecond = seconds % 3600;
+  minutes = Math.trunc(leftSecond / 60);
+  second = leftSecond % 60;
+  //This formats the respond, if the number is less than 9, add a 0 in front of it.
+  return `${hours <= 9 ? '0' + hours : hours}:${
+    minutes <= 9 ? '0' + minutes : minutes
+  }:${second <= 9 ? '0' + second : second}`;
 };
 
 readableTime(458);
@@ -38,7 +46,7 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
