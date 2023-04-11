@@ -13,7 +13,17 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const format = {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  };
+
+  const time = Number(seconds);
+  const hour = Math.floor(time / 3600).toLocaleString('en-US', format);
+  const minutes = Math.floor(time % 3600 / 60).toLocaleString('en-US', format);
+  const _seconds = Math.floor(time % 3600 % 60).toLocaleString('en-US', format);
+
+  return `${hour}:${minutes}:${_seconds}`;
 };
 
 readableTime(458);
