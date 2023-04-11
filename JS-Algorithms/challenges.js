@@ -153,7 +153,11 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let data = [0, 1];
+  for (let i = 2; i < 100; i++) {
+    data.push(data[i - 2] + data[i - 1]);
+  }
+  return data.findIndex(fibResult => fibResult.toString().length === n);
 };
 
 fibIndex(3);
