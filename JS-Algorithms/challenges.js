@@ -49,7 +49,12 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  let copyArray = [...COUNTRY_NAMES];
+  if (index >= COUNTRY_NAMES.length) {
+    return circularArray(index - COUNTRY_NAMES.length);
+  }
+  let arraySlice = copyArray.splice(index);
+  return [...arraySlice, ...copyArray];
 };
 
 circularArray(2);
