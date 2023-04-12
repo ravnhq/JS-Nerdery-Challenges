@@ -59,7 +59,7 @@ Depending how you use the variables in your code is how you have accessibility a
 
 **When should I use *for each* vs *map*?**
 
-Map is used to loop each elemento of an array or either an object, it returns a new array 
+Map is used to transform each element of an array or either an object, it returns a new array 
 
 *Example using 'map':*
 
