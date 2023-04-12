@@ -45,7 +45,13 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const result_array = [];
+  COUNTRY_NAMES.forEach((country, pos) => {
+    const circular_position = ((index + pos) % COUNTRY_NAMES.length) % COUNTRY_NAMES.length;
+    const found_country = COUNTRY_NAMES[circular_position];
+    result_array.push(found_country);
+  })
+  return result_array;
 };
 
 circularArray(2);
@@ -56,7 +62,7 @@ circularArray(9);
 /* *****
 Challenge 3
 
-"Own Powers"
+"Own PowersChallenge 5"
 
 The function "ownPower" accepts two arguments. "number" and "lastDigits".
 
