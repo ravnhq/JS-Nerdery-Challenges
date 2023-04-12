@@ -75,7 +75,6 @@ const ownPower = (number, lastDigits) => {
   let acum=0;
   for(let i=1;i<=number;i++){
       acum+=Math.pow(i,i);
-    console.log(i,Math.pow(i,i));
   }
   return String(BigInt(acum)).slice(-lastDigits);
 };
