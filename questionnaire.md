@@ -1,9 +1,10 @@
-#Questionnaire
+# Questionnaire
 
 > **Do you know how and when to use let and/or const? Provide examples.**
 >
 > > We use let when the variable will change the value over time and const when
 > > the value will constant
+> >
 > > _Examples:_
 > > When we want accumulate variable as a total of sum we must use let
 > > because the value will change
@@ -19,31 +20,35 @@
 
 > **How does the variables scope works? Provide examples.**
 >
-> > **Let** and **const** have block scope which means you only can use within the block that you declared
-> > For example: if we declare inside a if block or function only we can use inside this block.
+> > **Let** and **const** have block scope which means you only can use within the block that you declared.
+> >
+> > For example: If we declare inside a if block or function we only can use inside this block.
 
     const number = 4
     if(number < 10){
         let numberInsideIf = 7;
         number *= numberInsideIf
     }
+    numberInsideIf = 8 //This will give a error
 
-> > The example above the variable _numberInsideIf_ only can be used within if
+> > The above example the variable _numberInsideIf_ only can be used within if
 > > block
-
-> > **var** have a global scope which means you can use anywhere you want, this can lead to have unexpected
+> >
+> > **Var** have a global scope which means you can use anywhere you want, this can lead to have unexpected
 > > problems because it is difficult to track where you access to the variable.
 
 > **When should I use forEach vs map? Provide examples.**
 >
-> > It depends on what you need because forEach run over an each item but doesn't return anything, and the other hand map run over each item and also return a new array with the changes that you want.
+> > It depends on what you need because forEach run over an each item but doesn't return anything, and the other hand map run over each item, and also return a new array with the changes that you want.
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    //In this case is better use forEach because I only want to show th numbers
-    numbers.forEach((num) => console.log(num));
-    //In this case is better use map because I need a new array with changes.
-    const powNumbers = numbers.map((num) => num * num);
+
+    numbers.forEach((num) => console.log(num)); //In this case is better use forEach because
+                                                //I only want to show the numbers
+
+    const powNumbers = numbers.map((num) => num * num); //In this case is better use map because
+                                                        //I need a new array with changes.
 
 > **What is the reduce use for? Provide examples.**
 >
@@ -51,8 +56,8 @@
 > > over an item in an array, you have the option to return a value and you can use to
 > > accumulate values.
 
-    const numbers = [45, 23, 67, 87, 31, 34, 998];
-    const total = numbers.reduce((total, item) => total + item, 0);
+    const numbers = [1, 2, 3, 4];
+    const total = numbers.reduce((total, item) => total + item, 0); // total = 10
 
 > **What is the difference between regular functions and arrow functions? Provide examples.**
 >
@@ -86,12 +91,13 @@
 > **What is the difference between filter and find? Provide examples.**
 >
 > > _find_ return the first element that meets the condition
+> >
 > > _filter_ return a new array with all elements that meets the condition
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    const biggerThanFive = numbers.filter((num) => num > 5); // return [ 6, 7, 8, 9 ]
     const oneNumber = numbers.find((num) => num > 5); // return 6
+    const biggerThanFive = numbers.filter((num) => num > 5); // return [ 6, 7, 8, 9 ]
 
 > **What does it mean to pass variables by value? Provide examples.**
 >
@@ -131,6 +137,7 @@
 > **How can you copy objects and nested objects? Provide examples.**
 >
 > > **Copy using** '=' (bad way to copy objects)
+> >
 > > This copy the object by reference (memory direction) and If we change one objects both will be update
 
     const nestedObject = {
@@ -144,7 +151,9 @@
     console.log({ nestedObject, copyByReference }); //both will have name = Melani
 
 > > **Copy using Obejct.assign**
+> >
 > > This make a shallow copy, only work in the first level of the object, if you have a nested object will copy by reference
+> > the nested part
 
     const nestedObject = {
         name: 'fabio',
@@ -153,9 +162,12 @@
         },
     };
     const copyByObjectAssign = Object.assign({}, nestedObject);
+
     //In this case only change in copyByObjectAssign because this field is in the first level of the object
     copyByObjectAssign.lastName = 'Mendoza';
-     //change in both objects because this field is in the second level (nested)
+
+     //Change in both objects (nestedObject and copyByObjectAssign) because this field
+     //is in the second level (nested)
     copyByObjectAssign.adress.municipio = 'San Juan Nonualco';
 
 > > **Copy using JSON.stringify/parse**
@@ -169,15 +181,17 @@
         },
     };
     const copyByJson = JSON.parse(JSON.stringify(nestedObject));
+
+    //The next both changes only happeds in copyByJson object
     copyByJson.lastName = 'Mendoza';
-    copyByJson.adress.country = 'Canada'; //Both changes only happeds in copyByJson object
+    copyByJson.adress.country = 'Canada';
 
 > **What does immutability mean? Provide examples.**
 >
 > > Immutability refers to the property of an object or a value that cannot be changed after it is
 > > created. Once an object or a value is immutable, its state cannot be modified, and any attempt to
 > > do so results in the creation of a new object or value with the desired changes
-
+> >
 > > **Strings and Numbers:** In JavaScript, strings and numbers are immutable. Once a string or number
 > > is created, its value cannot be changed. Any operation that appears to modify a string or number
 > > actually creates a new string or number.
