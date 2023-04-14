@@ -230,7 +230,12 @@ console.log(word); // strings are inmutable, no changes made
 
 const arr = [1, 2, 3];
 arr[1] = 5;
-console.log(arr) // since Array is an object, his values can be changed
+console.log(arr); // since Array is an object, his values can be changed
+
+// however we can lock an object with freeze
+Object.freeze(arr);
+arr[1] = 10;
+console.log(arr); // now values cannot be changed
 ```
 
 ## What is OOP?
