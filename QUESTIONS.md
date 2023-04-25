@@ -2,7 +2,7 @@
 
 #### Do you know how and when to use let and/or const? Provide examples.
 
-We use let and const declaring a variable with the corresponding command followed by the name that we want for the variable to be called. Let is useful when we want that the content of the variable can be changed eventually, while we use const for the opposite when we don't want it.
+We use let and const for declaring a variable. To do so we need to use the corresponding command followed by the name that we want for the variable to be called. Let is useful when we want that the content of the variable can be changed eventually, while we use const for the opposite when we don't.
 
 ```javascript
 // Declaring with let
@@ -15,7 +15,7 @@ number = 5; // This will give an error
 
 #### How does the variables scope works? Provide examples.
 
-When we declare a variable outside of a function or block like an if statement, this variable can be called globally, while if it's declare inside of a function or a block, it only can be called from there and not outside. In the case of var, it doesn't have block scope but only function scope, so if it's declared inside a block will do it globally.
+When we declare a variable outside of a function or a block like an if statement, this variable can be called globally, while if it's declare inside of a function or a block, it only can be called from there and not outside. In the case of var, it doesn't have block scope but only function scope, so if it's declared inside a block will do it globally.
 
 ```javascript
 const data1 = "data1";
@@ -112,7 +112,7 @@ const three_digits_number = numbers.find(
 
 #### What does it mean to pass variables by value?
 
-Is when the data of a variable is being passed as an actual value to declare another variable or as an argument for a function, letting that any future modification or operation which is done to the new variable or argument will not affect the original variable data.
+Is when the data of a variable is being passed as an actual value to declare another variable, or as an argument for a function, letting that any future modification or operation which is done to the new variable or argument will not affect the original variable data.
 
 ```javascript
 const x = 14;
@@ -126,7 +126,7 @@ console.log(x); // x is still 14
 
 #### What does it mean to pass variables by reference?
 
-Is when we are not passing the actual value of the variable for declaring a new variable or using it as an argument, but a reference of where the value is really located, causing that any future modifications to the new declared variable or argument will change the original variable data even if it's inside of a function or code block. This happen usually with objects and arrays.
+Is when we are not passing the actual value of the variable for declaring a new variable or using it as an argument, but a reference of where the value is really located, causing that any future modifications to the new declared variable or argument will change the original variable data, even if it's inside of a function or a code block. This often happens with objects and arrays.
 
 ```javascript
 const post = {
@@ -143,7 +143,7 @@ console.log(post); // The title remains null
 
 #### How can you copy objects and nested objects?
 
-We can use the three dots operator or the Object.assing() to copy an object, but if it's a nested object then we can use the JSON functions stringify and parse.
+We can use the spread operator or Object.assing() to copy an object, but if it's a nested object then we can use the JSON functions stringify and parse.
 
 ```javascript
 const post = {
@@ -190,7 +190,7 @@ console.log(colors); // This will give [ 'red', 'blue', 'green', 'yellow' ]
 
 #### What is OOP?
 
-Is a programing paradigm based on the concept of objects which have packed data and methods inside. It use classes that are useful to represent and modeling real world data from which objects can be initialized, where each is completely individual from the other and only share the parent class structure.
+Is a programing paradigm based on the concept of objects which have packed data and methods inside. It use classes that are useful to represent and modeling real world data, and also to create instantiated objects, where each is completely individual from the other and only share the parent class structure.
 
 ```javascript
 const House = function (owner, rooms, bathrooms) {
