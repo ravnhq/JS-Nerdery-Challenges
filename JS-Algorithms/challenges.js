@@ -13,15 +13,17 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  let hours, minutes, second;
-  hours = Math.trunc(seconds / 3600);
-  leftSecond = seconds % 3600;
-  minutes = Math.trunc(leftSecond / 60);
-  second = leftSecond % 60;
+  if (seconds < 0) throw new Error('Invalid number, only positive numbers');
+
+  const hour = Math.trunc(seconds / 3600);
+  const remaindingSeconds = seconds % 3600;
+  const minute = Math.trunc(remaindingSeconds / 60);
+  const second = remaindingSeconds % 60;
+
   //This formats the respond, if the number is less than 9, add a 0 in front of it.
-  return `${hours <= 9 ? '0' + hours : hours}:${
-    minutes <= 9 ? '0' + minutes : minutes
-  }:${second <= 9 ? '0' + second : second}`;
+  return `${hour <= 9 ? `0${hour}` : hour}:${
+    minute <= 9 ? `0${minute}` : minute
+  }:${second <= 9 ? `0${second}` : second}`;
 };
 
 readableTime(458);
@@ -49,12 +51,15 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  let copyArray = [...COUNTRY_NAMES];
+  if (index < 0) throw new Error('Invalid number, only positive numbers');
+
+  const copiedArray = [...COUNTRY_NAMES];
+
   if (index >= COUNTRY_NAMES.length) {
     return circularArray(index - COUNTRY_NAMES.length);
   }
-  let arraySlice = copyArray.splice(index);
-  return [...arraySlice, ...copyArray];
+
+  return [...copiedArray.splice(index), ...copiedArray];
 };
 
 circularArray(2);
@@ -83,15 +88,20 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
+  if (number < 0 || lastDigits < 0)
+    throw new Error('Invalid number, only positive numbers');
+
   let total = 0;
+
   //Create an array with elements and multiply by each own powers
-  const range = Array.from({ length: number }, (item, index) =>
+  const range = Array.from({ length: number }, (_item, index) =>
     Math.pow(index + 1, index + 1)
   );
   //Sum all elements
   range.forEach((item) => (total += item));
   //Convert the total a BigInt and transform an string array
   const totalArray = Array.from(String(BigInt(total)));
+
   //Get and return the last digits inside String
   return totalArray.splice(totalArray.length - lastDigits).join('');
 };
@@ -118,20 +128,23 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
+  if (n < 0) throw new Error('Invalid number, only positive numbers');
+
   let digitSum = 0;
-  const factorial = (num) => {
-    let sum = 1;
-    for (let i = num; i > 0; i--) {
-      sum *= i;
-    }
-    return BigInt(sum);
-  };
+
   //calculate factorial of n
-  const nFactorial = factorial(n);
+  let sum = 1;
+  for (let i = n; i > 0; i--) {
+    sum *= i;
+  }
+
+  let nFactorial = BigInt(sum);
   //Convert array of int all the numbers
   const arrayNumber = Array.from(String(nFactorial), (item) => parseInt(item));
+
   //Sum all digits
   arrayNumber.forEach((number) => (digitSum += number));
+
   return digitSum;
 };
 
@@ -155,14 +168,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  let fib = n,
-    n2 = 0,
-    n1 = 1;
+  let fib = n;
+  let n2 = 0;
+  let n1 = 1;
+
   if (n === 1) return 1;
+
   for (let i = 2; i <= Number.MAX_SAFE_INTEGER; i++) {
     fib = n1 + n2;
     n2 = n1;
     n1 = fib;
+
+    //Check if the lenght of the factorial is equal to `n`
     if (fib.toString().length === n) return i;
   }
 };
