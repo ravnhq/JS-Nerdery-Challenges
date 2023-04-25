@@ -13,11 +13,22 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  format_hours = Math.floor(seconds / 3600).toLocaleString(undefined, {minimumIntegerDigits: 2});
-  format_minutes = Math.floor((seconds % 3600) / 60).toLocaleString(undefined, {minimumIntegerDigits: 2});
-  format_seconds = ((seconds % 3600) % 60).toLocaleString(undefined, {minimumIntegerDigits: 2});
-  format_time = `${format_hours}:${format_minutes}:${format_seconds}`;
-  return format_time;
+  const secondsPerHour = 3600;
+  const secondsPerMinute = 60;
+
+  const formatHours = Math.floor(seconds / secondsPerHour).toLocaleString(
+    undefined,
+    { minimumIntegerDigits: 2 },
+  );
+  const formatMinutes = Math.floor(
+    (seconds % secondsPerHour) / secondsPerMinute,
+  ).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+  const formatSeconds = (
+    (seconds % secondsPerHour)
+    % secondsPerMinute
+  ).toLocaleString(undefined, { minimumIntegerDigits: 2 });
+
+  return `${formatHours}:${formatMinutes}:${formatSeconds}`;
 };
 
 readableTime(458);
@@ -42,16 +53,14 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  const result_array = [];
-  COUNTRY_NAMES.forEach((country, pos) => {
-    const circular_position = ((index + pos) % COUNTRY_NAMES.length) % COUNTRY_NAMES.length;
-    const found_country = COUNTRY_NAMES[circular_position];
-    result_array.push(found_country);
-  })
-  return result_array;
+  const circularPosition = index % COUNTRY_NAMES.length;
+  const firstPartArray = COUNTRY_NAMES.slice(circularPosition);
+  const secondPartArray = COUNTRY_NAMES.slice(0, circularPosition);
+
+  return firstPartArray.concat(secondPartArray);
 };
 
 circularArray(2);
@@ -80,13 +89,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  let power_sum = 0;
-  for(let cont = 1; cont <= number; cont++) {
-    power_sum += cont ** cont;
+  let powerSum = 0;
+
+  for (let counter = 1; counter <= number; counter++) {
+    powerSum += counter ** counter;
   }
-  power_sum = String(BigInt(power_sum));
-  const result = power_sum.slice(-lastDigits);
-  return result;
+  const powerSumString = String(BigInt(powerSum));
+
+  return powerSumString.slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -112,14 +122,14 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   let factorial = 1;
-  for (let cont = n; cont >= 2; cont--) {
-    factorial *= cont;
+
+  for (let counter = n; counter >= 2; counter--) {
+    factorial *= counter;
   }
-  const factorial_array = String(BigInt(factorial)).split('')
-  const result = factorial_array.reduce((total, digit) => {
-    return Number(total) + Number(digit);
-  });
-  return result;
+  const factorialString = String(BigInt(factorial));
+  const factorialArray = factorialString.split('');
+
+  return factorialArray.reduce((total, digit) => Number(total) + Number(digit));
 };
 
 digitSum(10);
@@ -142,14 +152,16 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  let fib_array = [0,1]
-  for (let cont = 2; true; cont++) {
-    const next_fib_number = fib_array[cont - 1] + fib_array[cont - 2];
-    fib_array.push(next_fib_number);
-    if (String(fib_array[cont]).length === n) {
-      return cont
-    }
+  const fibArray = [0, 1];
+  let counter = 1;
+
+  while (String(fibArray[counter]).length !== n) {
+    const nextFibNumber = fibArray[counter] + fibArray[counter - 1];
+    fibArray.push(nextFibNumber);
+    counter += 1;
   }
+
+  return counter;
 };
 
 fibIndex(3);
