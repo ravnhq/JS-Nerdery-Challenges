@@ -2,7 +2,7 @@
 
 > **Do you know how and when to use let and/or const? Provide examples.**
 >
-> > We use let when the variable will change the value over time and const when
+> > We use let when the variable will reasing over time and const when
 > > the value will constant
 > >
 > > _Examples:_
@@ -10,13 +10,16 @@
 > > because the value will change
 
     let total = 0;
-    let numbers = [2,3,45,7,8]
+    const numbers = [2,3,45,7,8]
     numbers.forEach(number => total += number)
 
-> > When we want storage a value or get a respond for a method we should use const
+> > When we want storage a value or get a respond for a method and this won't be reasing
+> > we should use const and aslo when we declare an arrow function, in the most cases we use const
+> > when we declare a arrow function.
 
     const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
     const JOIN_COUNTRIES = COUNTRY_NAMES.join(' ');
+    const arrowFunction = (a, b) => a + b;
 
 > **How does the variables scope works? Provide examples.**
 >
@@ -24,7 +27,7 @@
 > >
 > > For example: If we declare inside a if block or function we only can use inside this block.
 
-    const number = 4
+    let number = 4
     if(number < 10){
         let numberInsideIf = 7;
         number *= numberInsideIf
@@ -35,7 +38,18 @@
 > > block
 > >
 > > **Var** have a global scope which means you can use anywhere you want, this can lead to have unexpected
-> > problems because it is difficult to track where you access to the variable.
+> > behavior because it is difficult to track where you access to the variable.
+
+    function exampleFunction(number) {
+    var numberInsideFunction = 7;
+    number *= numberInsideFunction;
+    }
+    numberInsideFunction = 8; //This DOESN'T give us an error
+    console.log(numberInsideFunction);
+
+> > The above example the variable _numberInsideFunction_ has a global scope for this reason
+> > we dont get an error when we use outside the function, this is a simple example, but when we have
+> > a large project this que lead us to unexpected behaviors
 
 > **When should I use forEach vs map? Provide examples.**
 >
@@ -84,9 +98,39 @@
 > >     regular functions have their own "arguments" object which represents the named
 > >     and unnamed arguments passed to the function.
 
+    function sumRegular(a, b) {
+    console.log(arguments); // Arguments object containing arguments
+    return a + b;
+    }
+
+    const sumArrow = (a, b) => {
+    console.log(arguments); // ReferenceError: arguments is not defined
+    return a + b;
+    };
+
 > **What is a higher order function? Provide examples.**
 >
 > > High order functions are methods that pass as arguments another function (callback) or function that return another function.
+
+    function example1(url) {
+        fetch(url)
+            .then((response) => {
+            return response.json();
+            })
+            .then((data) => console.log(data))
+            .catch((error) => console.log(error));
+    }
+
+    function anotherHighOrderFunction() {
+        let name = "Mozilla";
+        return function displayName() {
+            console.log(name);
+        }
+    }
+
+> > The above example _example1_ we use _.then_ and _.catch_ this are methods to handle promises
+> > and these are high order functions because accept a callback as an argument. Also
+> > _example1_ return another function for this reason is a high order
 
 > **What is the difference between filter and find? Provide examples.**
 >
@@ -111,7 +155,7 @@
     }
     console.log(firstName) // fabio
     showNameUpperCase(firstName);
-    console.log(first) // fabio
+    console.log(firstName) // fabio
 
 > > The example above show the variable _firstName_ before and after of execute _showNameUpperCase(firstName)_
 > > and in the 2 cases the value was the same, because when pass as an argument a primitive type we pass a copy
@@ -121,7 +165,7 @@
 >
 > > Passing variables by refence means that you pass the original variable (exactly the value of the memory
 > > where is storage), and if you make a change inside the function you will change the original variable,
-> > this happends with arrays and objects Example:
+> > this happens with arrays and objects Example:
 
     let person = { name: 'fabio', lastName: 'flores' };
     function addBirthday(person) {
