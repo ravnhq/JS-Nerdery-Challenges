@@ -16,9 +16,9 @@ const readableTime = (seconds) => {
   if (seconds < 0) throw new Error('Invalid number, only positive numbers');
 
   const hour = Math.trunc(seconds / 3600);
-  const remaindingSeconds = seconds % 3600;
-  const minute = Math.trunc(remaindingSeconds / 60);
-  const second = remaindingSeconds % 60;
+  const remainingSeconds = seconds % 3600;
+  const minute = Math.trunc(remainingSeconds / 60);
+  const second = remainingSeconds % 60;
 
   //This formats the respond, if the number is less than 9, add a 0 in front of it.
   return `${hour <= 9 ? `0${hour}` : hour}:${
