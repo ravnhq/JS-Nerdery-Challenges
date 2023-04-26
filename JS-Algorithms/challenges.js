@@ -171,9 +171,3 @@ exports.circularArray = circularArray;
 exports.ownPower = ownPower;
 exports.digitSum = digitSum;
 exports.fibIndex = fibIndex;
-
-class Animal {
-    speak(sound) {
-        console.log("This animal " + sound);
-    }
-}
