@@ -13,7 +13,17 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  if (seconds < 0) throw new Error('Invalid number, only positive numbers');
+
+  const hour = Math.trunc(seconds / 3600);
+  const remainingSeconds = seconds % 3600;
+  const minute = Math.trunc(remainingSeconds / 60);
+  const second = remainingSeconds % 60;
+
+  //This formats the respond, if the number is less than 9, add a 0 in front of it.
+  return `${hour <= 9 ? `0${hour}` : hour}:${
+    minute <= 9 ? `0${minute}` : minute
+  }:${second <= 9 ? `0${second}` : second}`;
 };
 
 readableTime(458);
@@ -38,10 +48,18 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (index < 0) throw new Error('Invalid number, only positive numbers');
+
+  const copiedArray = [...COUNTRY_NAMES];
+
+  if (index >= COUNTRY_NAMES.length) {
+    return circularArray(index - COUNTRY_NAMES.length);
+  }
+
+  return [...copiedArray.splice(index), ...copiedArray];
 };
 
 circularArray(2);
@@ -70,7 +88,22 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  if (number < 0 || lastDigits < 0)
+    throw new Error('Invalid number, only positive numbers');
+
+  let total = 0;
+
+  //Create an array with elements and multiply by each own powers
+  const range = Array.from({ length: number }, (_item, index) =>
+    Math.pow(index + 1, index + 1)
+  );
+  //Sum all elements
+  range.forEach((item) => (total += item));
+  //Convert the total a BigInt and transform an string array
+  const totalArray = Array.from(String(BigInt(total)));
+
+  //Get and return the last digits inside String
+  return totalArray.splice(totalArray.length - lastDigits).join('');
 };
 
 ownPower(10, 3);
@@ -95,7 +128,24 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  if (n < 0) throw new Error('Invalid number, only positive numbers');
+
+  let digitSum = 0;
+
+  //calculate factorial of n
+  let sum = 1;
+  for (let i = n; i > 0; i--) {
+    sum *= i;
+  }
+
+  let nFactorial = BigInt(sum);
+  //Convert array of int all the numbers
+  const arrayNumber = Array.from(String(nFactorial), (item) => parseInt(item));
+
+  //Sum all digits
+  arrayNumber.forEach((number) => (digitSum += number));
+
+  return digitSum;
 };
 
 digitSum(10);
@@ -118,7 +168,20 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let fib = n;
+  let n2 = 0;
+  let n1 = 1;
+
+  if (n === 1) return 1;
+
+  for (let i = 2; i <= Number.MAX_SAFE_INTEGER; i++) {
+    fib = n1 + n2;
+    n2 = n1;
+    n1 = fib;
+
+    //Check if the lenght of the factorial is equal to `n`
+    if (fib.toString().length === n) return i;
+  }
 };
 
 fibIndex(3);
