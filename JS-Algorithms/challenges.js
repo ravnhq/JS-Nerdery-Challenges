@@ -86,8 +86,7 @@ const ownPower = (number, lastDigits) => {
   for (let i = 1; i <= number; i++) {
     result += i ** i;
   }
-  result = BigInt(result);
-  result = result.toString();
+  result = BigInt(result).toString();
   return result.slice(result.length - lastDigits);
 };
 
@@ -115,17 +114,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 const digitSum = (n) => {
   if (!(n > 1)) return;
   
-  const fact = (n) => {
-    let result = 1;
-    for (let i = n; i > 1; i--) {
-      result = result * i;
-    }
-    return result;
+  let result = 1;
+  let total = 0;
+
+  for (let i = n; i > 1; i--) {
+    result *= i;
   }
   
-  const digits = String(BigInt(fact(n)));
-  
-  let total = 0;
+  const digits = String(BigInt(result));
+
   for (const digit of digits) {
     total += Number(digit);
   }
