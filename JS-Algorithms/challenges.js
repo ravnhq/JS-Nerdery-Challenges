@@ -116,7 +116,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let totalFactorial = 1;
+  for (let index = n; index > 1; index--) {
+    totalFactorial *= index;
+  }
+  let totalSum = 0;
+  for (let value of BigInt(totalFactorial).toString()) {
+    totalSum += parseInt(value);
+  }
+  return totalSum;
 };
 
 digitSum(10);
