@@ -13,7 +13,19 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const excedentSeconds = seconds % 60;
+
+  function padStart(time) {
+    return String(time).padStart(2, "0");
+  }
+
+  const formattedHours = padStart(hours);
+  const formattedMinutes = padStart(minutes);
+  const formattedSeconds = padStart(excedentSeconds);
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
 readableTime(458);
