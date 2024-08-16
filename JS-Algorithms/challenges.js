@@ -13,7 +13,8 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const result = new Date(seconds * 1000).toISOString().slice(11,19)
+  return result;
 };
 
 readableTime(458);
@@ -41,7 +42,12 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const position = index%5;  
+  const firstCutArray = COUNTRY_NAMES.slice(position,COUNTRY_NAMES.length);
+  const residualArray = COUNTRY_NAMES.slice(0,position)
+
+  return firstCutArray.concat(residualArray);
+
 };
 
 circularArray(2);
@@ -70,7 +76,17 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let value = 0;
+
+  for (let index = 1; index <= number; index++) {
+      value += index**index;
+  }
+
+  const bigIntValue = BigInt(value).toString().split('');
+  const lastResult = bigIntValue.slice(bigIntValue.length - lastDigits,bigIntValue.length)
+  const result = lastResult.join('')
+  
+  return result
 };
 
 ownPower(10, 3);
@@ -95,7 +111,18 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let value = 1;
+
+    for (let i = n; i >= 1; i--) {
+        value *= i;
+    }
+
+    const bigIntValue = BigInt(value);
+    const numbers = bigIntValue.toString().split('');
+    const arrayNumbers = numbers.map(item => parseInt(item))
+    const result = arrayNumbers.reduce((a,b) => a+b,0);
+
+    return result
 };
 
 digitSum(10);
@@ -118,8 +145,17 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
-};
+  let fbnci = [0, 1];
+  let i = 1;
+
+  while(fbnci[i] > 0) {
+      if(fbnci[i].toString().split('').length === n) break;
+      fbnci.push(fbnci[i] + fbnci[i-1]);
+      i++;
+  }
+
+  return fbnci.length - 1
+}; 
 
 fibIndex(3);
 fibIndex(5);
