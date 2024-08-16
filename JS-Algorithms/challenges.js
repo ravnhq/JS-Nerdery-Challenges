@@ -14,6 +14,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  if( isNaN(seconds) || seconds < 0) return null;
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds - (hours * 3600)) / 60 );
+  const second = seconds - (hours * 3600) - (minutes * 60);
+
+  const time = hours.toString().padStart(2,'0') + ':' + minutes.toString().padStart(2,'0') + ':' + second.toString().padStart(2,'0');
+ 
+  return time;
 };
 
 readableTime(458);
@@ -42,6 +51,13 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  if( isNaN(index) || index < 0 ) return null;
+
+  const newIndex = index % COUNTRY_NAMES.length;
+  const newArray = [ ...COUNTRY_NAMES, ...COUNTRY_NAMES ];
+  const result = newArray.slice(newIndex, COUNTRY_NAMES.length + newIndex);
+
+  return result;
 };
 
 circularArray(2);
@@ -71,6 +87,17 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  if ( isNaN(number) || isNaN(lastDigits) || number < 0 || lastDigits < 0 ) return null;
+
+  let total = 0; 
+  for ( let i = 1 ; i <= number ; i++ ) {
+    total = total + Math.pow(i,i);
+  }
+
+  const value = BigInt(total);
+  const result = value.toString().slice(-lastDigits);
+
+  return result;
 };
 
 ownPower(10, 3);
@@ -96,6 +123,22 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let fact = 1;
+  let result = 0;
+  if ( isNaN(n) || n < 0) return null;
+  
+  if(n === 0 || n === 1) return 1;
+  
+  for(let i = n; i >= 1; i--){
+    fact *= i;
+  }
+  const value = BigInt(fact).toString().split('');
+
+  for ( let j = 0; j < value.length; j++){
+    result += Number(value[j]);
+  }
+
+  return result;
 };
 
 digitSum(10);
@@ -119,6 +162,29 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  const fib = (num) => {
+    let a = 1;
+    let b = 0;
+    let temp;
+  
+    while (num >= 0){
+      temp = a;
+      a = a + b;
+      b = temp;
+      num--;
+    }
+  
+    return b;
+  }
+
+  let lastFib;
+  let currentFib = 0;
+  while (lastFib?.toString().length !== n) {
+    lastFib = fib(currentFib);
+    currentFib++;
+  };
+
+  return currentFib;
 };
 
 fibIndex(3);
