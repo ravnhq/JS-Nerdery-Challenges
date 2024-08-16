@@ -13,7 +13,19 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const excedentSeconds = seconds % 60;
+
+  function padStart(time) {
+    return String(time).padStart(2, "0");
+  }
+
+  const formattedHours = padStart(hours);
+  const formattedMinutes = padStart(minutes);
+  const formattedSeconds = padStart(excedentSeconds);
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 };
 
 readableTime(458);
@@ -41,7 +53,12 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (index >= COUNTRY_NAMES.length) {
+    index = index % COUNTRY_NAMES.length;
+  }
+  let firstCountries = COUNTRY_NAMES.slice(index);
+  let secondCountries = COUNTRY_NAMES.slice(0, index);
+  return [...firstCountries, ...secondCountries];
 };
 
 circularArray(2);
@@ -70,7 +87,11 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let total = 0;
+  for (let index = 1; index <= number; index++) {
+    total += index ** index;
+  }
+  return BigInt(total).toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +116,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let totalFactorial = 1;
+  for (let index = n; index > 1; index--) {
+    totalFactorial *= index;
+  }
+  let totalSum = 0;
+  for (let value of BigInt(totalFactorial).toString()) {
+    totalSum += parseInt(value);
+  }
+  return totalSum;
 };
 
 digitSum(10);
@@ -118,7 +147,16 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let index = 1;
+  let lastNumber = 0;
+  let currentNumber = 1;
+  while (currentNumber.toString().length < n) {
+    let temporal = currentNumber;
+    currentNumber += lastNumber;
+    lastNumber = temporal;
+    index++;
+  }
+  return index;
 };
 
 fibIndex(3);
