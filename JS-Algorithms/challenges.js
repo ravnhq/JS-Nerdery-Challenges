@@ -14,15 +14,15 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   seconds = Number(seconds);
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = Math.floor(seconds % 60);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
 
-    const hDisplay = h < 10 ? '0' + h : h;
-    const mDisplay = m < 10 ? '0' + m : m;
-    const sDisplay = s < 10 ? '0' + s : s;
+  const hDisplay = h < 10 ? '0' + h : h;
+  const mDisplay = m < 10 ? '0' + m : m;
+  const sDisplay = s < 10 ? '0' + s : s;
 
-    return hDisplay + ':' + mDisplay + ':' + sDisplay;
+  return `${hDisplay}:${mDisplay}:${sDisplay}`;
 };
 
 readableTime(458);
@@ -54,7 +54,7 @@ const circularArray = (index) => {
   const result = [];
 
   for (let i = 0; i < length; i++) {
-      result.push(COUNTRY_NAMES[(index + i) % length]);
+    result.push(COUNTRY_NAMES[(index + i) % length]);
   }
 
   return result;
@@ -86,15 +86,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  let totalSum = BigInt(0); 
+  let totalSum = BigInt(0);
 
   for (let i = 1n; i <= number; i++) {
     totalSum += BigInt(i) ** BigInt(i);
   }
 
   const resultStr = totalSum.toString();
-  let result = resultStr.slice(-lastDigits);
-  return result;
+  return resultStr.slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -126,12 +125,11 @@ const digitSum = (n) => {
     result *= BigInt(i)
   }
 
-  let valuesString = result.toString();
-  let valueArray =  Array.from(valuesString);
+  const valuesString = result.toString();
   let sumResult = BigInt(0);
 
-  for(let j = 0; j < valueArray.length; j++){
-    sumResult += BigInt(valueArray[j]);
+  for (let j = 0; j < valuesString.length; j++) {
+    sumResult += BigInt(valuesString[j]);
   }
 
   return Number(sumResult)
@@ -161,10 +159,10 @@ const fibIndex = (n) => {
   let i = 2;
 
   while (fib[fib.length - 1].toString().length < n) {
-      fib[i] = fib[i - 1] + fib[i - 2];
-      i++;
+    fib[i] = fib[i - 1] + fib[i - 2];
+    i++;
   }
-  return fib.indexOf(fib[fib.length-1]);
+  return fib.indexOf(fib[fib.length - 1]);
 };
 
 fibIndex(3);
