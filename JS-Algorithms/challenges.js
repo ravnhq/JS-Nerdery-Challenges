@@ -13,7 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600 / 60));
+  const secs = Math.floor(seconds % 60);
+
+  return `${hours <= 9 ? `0${hours}` : hours}:${minutes <= 9 ? `0${minutes}` : minutes}:${secs <= 9 ? `0${secs}` : secs}`;
 };
 
 readableTime(458);
@@ -41,7 +45,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  let auxIndex = 0
+
+  while (index > COUNTRY_NAMES.length) {
+    auxIndex = index - COUNTRY_NAMES.length;
+    index = auxIndex;
+  }
+
+  return COUNTRY_NAMES.slice(index, COUNTRY_NAMES.length).concat(COUNTRY_NAMES.slice(0, index));
 };
 
 circularArray(2);
@@ -70,7 +81,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0
+
+  for (let index = 1; index <= number; index++) {
+    sum += Math.pow(index, index)
+  }
+
+  return (sum % Math.pow(10, lastDigits)).toString()
 };
 
 ownPower(10, 3);
@@ -95,7 +112,20 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1
+  let sum = 0
+
+  for (let i = n; i >= 1; i--) {
+    factorial *= i
+  }
+
+  const factorialDigits = BigInt(factorial).toString().split('')
+
+  for (let index = 0; index < factorialDigits.length; index++) {
+    sum += Number(factorialDigits[index]);
+
+  }
+  return sum
 };
 
 digitSum(10);
@@ -118,7 +148,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let fibDigits = [0, 1]
+  let helper = 2
+
+  while (true) {
+    fibDigits[helper] = fibDigits[helper - 1] + fibDigits[helper - 2]
+
+    if (fibDigits[helper].toString().length === n) {
+      return helper
+    }
+
+    helper++
+  }
 };
 
 fibIndex(3);
