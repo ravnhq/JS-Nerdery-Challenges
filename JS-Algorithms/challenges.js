@@ -25,18 +25,13 @@ const readableTime = (seconds) => {
   const displaySeconds = seconds % 60;
   const secondsString = timeParser(displaySeconds);
 
-  const finalString = `${hoursString}:${minutesString}:${secondsString}`;
-
-  console.log(finalString);
-
-  return finalString;
+  return `${hoursString}:${minutesString}:${secondsString}`;
 };
 
 function timeParser(number) {
   const hoursString = String(number);
-  const displayHours = hoursString.length == 1 ? `0${number}` : `${number}`;
 
-  return displayHours;
+  return hoursString.length == 1 ? `0${number}` : `${number}`;
 }
 
 readableTime(458);
@@ -112,11 +107,7 @@ const ownPower = (number, lastDigits) => {
     sumOfPowers += BigInt(index) ** BigInt(index);
   }
 
-  const lastStringDigits = sumOfPowers.toString().slice(-lastDigits);
-
-  console.log(`The last ${lastDigits} digits for ${sumOfPowers} is:\n${lastStringDigits}`);
-
-  return lastStringDigits;
+  return sumOfPowers.toString().slice(-lastDigits);
 };
 
 console.log('Challenge 3 - Sum of powers\n');
@@ -150,11 +141,8 @@ const digitSum = (n) => {
   }
 
   const valuesToSum = Array.from(factorialValue.toString()).map(stringNumber => +stringNumber);
-  const sumOfValues = valuesToSum.reduce((sum, current) => sum + current, 0);
 
-  console.log(`The sum of the factorial of ${n}! is:\n${sumOfValues}`);
-
-  return sumOfValues;
+  return valuesToSum.reduce((sum, current) => sum + current, 0);
 };
 
 console.log('Challenge 4 - Factorials\n');
