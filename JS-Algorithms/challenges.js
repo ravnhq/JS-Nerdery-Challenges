@@ -13,7 +13,12 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+	let date = new Date(seconds * 1000);
+	let hours = date.getUTCHours().toString().padStart(2, '0');
+	let min = date.getUTCMinutes().toString().padStart(2, '0');
+	let sec = date.getUTCSeconds().toString().padStart(2, '0');
+
+	return `${hours}:${min}:${sec}`;
 };
 
 readableTime(458);
@@ -38,10 +43,22 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+	if (index > COUNTRY_NAMES.length) {
+		let subIndex = -((++index % COUNTRY_NAMES.length) + 1)
+
+		return [
+			...COUNTRY_NAMES.slice(subIndex),
+			...COUNTRY_NAMES.slice(0, subIndex),
+		];
+	} else {
+		return [
+			...COUNTRY_NAMES.slice(index),
+			...COUNTRY_NAMES.slice(0, index),
+		];
+	}
 };
 
 circularArray(2);
@@ -70,7 +87,15 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+	let counter = 1;
+	let accumulator = 0;
+
+	while (counter <= number) {
+		accumulator += counter ** counter;
+		counter++;
+	}
+
+	return BigInt(accumulator).toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +120,21 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+	let result = 0;
+	let accumulator = 1;
+
+	while (n >= 1) {
+		accumulator *= n;
+		n--;
+	}
+
+	BigInt(accumulator)
+	.toString()
+	.split('')
+	.map(Number)
+	.forEach (element => result += element);
+
+	return result;
 };
 
 digitSum(10);
@@ -118,7 +157,27 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+	let accumulator = [0, 1];
+
+	function fibonacci(acc) {
+		let sum = 0;
+
+		acc.slice(-2).forEach((value) => {
+			sum += value;
+		});
+
+		acc.push(sum);
+		let number = acc.slice(-1)[0];
+        let numberValidation = number.toString().split('').length == n;
+
+		if (numberValidation) {
+			return acc.indexOf(number);
+		}
+
+		return fibonacci(acc);
+	}
+
+	return fibonacci(accumulator);
 };
 
 fibIndex(3);
