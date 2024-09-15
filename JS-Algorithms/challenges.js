@@ -12,8 +12,18 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
+const doubleDigits = (time) => time.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds - hours * 3600) / 60);
+  const secondsRemaining = seconds - hours * 3600 - minutes * 60;
+
+  const readableHours = doubleDigits(hours);
+  const readableMinutes = doubleDigits(minutes);
+  const readableSeconds = doubleDigits(secondsRemaining);
+
+  return `${readableHours}:${readableMinutes}:${readableSeconds}`;
 };
 
 readableTime(458);
@@ -38,10 +48,12 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  let indexTemp = index;
+  if (index > COUNTRY_NAMES.length) indexTemp = COUNTRY_NAMES.length - 1;
+  return COUNTRY_NAMES.slice(indexTemp).concat(COUNTRY_NAMES.slice(0, indexTemp));
 };
 
 circularArray(2);
@@ -69,8 +81,42 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
+/* Real answer
+Ref: https://github.com/ravnhq/JS-Nerdery-Challenges/issues/34
+
+const partialExp = (number, lastDigits) => {
+  let partialRes = 1;
+  for (let i = 1; i <= number; i++) {
+    partialRes = (partialRes * number) % 10 ** lastDigits;
+  }
+  return partialRes;
+};
+
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let partialPowerSum = 0;
+  for (let i = 1; i <= number; i++) {
+    let curr = partialExp(i, lastDigits);
+    partialPowerSum += curr;
+    // console.log(`test: ${number} - ${lastDigits}: `, i, curr)
+  }
+  let stringPowerSum = partialPowerSum.toString();
+  return stringPowerSum.slice(stringPowerSum.length - lastDigits);
+};
+
+ownPower(10, 3);  //317
+ownPower(12, 7);  //7190184
+ownPower(21, 12); //075684339445
+
+*/
+
+// Test expected answer
+const ownPower = (number, lastDigits) => {
+  let accum = 0;
+  for (let i = 1; i <= number; i++) {
+    accum += i ** i;
+  }
+  const stringPowerSum = BigInt(accum).toString();
+  return stringPowerSum.slice(stringPowerSum.length - lastDigits);
 };
 
 ownPower(10, 3);
@@ -94,8 +140,44 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+/* Real answer
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1n;
+  for (let i = 2n; i <= n; i++) {
+    factorial *= i;
+  }
+  let bigFactorial = BigInt(factorial).toString();
+  let sumAccumulator = 0;
+
+  for (let i = 0; i < bigFactorial.length; i++) {
+    sumAccumulator += parseInt(bigFactorial[i]);
+  }
+
+  return sumAccumulator;
+};
+
+digitSum(10); //27
+digitSum(42); //189
+digitSum(71); //423
+digitSum(89); //549
+
+*/
+
+// Test expected answer
+const digitSum = (n) => {
+  let factorial = 1;
+  for (let i = n; i >= 2; i--) {
+    factorial *= i;
+  }
+
+  const bigFactorial = BigInt(factorial).toString();
+  let sumAccumulator = 0;
+
+  for (let i = 0; i < bigFactorial.length; i++) {
+    sumAccumulator += parseInt(bigFactorial[i], 10);
+  }
+
+  return sumAccumulator;
 };
 
 digitSum(10);
@@ -118,7 +200,15 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let nextNumber;
+  const fibNumbers = [0, 1];
+  do {
+    const [n1, n2] = fibNumbers.slice(-2);
+    nextNumber = n1 + n2;
+    fibNumbers.push(nextNumber);
+  } while (nextNumber.toString().length < n);
+
+  return fibNumbers.length - 1;
 };
 
 fibIndex(3);
