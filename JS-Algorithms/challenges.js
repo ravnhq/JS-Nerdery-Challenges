@@ -13,7 +13,17 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const format = {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  };
+
+  const time = Number(seconds);
+  const hour = Math.floor(time / 3600).toLocaleString('en-US', format);
+  const minutes = Math.floor(time % 3600 / 60).toLocaleString('en-US', format);
+  const _seconds = Math.floor(time % 3600 % 60).toLocaleString('en-US', format);
+
+  return `${hour}:${minutes}:${_seconds}`;
 };
 
 readableTime(458);
@@ -41,7 +51,9 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+    if (!(index >= 0)) return;
+  return COUNTRY_NAMES.slice(index % COUNTRY_NAMES.length)
+    .concat(COUNTRY_NAMES.slice(0, index % COUNTRY_NAMES.length));
 };
 
 circularArray(2);
@@ -70,7 +82,12 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let result = 0;
+  for (let i = 1; i <= number; i++) {
+    result += i ** i;
+  }
+  result = BigInt(result).toString();
+  return result.slice(result.length - lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +112,22 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  if (!(n > 1)) return;
+  
+  let result = 1;
+  let total = 0;
+
+  for (let i = n; i > 1; i--) {
+    result *= i;
+  }
+  
+  const digits = String(BigInt(result));
+
+  for (const digit of digits) {
+    total += Number(digit);
+  }
+  
+  return total;
 };
 
 digitSum(10);
@@ -118,7 +150,11 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let data = [0, 1];
+  for (let i = 2; i < 100; i++) {
+    data.push(data[i - 2] + data[i - 1]);
+  }
+  return data.findIndex(fibResult => fibResult.toString().length === n);
 };
 
 fibIndex(3);
