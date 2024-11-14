@@ -22,11 +22,11 @@ const readableTime = (seconds) => {
 
   const finalSeconds = remainingTime
 
-  const rspHours = finalHours.toString().padStart(2,'0')
-  const rspMinutes = finalMinutes.toString().padStart(2,'0')
-  const rspSeconds = finalSeconds.toString().padStart(2,'0')
+  const responseHours = finalHours.toString().padStart(2,'0')
+  const responseMinutes = finalMinutes.toString().padStart(2,'0')
+  const responseSeconds = finalSeconds.toString().padStart(2,'0')
 
-  return `${rspHours}:${rspMinutes}:${rspSeconds}`
+  return `${responseHours}:${responseMinutes}:${responseSeconds}`
 };
 
 readableTime(458);
@@ -57,6 +57,7 @@ const circularArray = (index) => {
   if(index < 0){
     throw new Error('Index must be a positive number')
   }
+
   const circleIndex = (index >= COUNTRY_NAMES.length) ? index % COUNTRY_NAMES.length : index
   const firstArray = COUNTRY_NAMES.slice(circleIndex, COUNTRY_NAMES.length)
   const secondArray = COUNTRY_NAMES.slice(0, circleIndex)
@@ -91,14 +92,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   let currentNumber = BigInt(number)
-  let accumulator = BigInt(0)
+  let acc = BigInt(0)
   while(currentNumber > 0){
-    accumulator += currentNumber ** currentNumber
+    acc += currentNumber ** currentNumber
     currentNumber--
   }
 
-  const stringAccumulator = accumulator.toString()
-  return stringAccumulator.slice(-1 * lastDigits)
+  const stringAcc = acc.toString()
+  return stringAcc.slice(-1 * lastDigits)
 };
 
 ownPower(10, 3);
@@ -123,7 +124,8 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  let acc = BigInt(1), digitSum = 0
+  let acc = BigInt(1)
+  let digitSum = 0
   while(n > 0){
     acc *= BigInt(n)
     n--
@@ -171,11 +173,12 @@ const fibIndex = (n) => {
     }else{
       fibonacciElement = currentIndex
     }
+
     fibonacciArray.push(fibonacciElement)
-    
     if(fibonacciElement.toString().length === n){
       break
     }
+
     currentIndex++
   }
   return currentIndex
