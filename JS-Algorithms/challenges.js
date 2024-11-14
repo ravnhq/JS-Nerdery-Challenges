@@ -12,8 +12,16 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
+const getFormattedNumber = (time) => (time < 10 ? `0${time}` : time);
+
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${getFormattedNumber(hours)}:${getFormattedNumber(
+    minutes
+  )}:${getFormattedNumber(remainingSeconds)}`;
 };
 
 readableTime(458);
@@ -41,7 +49,14 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  if (index === COUNTRY_NAMES.length) return [...COUNTRY_NAMES];
+
+  const indexToReplace = index % COUNTRY_NAMES.length;
+
+  const splicedItemsFront = COUNTRY_NAMES.slice(0, indexToReplace);
+  const splicedItemsBack = COUNTRY_NAMES.slice(indexToReplace);
+
+  return [...splicedItemsBack, ...splicedItemsFront];
 };
 
 circularArray(2);
@@ -69,8 +84,26 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
+const power = (base, exponent) => {
+  let result = 1n;
+  for (let i = 0n; i < exponent; i++) {
+    result *= base;
+  }
+  return result;
+};
+
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0n;
+
+  for (let i = 0; i < number; i++) {
+    const number = BigInt(i + 1);
+    const power_number = power(number, number);
+    sum += power_number;
+  }
+
+  const lastNumbersByDigits = sum.toString().slice(lastDigits * -1);
+
+  return lastNumbersByDigits;
 };
 
 ownPower(10, 3);
@@ -94,8 +127,27 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+const getFactorial = (n) => {
+  if (n === 0 || n === 1) return 1;
+  let result = 1n;
+
+  for (let i = 2n; i <= n; i++) {
+    result *= i;
+  }
+
+  return result;
+};
+
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  const factorial = getFactorial(n);
+
+  let result = 0;
+
+  for (const elm of factorial.toString()) {
+    result += parseInt(elm);
+  }
+
+  return result;
 };
 
 digitSum(10);
@@ -117,9 +169,20 @@ Invoking "fibIndex(3)" should return "12".
 Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
 ***** */
 
-const fibIndex = (n) => {
-  // YOUR CODE HERE...
-};
+function fibIndex(n) {
+  let a = 0n;
+  let b = 1n;
+  let index = 0;
+
+  for (let i = 1; b.toString().length < n; i++) {
+    let temp = b;
+    b = a + b;
+    a = temp;
+    index++;
+  }
+
+  return index + 1;
+}
 
 fibIndex(3);
 fibIndex(5);
