@@ -14,6 +14,14 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  function format2Digits(number) {
+    return number.toString().padStart(2, "0");
+  }
+
+  let textSeconds = format2Digits(seconds % 60);
+  let textMinutes = format2Digits(Math.floor(seconds / 60) % 60);
+  let textHours = format2Digits(Math.floor(seconds / 3600) % 24);
+  return `${textHours}:${textMinutes}:${textSeconds}`;
 };
 
 readableTime(458);
@@ -42,6 +50,14 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  if (index % COUNTRY_NAMES.length === 0) return COUNTRY_NAMES;
+
+  let newCountryNames = [];
+  for (let i = index; i < COUNTRY_NAMES.length + index; i++) {
+    let country = COUNTRY_NAMES[i % COUNTRY_NAMES.length];
+    newCountryNames.push(country);
+  }
+  return newCountryNames;
 };
 
 circularArray(2);
@@ -71,6 +87,15 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
   // YOUR CODE HERE...
+  let result = BigInt(0);
+  let currentNumber = BigInt(number);
+
+  while (0n < currentNumber) {
+    result += currentNumber ** currentNumber;
+    currentNumber--;
+  }
+
+  return result.toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -96,6 +121,14 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let factorialResult = BigInt(1);
+  for (let i = 2; i <= n; i++) factorialResult *= BigInt(i);
+
+  //sum digits
+  return factorialResult
+    .toString()
+    .split("")
+    .reduce((sum, digit) => sum + Number(digit), 0);
 };
 
 digitSum(10);
@@ -119,6 +152,25 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  //First Fibonacci Number
+  if (n === 1) return 1;
+
+  let a = BigInt(0);
+  let b = BigInt(1);
+  let c,
+    index = 1;
+
+  do {
+    //Current fib number
+    c = a + b;
+    index++;
+
+    //Change previous numbers for next loop execution if needed
+    a = b;
+    b = c;
+  } while (c.toString().split("").length < n);
+
+  return index;
 };
 
 fibIndex(3);
