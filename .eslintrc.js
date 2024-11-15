@@ -5,13 +5,15 @@ module.exports = {
     es2021: true,
     jest: true,
   },
-  extends: ["airbnb-base"],
+  extends: ['airbnb-base'],
   parserOptions: {
     ecmaVersion: 12,
   },
   rules: {
-    indent: [2, "space"],
-    "no-tabs": 0,
-    "no-plusplus": ["error", { allowForLoopAfterthoughts: true }],
+    indent: ['error', 2],
+    'no-tabs': 0,
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'linebreak-style': 0,
+    semi: ['error', 'always'],
   },
 };

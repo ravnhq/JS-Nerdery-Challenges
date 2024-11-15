@@ -14,6 +14,18 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const getHours = Math.floor(seconds / 3600);
+  const getMinutes = Math.floor((seconds - (getHours * 3600)) / 60);
+  const getSeconds = seconds - (getHours * 3600) - (getMinutes * 60);
+
+  /* eslint-disable */
+  const timeString =
+    getHours.toString().padStart(2, '0') + ':' +
+    getMinutes.toString().padStart(2, '0') + ':' +
+    getSeconds.toString().padStart(2, '0');
+  /* eslint-enable */
+
+  return timeString;
 };
 
 readableTime(458);
@@ -38,10 +50,16 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  const circularIndex = index % COUNTRY_NAMES.length;
+  const sortedArray = [
+    ...COUNTRY_NAMES.slice(circularIndex),
+    ...COUNTRY_NAMES.slice(0, circularIndex),
+  ];
+  return sortedArray;
 };
 
 circularArray(2);
@@ -70,7 +88,22 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  // module prevents high values because of exponents
+  const module = 10 ** lastDigits;
+  let accumulator = 0;
+
+  for (let x = 1; x <= number; x++) {
+    let power = 1;
+    for (let y = 0; y < x; y++) {
+      power = (power * x) % module;
+    }
+    accumulator = (accumulator + power) % module;
+  }
+  const selectDigits = accumulator
+    .toString()
+    .padStart(lastDigits, '0');
+
+  return selectDigits;
 };
 
 ownPower(10, 3);
@@ -96,6 +129,17 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  let accumulator = BigInt(1);
+  for (let x = 1; x <= n; x++) {
+    accumulator *= BigInt(x);
+  }
+
+  const sum = accumulator
+    .toString()
+    .split('')
+    .reduce((acc, char) => acc + parseInt(char, 10), 0);
+
+  return sum;
 };
 
 digitSum(10);
@@ -119,6 +163,19 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
   // YOUR CODE HERE...
+  // Fibonacci start structure
+  let a = 1;
+  let b = 1;
+  let index = 2;
+
+  while (b.toString().length < n) {
+    const temp = b;
+    b = a + b;
+    a = temp;
+    index += 1;
+  }
+
+  return index;
 };
 
 fibIndex(3);

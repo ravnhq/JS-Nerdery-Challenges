@@ -6,7 +6,9 @@
   "author": "AlexxMart <alex@ravn.co>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint",
+    "test:match": "jest -i JS-Algorithms/challenges.test.js -t"
   },
   "devDependencies": {
     "eslint": "^7.21.0",
