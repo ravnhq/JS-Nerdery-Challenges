@@ -13,7 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+  const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+  const secondsLeft = (seconds % 60).toString().padStart(2, '0');
+
+  return `${hours}:${minutes}:${secondsLeft}`;
 };
 
 readableTime(458);
@@ -41,13 +45,18 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  const rotatedIndex = index % COUNTRY_NAMES.length;
+  const countries1 = COUNTRY_NAMES.slice(rotatedIndex)
+  const countries2 = COUNTRY_NAMES.slice(0, rotatedIndex)
+
+  return countries1.concat(countries2)
 };
 
 circularArray(2);
 circularArray(3);
 circularArray(5);
 circularArray(9);
+circularArray(12);
 
 /* *****
 Challenge 3
@@ -70,7 +79,10 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  const iterationNumber = Array(number).fill().map((_, index) => index + 1)
+  const ownPowersValues = iterationNumber.reduce((prevValue, currentValue) => BigInt(prevValue) + (BigInt(currentValue) ** BigInt(currentValue)), 0);
+
+  return BigInt(ownPowersValues).toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -95,7 +107,15 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  function factorial (x) {
+    if (x === 1) return BigInt(1);
+    return BigInt(x) * factorial(x - 1);
+  }
+
+  const factorialDigit = factorial(n)
+  const factorialDigitArray = factorialDigit.toString().split('');
+
+  return factorialDigitArray.reduce((previousValue, currentValue) => Number(previousValue) + Number(currentValue))
 };
 
 digitSum(10);
@@ -118,7 +138,19 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let prevFibo = 0;
+  let currentFibo = 1;
+  let nextFibo;
+  let index = 0;
+
+  for (; prevFibo.toString().length < n; index++) {
+    nextFibo = prevFibo + currentFibo;
+
+    prevFibo = currentFibo;
+    currentFibo = nextFibo;
+  }
+
+  return index;
 };
 
 fibIndex(3);
