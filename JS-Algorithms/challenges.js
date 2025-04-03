@@ -13,7 +13,11 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const HH = String(Math.floor(seconds / 3600)).padStart(2, "0");
+  const MM = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+  const SS = String(seconds % 60).padStart(2, "0");
+
+  return `${HH}:${MM}:${SS}`;
 };
 
 readableTime(458);
@@ -41,7 +45,7 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  return [...COUNTRY_NAMES.slice(index), ...COUNTRY_NAMES.slice(0, index)];
 };
 
 circularArray(2);
