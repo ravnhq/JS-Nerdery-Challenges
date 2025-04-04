@@ -45,7 +45,10 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  return [...COUNTRY_NAMES.slice(index), ...COUNTRY_NAMES.slice(0, index)];
+  const validIndex = index % COUNTRY_NAMES.length;
+  const part1 = COUNTRY_NAMES.slice(validIndex);
+  const part2 = COUNTRY_NAMES.slice(0, validIndex);
+  return part1.concat(part2);
 };
 
 circularArray(2);
@@ -74,7 +77,13 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let sum = 0n;
+
+  for (let i = 1; i <= number; i++) {
+    sum += BigInt(i) ** BigInt(i);
+  }
+
+  return sum.toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -99,7 +108,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let factorial = 1n;
+
+  for (let i = 2n; i <= BigInt(n); i++) {
+    factorial *= i;
+  }
+
+  return factorial
+    .toString()
+    .split("")
+    .reduce((sum, digit) => sum + Number(digit), 0);
 };
 
 digitSum(10);
@@ -122,7 +140,18 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  let a = 1,
+    b = 1;
+  let index = 2;
+
+  while (String(b).length < n) {
+    const next = a + b;
+    a = b;
+    b = next;
+    index++;
+  }
+
+  return index;
 };
 
 fibIndex(3);
