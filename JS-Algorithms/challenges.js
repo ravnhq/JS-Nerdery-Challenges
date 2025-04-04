@@ -13,12 +13,19 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
+  if (typeof seconds !== "number" || seconds < 0) {
+    return "Invalid input: Please provide a non-negative number of seconds.";
+  }
   const HH = String(Math.floor(seconds / 3600)).padStart(2, "0");
   const MM = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
   const SS = String(seconds % 60).padStart(2, "0");
 
   return `${HH}:${MM}:${SS}`;
 };
+
+// EXPLANATION 1:
+// Positive number check for parameter seconds.
+// Then conversion into strings to receive the proper data as 2 digits using the padStart method.
 
 readableTime(458);
 readableTime(3690);
@@ -51,6 +58,10 @@ const circularArray = (index) => {
   return part1.concat(part2);
 };
 
+// EXPLANATION 2:
+// Validation for cases when the index is larger than the array's length.
+// Then slice of array from index to the end and then a concatenation of the pending elements.
+
 circularArray(2);
 circularArray(3);
 circularArray(5);
@@ -77,14 +88,17 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  let sum = 0n;
-
+  let total = 0n;
   for (let i = 1; i <= number; i++) {
-    sum += BigInt(i) ** BigInt(i);
+    total += BigInt(i) ** BigInt(i);
   }
-
-  return sum.toString().slice(-lastDigits);
+  return total.toString().slice(-lastDigits);
 };
+
+// EXPLANATION 3:
+// Starting the total from 0, 0n to make it work with BigInt and the multiplication.
+// We use a lopp starting from 1 to calculate the total of the multiplied number, using BigInt for precision.
+// Conversion to string to use slice and have the answer according to lastDigits parameter.
 
 ownPower(10, 3);
 ownPower(12, 7);
@@ -109,16 +123,21 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
   let factorial = 1n;
-
   for (let i = 2n; i <= BigInt(n); i++) {
     factorial *= i;
   }
-
   return factorial
     .toString()
     .split("")
     .reduce((sum, digit) => sum + Number(digit), 0);
 };
+
+// EXPLANATION 4:
+// Starting the factorial variable from 1, 1n to make it work with BigInt and the multiplication.
+// We calculate a loop starting from 2 to n. Using BigInt and 1n for precision.
+// We convert the variable to string to use the split method to have an array of digits.
+// We use the reduce method to have the sum of the single values matching the splitted digits, starting the sum from 0.
+// Finally we convert the result into number and return factorial.
 
 digitSum(10);
 digitSum(42);
@@ -140,8 +159,8 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  let a = 1,
-    b = 1;
+  let a = 1n,
+    b = 1n;
   let index = 2;
 
   while (String(b).length < n) {
@@ -153,6 +172,11 @@ const fibIndex = (n) => {
 
   return index;
 };
+
+// EXPLANATION 5:
+// We calcualte the Fibonacci number with a loop, using 1n for precision for big numbers and set the index to the 2nd position since we start with 2 numbers.
+// We stop calculating the Fibonacci number until b's length is less than n and convert the number to a string.
+// Finally we return the index that indicates how many digits the current Fibonacci number has.
 
 fibIndex(3);
 fibIndex(5);
