@@ -13,13 +13,23 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
-};
+  if (typeof seconds !== "number" || seconds < 0) {
+    throw new Error("Input must be a non-negative number.")
+  }
 
-readableTime(458);
-readableTime(3690);
-readableTime(7293);
-readableTime(32420);
+  const format = (num) => num.toString().padStart(2, "0")
+
+  const hours = Math.floor(seconds / 3600)
+  const min = Math.floor((seconds % 3600) / 60)
+  const sec = seconds % 60
+
+  return `${format(hours)}:${format(min)}:${format(sec)}`
+}
+
+readableTime(458)
+readableTime(3690)
+readableTime(7293)
+readableTime(32420)
 
 /* *****
 Challenge 2
@@ -38,16 +48,30 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
-const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
+const COUNTRY_NAMES = [
+  "Germany",
+  "Norway",
+  "Island",
+  "Japan",
+  "Israel",
+]
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
-};
+  if (typeof index !== "number" || index < 0) {
+    throw new Error("Index must be a positive number.")
+  }
 
-circularArray(2);
-circularArray(3);
-circularArray(5);
-circularArray(9);
+  const startIndex = index % COUNTRY_NAMES.length
+  return [
+    ...COUNTRY_NAMES.slice(startIndex),
+    ...COUNTRY_NAMES.slice(0, startIndex),
+  ]
+}
+
+circularArray(2)
+circularArray(3)
+circularArray(5)
+circularArray(9)
 
 /* *****
 Challenge 3
@@ -70,12 +94,42 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
-};
+  if (
+    typeof number !== "number" ||
+    number < 1 ||
+    !Number.isInteger(number)
+  ) {
+    throw new Error(
+      "The 'number' argument must be a positive integer."
+    )
+  }
+  if (
+    typeof lastDigits !== "number" ||
+    lastDigits < 1 ||
+    !Number.isInteger(lastDigits)
+  ) {
+    throw new Error(
+      "The 'lastDigits' argument must be a positive integer."
+    )
+  }
 
-ownPower(10, 3);
-ownPower(12, 7);
-ownPower(21, 12);
+  let sum = BigInt(0)
+
+  for (let i = 1; i <= number; i++) {
+    sum += BigInt(i) ** BigInt(i)
+  }
+
+  const result = sum.toString()
+  if (result.length <= lastDigits) {
+    return result
+  } else {
+    return result.slice(-lastDigits)
+  }
+}
+
+ownPower(10, 3)
+ownPower(12, 7)
+ownPower(21, 12)
 
 /* *****
 Challenge 4
@@ -95,13 +149,33 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
-};
+  if (
+    typeof n !== "number" ||
+    n < 0 ||
+    !Number.isInteger(n)
+  ) {
+    throw new Error("Input must be a non-negative integer.")
+  }
 
-digitSum(10);
-digitSum(42);
-digitSum(71);
-digitSum(89);
+  if (n === 0 || n === 1) {
+    return 1
+  }
+
+  let factorial = BigInt(1)
+  for (let i = 2; i <= n; i++) {
+    factorial *= BigInt(i)
+  }
+
+  return factorial
+    .toString()
+    .split("")
+    .reduce((sum, digit) => sum + Number(digit), 0)
+}
+
+digitSum(10)
+digitSum(42)
+digitSum(71)
+digitSum(89)
 
 /* *****
 Challenge 5
@@ -118,16 +192,36 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
-};
+  if (n <= 0) {
+    throw new Error(
+      "The input should be a positive number."
+    )
+  }
 
-fibIndex(3);
-fibIndex(5);
-fibIndex(12);
-fibIndex(15);
+  let a = 0,
+    b = 1,
+    index = 1
 
-exports.readableTime = readableTime;
-exports.circularArray = circularArray;
-exports.ownPower = ownPower;
-exports.digitSum = digitSum;
-exports.fibIndex = fibIndex;
+  while (true) {
+    const fibNumber = a + b
+    index++
+
+    if (fibNumber.toString().length >= n) {
+      return index
+    }
+
+    a = b
+    b = fibNumber
+  }
+}
+
+fibIndex(3)
+fibIndex(5)
+fibIndex(12)
+fibIndex(15)
+
+exports.readableTime = readableTime
+exports.circularArray = circularArray
+exports.ownPower = ownPower
+exports.digitSum = digitSum
+exports.fibIndex = fibIndex
