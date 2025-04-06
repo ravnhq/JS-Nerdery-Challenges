@@ -12,9 +12,24 @@ Example:
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
+
+/**
+ * Challenge 1- Documentation
+ * @param {number} seconds - Quantity of seconds to convert.
+ * @returns {string} - Text chain with the format "HH:MM:SS".
+ */
+
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
-};
+  if (typeof seconds !== 'number' || seconds <= 0) {
+    return 'Invalid provide a positive number.';
+  }
+
+  const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
+  const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+  const secondsr = String(seconds % 60).padStart(2, '0');
+    return `${hours}:${minutes}:${secondsr}`;
+  };
 
 readableTime(458);
 readableTime(3690);
@@ -38,16 +53,29 @@ Example:
 Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "Germany", "Norway"]"
 ***** */
 
+/**
+ * Challenge 2 Documentation
+ * @param {number} index - The starting index for the circular rotation.
+ * @returns {str[]} - A new array of country names, rotated starting from the given index.
+ */
+
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+  if (typeof index !== 'number') {
+    return 'Invalid please enter a number';
+  }
+
+  const validIndex = index % COUNTRY_NAMES.length;
+  return [...COUNTRY_NAMES.slice(validIndex), ...COUNTRY_NAMES.slice(0, validIndex)];
 };
 
 circularArray(2);
 circularArray(3);
 circularArray(5);
 circularArray(9);
+
 
 /* *****
 Challenge 3
@@ -69,10 +97,28 @@ because 1^1 + 2^2 + 3^3 + 4^4 + 5^5 + 6^6 + 7^7 + 8^8 + 9^9 + 10^10 = 1040507131
 The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
-const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
-};
+/**
+ * Challenge 3 Documentation
+ * @param {number} number - The upper limit of the own power function indicates the lat number.
+ * @param {number} lastDigits - The number of digits to extract from the result.
+ * @returns {string} It represents the last digits of the power result.
+ */
 
+const ownPower = (number, lastDigits) => {
+      // YOUR CODE HERE...
+      if (typeof number !== 'number' || typeof lastDigits !== 'number') {
+        return 'Please enter a number';
+      }
+
+      let sum = BigInt(0); 
+      for (let i = 1; i <= number; i++) {
+        sum += BigInt(i) ** BigInt(i); 
+      }
+
+      return sum.toString().slice(-lastDigits);
+    };
+    
+    
 ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12);
@@ -94,9 +140,27 @@ Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
+/** 
+ * Challenge 4 Documentation
+ * @param {number} n - The number whose factorial's digits will be summed.
+ * @returns {number} - The sum of the digits of the factorial.
+*/
+
+
 const digitSum = (n) => {
   // YOUR CODE HERE...
+  if (typeof n !== 'number') {
+    return 'Please only numbers are valid';
+  }
+
+  let factorial = BigInt(1);
+  for (let i = BigInt(2); i <= BigInt(n); i++) {
+    factorial *= i;
+  }
+  return factorial.toString().split('')
+    .reduce((sum, digit) => sum + Number(digit), 0);
 };
+
 
 digitSum(10);
 digitSum(42);
@@ -117,10 +181,27 @@ Invoking "fibIndex(3)" should return "12".
 Because the 12th index in the Fibonacci sequence is 144, and 144 has three digits
 ***** */
 
-const fibIndex = (n) => {
-  // YOUR CODE HERE...
-};
 
+
+/** 
+* Challenge 5 Documentation
+* @param {number} n - The minimum number of digits the Fibonacci number should have.
+* @returns {number} - The index in the Fibonacci sequence with the "n" digits.
+*/
+
+const fibIndex = (n) => {
+    // YOUR CODE HERE...
+    if (typeof n !== 'number'|| n < 0) {
+      return 'Please only positive numbers are valid';
+    }
+    let prev = 1, curr = 1, index = 2;
+    while (curr.toString().length < n) {
+      [prev, curr] = [curr, prev + curr];
+      index++;
+    }
+    return index;
+  };
+  
 fibIndex(3);
 fibIndex(5);
 fibIndex(12);
