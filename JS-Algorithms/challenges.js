@@ -13,32 +13,20 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  if (seconds >=3600){
-    let hours = Math.floor(seconds / 3600);
-    if (hours%3600 === 0) {
-    return `${hours}:00:00`;
-      
-    }else{
-  
-      let minutes = Math.floor((seconds % 3600) / 60);
-      let secs = seconds % 60;
-      
-      // Pad with leading zeros if needed
-      hours = String(hours).padStart(2, '0');
-      minutes = String(minutes).padStart(2, '0');
-      secs = String(secs).padStart(2, '0');
-      
-      return `${hours}:${minutes}:${secs}`;
+  try {
+    if (seconds <= 0 || typeof seconds !== "number") {
+      throw new Error("You must provide a positive number for the operation");
     }
-  } else{
-    let minutes= Math.floor(seconds / 60);
-    let secs = seconds % 60;
-    minutes = String(minutes).padStart(2, '0');
-    secs = String(secs).padStart(2, '0');
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
 
-      secs = String(secs).padStart(2, '0');
-      return `00:${minutes}:${secs}`;
-
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}:${String(secs).padStart(2, "0")}`;
+  } catch (error) {
+    return error.message;
   }
 };
 
@@ -67,14 +55,21 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  const result = [];
-  const length = COUNTRY_NAMES.length;
+  try {
+    if (index < 0 || typeof index !== "number") {
+      throw new Error("You must provide a positive number for the operation");
+    }
+    const result = [];
+    const length = COUNTRY_NAMES.length;
 
-  for (let i = 0; i < length; i++) {
-    result.push(COUNTRY_NAMES[(index + i) % length]);
+    for (let i = 0; i < length; i++) {
+      result.push(COUNTRY_NAMES[(index + i) % length]);
+    }
+
+    return result;
+  } catch (error) {
+    return error.message;
   }
-
-  return result;
 };
 
 circularArray(2);
@@ -103,13 +98,26 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  let arrayNumber=[];
-  for (let i = 1; i <=number; i++) {
-    arrayNumber.push(BigInt(i)**BigInt(i));
+  try {
+    if (number < 0 || typeof number !== "number") {
+      throw new Error("You must provide a positive number for the operation");
+    }
+    if (lastDigits < 0 || typeof lastDigits !== "number") {
+      throw new Error(
+        "You must provide a positive number for the length of the number"
+      );
+    }
+
+    const arrayNumber = [];
+    for (let i = 1; i <= number; i++) {
+      arrayNumber.push(BigInt(i) ** BigInt(i));
+    }
+    const result = arrayNumber.reduce((acc, curr) => acc + curr, 0n);
+
+    return result.toString().slice(-lastDigits);
+  } catch (error) {
+    return error.message;
   }
-  let result=arrayNumber.reduce((acc, curr) => acc + curr, 0n);
-  
-  return result.toString().slice(-lastDigits);
 };
 
 ownPower(10, 3);
@@ -134,12 +142,22 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  let temp=1n
-    for (let i = 1;i<=n;i++)
-      {
-        temp=temp*BigInt(i)
-      }   
-    return temp.toString().split('').reduce((prev, curr) => parseInt(prev) + parseInt(curr), 0);
+  try {
+    if (n < 0 || typeof n !== "number") {
+      throw new Error("You must provide a positive number");
+    }
+
+    let factorial = 1n;
+    for (let i = 1; i <= n; i++) {
+      factorial = factorial * BigInt(i);
+    }
+    return factorial
+      .toString()
+      .split("")
+      .reduce((prev, curr) => parseInt(prev) + parseInt(curr), 0);
+  } catch (error) {
+    return error.message;
+  }
 };
 
 digitSum(10);
@@ -162,20 +180,28 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  let a = 0n; 
-  let b = 1n;
-  let index = 1;
-
-  while (true) {
-    const temp = a + b;
-    index++;
-
-    if (temp.toString().length === n) {
-      return index;
+  try {
+    if (n < 0 || typeof n !== "number") {
+      throw new Error("You must provide a positive number");
     }
 
-    a = b;
-    b = temp;
+    let nextNumber = 0n;
+    let currentNumber = 1n;
+    let index = 1;
+
+    while (true) {
+      const temporalNumber = nextNumber + currentNumber;
+      index++;
+
+      if (temporalNumber.toString().length === n) {
+        return index;
+      }
+
+      nextNumber = currentNumber;
+      currentNumber = temporalNumber;
+    }
+  } catch (error) {
+    return error.message;
   }
 };
 
