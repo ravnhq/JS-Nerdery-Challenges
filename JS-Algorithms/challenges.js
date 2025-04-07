@@ -16,9 +16,9 @@ const readableTime = (seconds) => {
   if (typeof seconds !== "number" || seconds < 0) {
     return "Invalid input: Please provide a non-negative number of seconds.";
   }
-  const HH = String(Math.floor(seconds / 3600)).padStart(2, "0");
-  const MM = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
-  const SS = String(seconds % 60).padStart(2, "0");
+  const hh = String(Math.floor(seconds / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+  const ss = String(seconds % 60).padStart(2, "0");
 
   return `${HH}:${MM}:${SS}`;
 };
