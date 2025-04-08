@@ -20,7 +20,7 @@ const readableTime = (seconds) => {
   const mm = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
 
-  return `${HH}:${MM}:${SS}`;
+  return `${hh}:${mm}:${ss}`;
 };
 
 // EXPLANATION 1:
@@ -52,6 +52,9 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
+  if (typeof index !== "number" || !Number.isInteger(index) || index < 0) {
+    throw new Error("Index must be a positive integer");
+  }
   const validIndex = index % COUNTRY_NAMES.length;
   const part1 = COUNTRY_NAMES.slice(validIndex);
   const part2 = COUNTRY_NAMES.slice(0, validIndex);
@@ -59,6 +62,7 @@ const circularArray = (index) => {
 };
 
 // EXPLANATION 2:
+// Validation for index being a number and an integer (<0 and not a decimal).
 // Validation for cases when the index is larger than the array's length.
 // Then slice of array from index to the end and then a concatenation of the pending elements.
 
@@ -88,6 +92,16 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
+  if (
+    typeof number !== "number" ||
+    !Number.isInteger(number) ||
+    number <= 0 ||
+    typeof lastDigits !== "number" ||
+    !Number.isInteger(lastDigits) ||
+    lastDigits <= 0
+  ) {
+    throw new Error('Both "number" and "lastDigits" must be positive integers');
+  }
   let total = 0n;
   for (let i = 1; i <= number; i++) {
     total += BigInt(i) ** BigInt(i);
@@ -96,6 +110,7 @@ const ownPower = (number, lastDigits) => {
 };
 
 // EXPLANATION 3:
+// Validation for the parameters being a number and an integer (<0 and not a decimal).
 // Starting the total from 0, 0n to make it work with BigInt and the multiplication.
 // We use a lopp starting from 1 to calculate the total of the multiplied number, using BigInt for precision.
 // Conversion to string to use slice and have the answer according to lastDigits parameter.
@@ -122,6 +137,9 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
+  if (typeof n !== "number" || !Number.isInteger(n) || n < 0) {
+    throw new Error('"n" must be a non-negative integer');
+  }
   let factorial = 1n;
   for (let i = 2n; i <= BigInt(n); i++) {
     factorial *= i;
@@ -133,6 +151,7 @@ const digitSum = (n) => {
 };
 
 // EXPLANATION 4:
+// Validation for the parameter n being a number and an integer (<0 and not a decimal).
 // Starting the factorial variable from 1, 1n to make it work with BigInt and the multiplication.
 // We calculate a loop starting from 2 to n. Using BigInt and 1n for precision.
 // We convert the variable to string to use the split method to have an array of digits.
@@ -159,6 +178,9 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
+  if (typeof n !== "number" || !Number.isInteger(n) || n <= 0) {
+    throw new Error('"n" must be a positive integer');
+  }
   let a = 1n,
     b = 1n;
   let index = 2;
@@ -174,6 +196,7 @@ const fibIndex = (n) => {
 };
 
 // EXPLANATION 5:
+// Validation for the parameter n being a number and an integer (<0 and not a decimal).
 // We calcualte the Fibonacci number with a loop, using 1n for precision for big numbers and set the index to the 2nd position since we start with 2 numbers.
 // We stop calculating the Fibonacci number until b's length is less than n and convert the number to a string.
 // Finally we return the index that indicates how many digits the current Fibonacci number has.
