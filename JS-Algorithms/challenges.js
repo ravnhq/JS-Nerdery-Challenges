@@ -13,13 +13,30 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  let minutes = 0;
+  let hours = 0;
+
+  minutes = Math.floor(seconds / 60); //Division always returns a float number, so I need to round it down
+  seconds = seconds % 60; // The residual from dividing the seconds
+
+  if (minutes >= 60) {
+    //Applying the same logic if there are over 60 minutes,
+    hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+  }
+
+  //Manually formatting string, adding 0 if necessary
+  result = `${hours > 9 ? hours : `0${hours}`}:${
+    minutes > 9 ? minutes : `0${minutes}`
+  }:${seconds > 9 ? seconds : `0${seconds}`}`;
+  console.log(result);
+  return result;
 };
 
-readableTime(458);
-readableTime(3690);
-readableTime(7293);
-readableTime(32420);
+// readableTime(458);
+// readableTime(3690);
+// readableTime(7293);
+// readableTime(32420);
 
 /* *****
 Challenge 2
@@ -41,7 +58,18 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
-  // YOUR CODE HERE...
+  while (index >= COUNTRY_NAMES.length) {
+    //Check if the index is bigger than the array, if it is then it loops
+    index = index - COUNTRY_NAMES.length;
+  }
+
+  //Slice the array into two parts
+  const firstHalf = COUNTRY_NAMES.slice(0, index);
+  const secondHalf = COUNTRY_NAMES.slice(index, COUNTRY_NAMES.length);
+  //Rearrange the parts of the array
+  const newArray = [...secondHalf, ...firstHalf];
+  console.log(newArray);
+  return newArray;
 };
 
 circularArray(2);
@@ -70,7 +98,18 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  // YOUR CODE HERE...
+  let i = 1;
+  let sum = 0;
+  while (i <= number) {
+    //For every number I add the power i ^ i
+    sum += Math.pow(i, i);
+    i++;
+  }
+  const final = BigInt(sum); //Convert to bigInt, since big numbers obove 18 turns into scientific notation
+  const result = final.toString(); //Conver the result to string
+  const output = result.slice(result.length - lastDigits); //Slice the last digits of the string
+  console.log(output);
+  return output;
 };
 
 ownPower(10, 3);
@@ -95,7 +134,24 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-  // YOUR CODE HERE...
+  let sum = 0;
+  let i = BigInt(1); //I need to use big int from the beginning, if I parse just the result then the digits wont be precise
+  let factorial = BigInt(1);
+  while (i <= n) {
+    //Basic factorial function with the structure 1x2x3...xn
+    factorial *= i;
+    i++;
+  }
+
+  result = factorial.toString(); // Convert the BigInt to string
+  const digits = result.split(""); //Make an array of digits
+
+  //Add each element of the array
+  digits.forEach((element) => {
+    sum += parseInt(element);
+  });
+
+  return sum;
 };
 
 digitSum(10);
@@ -118,13 +174,26 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-  // YOUR CODE HERE...
+  // Building fibonacci array
+  let i = 1;
+  let fibonacci = [0, 1]; //First 2 values
+  let newDigit = 0; //Storing the new value
+  //Validation to check if the length equals the number passed
+  while (newDigit.toString().length != n) {
+    newDigit =
+      fibonacci[fibonacci.length - 2] + fibonacci[fibonacci.length - 1]; //Adding the 2 last digits
+    fibonacci = [...fibonacci, newDigit]; //Adding the digit to the array
+    i++;
+  }
+  console.log(i);
+  //When the lenght equals the number, return that index
+  return i;
 };
 
 fibIndex(3);
-fibIndex(5);
-fibIndex(12);
-fibIndex(15);
+// fibIndex(5);
+// fibIndex(12);
+// fibIndex(15);
 
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;

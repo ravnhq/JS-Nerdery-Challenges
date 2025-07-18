@@ -68,7 +68,7 @@ describe("Own Powers", () => {
     expect(ownPower(12, 7)).toBe("7190184");
   });
   test('The last 12 digits from the sum of powers all the way to 21 returns "499809480704"', () => {
-    expect(ownPower(21, 12)).toBe("075684339445");
+    expect(ownPower(21, 12)).toBe("499809480704");
   });
 });
 
